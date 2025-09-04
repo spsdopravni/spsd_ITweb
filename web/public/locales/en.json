@@ -1,0 +1,37 @@
+{
+  "nav": {
+    "home": "Home",
+    "events": "Events",
+    "competitions": "Competitions",
+    "settings": "Settings"
+  },
+  "search": {
+    "placeholder": "Search projects, events, resources...",
+    "suggestions": "Suggestions",
+    "recent": "Recent Searches",
+    "trending": "Trending Now",
+    "tips": "Search Tips",
+    "clear": "Clear"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "hero": {
+    "title": "Discover Everything",
+    "subtitle": "Connect, create, and excel in a unified digital ecosystem.",
+    "getStarted": "Get Started",
+    "watchDemo": "Watch Demo"
+  },
+  "stats": {
+    "activeProjects": "Active Projects",
+    "students": "Students",
+    "hackathons": "Hackathons",
+    "resources": "Resources"
+  }
+}

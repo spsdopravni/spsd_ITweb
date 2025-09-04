@@ -1,0 +1,37 @@
+{
+  "nav": {
+    "home": "Domov",
+    "events": "Události",
+    "competitions": "Soutěže",
+    "settings": "Nastavení"
+  },
+  "search": {
+    "placeholder": "Hledat projekty, události, zdroje...",
+    "suggestions": "Návrhy",
+    "recent": "Poslední vyhledávání",
+    "trending": "Trendy",
+    "tips": "Tipy pro vyhledávání",
+    "clear": "Vymazat"
+  },
+  "common": {
+    "loading": "Načítání...",
+    "error": "Chyba",
+    "close": "Zavřít",
+    "cancel": "Zrušit",
+    "save": "Uložit",
+    "delete": "Smazat",
+    "edit": "Upravit"
+  },
+  "hero": {
+    "title": "Objevte vše",
+    "subtitle": "Propojte se, tvořte a vynikejte v jednotném digitálním ekosystému.",
+    "getStarted": "Začít",
+    "watchDemo": "Sledovat demo"
+  },
+  "stats": {
+    "activeProjects": "Aktivní projekty",
+    "students": "Studenti",
+    "hackathons": "Hackathony",
+    "resources": "Zdroje"
+  }
+}
