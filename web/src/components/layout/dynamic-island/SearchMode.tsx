@@ -78,7 +78,7 @@ export const SearchMode: React.FC<SearchModeProps> = ({
             }}
             className="text-white/40 hover:text-white/60 text-xs px-2 py-1 rounded bg-white/5 hover:bg-white/10 transition-all"
           >
-            esc
+            ESC
           </button>
         </form>
       </animated.div>
