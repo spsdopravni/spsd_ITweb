@@ -2,11 +2,11 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-export type SupportedLanguage = 'cs' | 'en' | 'uk' | 'ru';
+export type SupportedLanguage = 'cs' | 'en' | 'sk' | 'uk' | 'ru';
 
 interface LanguageContextType {
   currentLanguage: SupportedLanguage;
-  translations: Record<string, any>;
+  translations: Record<string, unknown>;
   changeLanguage: (lang: SupportedLanguage) => void;
   t: (key: string, fallback?: string) => string;
   isLoading: boolean;
@@ -27,6 +27,7 @@ const LANGUAGE_STORAGE_KEY = 'preferred-language';
 const languageNames: Record<SupportedLanguage, string> = {
   cs: 'Čeština',
   en: 'English',
+  sk: 'Slovenčina',
   uk: 'Українська',
   ru: 'Русский',
 };
@@ -34,6 +35,7 @@ const languageNames: Record<SupportedLanguage, string> = {
 const languageFlags: Record<SupportedLanguage, string> = {
   cs: '🇨🇿',
   en: '🇬🇧',
+  sk: '🇸🇰',
   uk: '🇺🇦',
   ru: '🇷🇺',
 };
@@ -43,7 +45,7 @@ export const getLanguageFlag = (lang: SupportedLanguage): string => languageFlag
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>('cs');
-  const [translations, setTranslations] = useState<Record<string, any>>({});
+  const [translations, setTranslations] = useState<Record<string, unknown>>({});
   const [isLoading, setIsLoading] = useState(true);
 
   // Load translations for a specific language
@@ -78,13 +80,14 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY) as SupportedLanguage;
     let initialLanguage: SupportedLanguage = 'cs'; // Default to Czech
 
-    if (savedLanguage && ['cs', 'en', 'uk', 'ru'].includes(savedLanguage)) {
+    if (savedLanguage && ['cs', 'en', 'sk', 'uk', 'ru'].includes(savedLanguage)) {
       initialLanguage = savedLanguage;
     } else {
       // Try to detect browser language
       const browserLang = navigator.language.toLowerCase();
       if (browserLang.startsWith('cs')) initialLanguage = 'cs';
       else if (browserLang.startsWith('en')) initialLanguage = 'en';
+      else if (browserLang.startsWith('sk')) initialLanguage = 'sk';
       else if (browserLang.startsWith('uk')) initialLanguage = 'uk';
       else if (browserLang.startsWith('ru')) initialLanguage = 'ru';
     }
@@ -102,11 +105,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Translation function with dot notation support
   const t = useCallback((key: string, fallback?: string): string => {
     const keys = key.split('.');
-    let value = translations;
+    let value: unknown = translations;
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
-        value = value[k];
+        value = (value as Record<string, unknown>)[k];
       } else {
         return fallback || key;
       }

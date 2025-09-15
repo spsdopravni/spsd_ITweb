@@ -3,9 +3,8 @@
 import React from 'react';
 import { useSpring, animated, useInView } from '@react-spring/web';
 import { 
-  Rocket, Calendar, Trophy, BookOpen, Globe, Users, 
-  TrendingUp, Cpu, Code, Palette, BarChart, MessageSquare,
-  FileText, Video, Headphones, Award, Target, Lightbulb
+  Trophy, Globe, 
+  Cpu, Code, Palette, BarChart, Award
 } from 'lucide-react';
 
 interface BentoCardProps {
@@ -106,58 +105,58 @@ const BentoCard: React.FC<BentoCardProps> = ({ title, description, icon: Icon, g
 export const BentoGrid: React.FC = () => {
   const categories = [
     {
-      title: 'AI Study Assistant',
-      description: 'Get personalized help with your coursework using advanced AI',
-      icon: Cpu,
+      title: 'Webové aplikace',
+      description: 'Pokročilé webové aplikace využívající moderní technologie',
+      icon: Globe,
       gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       size: 'large' as const,
     },
     {
-      title: 'Live Events',
-      description: 'Join workshops and seminars happening right now',
-      icon: Calendar,
+      title: 'Mobilní aplikace',
+      description: 'Nativní a hybridní mobilní aplikace pro Android a iOS',
+      icon: Cpu,
       gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
       size: 'medium' as const,
     },
     {
-      title: 'Code Lab',
-      description: 'Practice coding with real-time collaboration',
+      title: 'Programování',
+      description: 'Objektově orientované programování v Java, C#, Python',
       icon: Code,
       gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
       size: 'small' as const,
     },
     {
-      title: 'Design Studio',
-      description: 'Create stunning projects with professional tools',
+      title: 'Grafický design',
+      description: '2D a 3D grafika, uživatelské rozhraní a UX design',
       icon: Palette,
       gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
       size: 'small' as const,
     },
     {
-      title: 'Analytics Hub',
-      description: 'Track your academic progress and performance',
-      icon: BarChart,
+      title: 'Sítě a IoT',
+      description: 'Síťové technologie a Internet věcí (IoT)',
+      icon: Globe,
       gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
       size: 'medium' as const,
     },
     {
-      title: 'Study Groups',
-      description: 'Connect with peers for collaborative learning',
-      icon: Users,
+      title: 'Databáze',
+      description: 'Návrh a správa relačních i NoSQL databází',
+      icon: BarChart,
       gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
       size: 'small' as const,
     },
     {
-      title: 'Resource Library',
-      description: 'Access thousands of study materials and guides',
-      icon: BookOpen,
+      title: 'Kybernetická bezpečnost',
+      description: 'Ochrana informací a bezpečnost IT systémů',
+      icon: Award,
       gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
       size: 'small' as const,
     },
     {
-      title: 'Career Path',
-      description: 'Plan your future with industry insights and opportunities',
-      icon: TrendingUp,
+      title: 'Projekty a portfolia',
+      description: 'Studentské projekty a portfolia absolventů',
+      icon: Trophy,
       gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
       size: 'medium' as const,
     },
@@ -170,10 +169,10 @@ export const BentoGrid: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-white mb-4">
-            Everything You Need
+            Co se naučíte
           </h2>
           <p className="text-xl text-gray-400">
-            Powerful tools designed for modern students
+            Rozcestník nášich projektů a technologií pro rok 2026
           </p>
         </div>
 

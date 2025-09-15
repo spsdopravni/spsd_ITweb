@@ -1,13 +1,15 @@
-import { ParticleHero } from "@/components/sections/ParticleHero";
-import { BentoGrid } from "@/components/sections/BentoGrid";
-import { AnimatedFeatures } from "@/components/sections/AnimatedFeatures";
+import { ModernHero } from "@/components/sections/ModernHero";
+import { ProgramTimeline } from "@/components/sections/ProgramTimeline";
+import { SuccessStories } from "@/components/sections/SuccessStories";
+import { CallToAction } from "@/components/sections/CallToAction";
 
 export default function Home() {
   return (
     <>
-      <ParticleHero />
-      <BentoGrid />
-      <AnimatedFeatures />
+      <ModernHero />
+      <ProgramTimeline />
+      <SuccessStories />
+      <CallToAction />
     </>
   );
 }

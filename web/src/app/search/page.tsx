@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SearchBar } from '@/components/search/SearchBar';
 import { SearchFilters } from '@/components/search/SearchFilters';
@@ -9,7 +9,7 @@ import { useSearch } from '@/contexts/SearchContext';
 import { TrendingUp, Clock, Sparkles } from 'lucide-react';
 import { useSpring, animated } from '@react-spring/web';
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const { performSearch, recentSearches, clearRecentSearches } = useSearch();
   const queryParam = searchParams.get('q');
@@ -145,5 +145,13 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

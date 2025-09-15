@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Home, Search, ArrowLeft, Compass, AlertCircle } from 'lucide-react';
+import { Home, Compass, AlertCircle, BookOpen } from 'lucide-react';
 import { useSpring, animated, useTrail } from '@react-spring/web';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function NotFound() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -27,7 +28,7 @@ export default function NotFound() {
       if (Math.random() > 0.95) {
         const randomChar = glitchChars[Math.floor(Math.random() * glitchChars.length)];
         setGlitchText('4' + randomChar + '4');
-        setTimeout(() => setGlitchText('404'), 100);
+        setTimeout(() => setGlitchText('404'), 10);
       }
     }, 2000);
     return () => clearInterval(interval);
@@ -58,10 +59,12 @@ export default function NotFound() {
     config: { duration: 2000 },
   });
 
+  const { t } = useLanguage();
+
   const actions = [
-    { icon: Home, label: 'Go Home', href: '/' },
-    { icon: Search, label: 'Search', href: '/search' },
-    { icon: Compass, label: 'Explore', href: '/explore' },
+    { icon: Home, label: t('notFound.backHome'), href: '/' },
+    { icon: BookOpen, label: t('notFound.aboutProgram'), href: '/about' },
+    { icon: Compass, label: t('notFound.viewProjects'), href: '/projects' },
   ];
 
   return (
@@ -72,8 +75,8 @@ export default function NotFound() {
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(102, 126, 234, 0.2) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(102, 126, 234, 0.2) 1px, transparent 1px)
+              linear-gradient(rgba(200, 30, 28, 0.2) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(200, 30, 28, 0.2) 1px, transparent 1px)
             `,
             backgroundSize: '50px 50px',
             transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
@@ -98,7 +101,7 @@ export default function NotFound() {
         ].map((particle, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-purple-500/30 rounded-full animate-float"
+            className="absolute w-1 h-1 bg-red-500/30 rounded-full animate-float"
             style={{
               left: `${particle.left}%`,
               top: `${particle.top}%`,
@@ -110,18 +113,18 @@ export default function NotFound() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-6">
+      <div className="relative z-10 text-center px-4 sm:px-6 w-full max-w-4xl mx-auto">
         {/* 404 Number */}
         <animated.div style={numberAnimation} className="relative mb-8">
           <div className="relative inline-block">
             {/* Glow effect */}
-            <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-purple-600/50 to-pink-600/50 animate-pulse" />
+            <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-red-600/50 to-orange-600/50 animate-pulse" />
             
             {/* Main 404 text */}
             <h1 
-              className="relative text-[150px] md:text-[200px] font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 select-none"
+              className="relative text-[120px] sm:text-[150px] md:text-[200px] font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-orange-400 to-red-400 select-none"
               style={{
-                textShadow: '0 0 80px rgba(168, 85, 247, 0.5)',
+                textShadow: '0 0 80px rgba(200, 30, 28, 0.5)',
                 letterSpacing: '0.1em',
               }}
             >
@@ -129,62 +132,72 @@ export default function NotFound() {
             </h1>
 
             {/* Glitch layers */}
-            <div className="absolute inset-0 text-[150px] md:text-[200px] font-black text-red-500/20 select-none" style={{ clipPath: 'inset(40% 0 60% 0)' }}>
+            <div className="absolute inset-0 text-[120px] sm:text-[150px] md:text-[200px] font-black text-blue-500/20 select-none" style={{ clipPath: 'inset(40% 0 60% 0)' }}>
               404
             </div>
-            <div className="absolute inset-0 text-[150px] md:text-[200px] font-black text-blue-500/20 select-none" style={{ clipPath: 'inset(60% 0 40% 0)', transform: 'translateX(2px)' }}>
+            <div className="absolute inset-0 text-[120px] sm:text-[150px] md:text-[200px] font-black text-orange-500/20 select-none" style={{ clipPath: 'inset(60% 0 40% 0)', transform: 'translateX(2px)' }}>
               404
             </div>
           </div>
         </animated.div>
 
         {/* Error message */}
-        <animated.div style={fadeIn} className="mb-12">
-          <animated.div style={floatingAnimation} className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-4">
-            <AlertCircle className="w-5 h-5 text-yellow-400" />
-            <span className="text-sm text-gray-300">Page Not Found</span>
+        <animated.div style={fadeIn} className="mb-8 sm:mb-12">
+          <animated.div style={floatingAnimation} className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 glass rounded-full mb-4">
+            <AlertCircle className="w-4 sm:w-5 h-4 sm:h-5 text-orange-400" />
+            <span className="text-xs sm:text-sm text-gray-300">{t('notFound.title')}</span>
           </animated.div>
           
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Lost in the Digital Void
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+            {t('notFound.subtitle')}
           </h2>
-          <p className="text-gray-400 max-w-md mx-auto text-lg">
-            The page you're looking for has drifted into the cosmos. 
-            Let's navigate you back to familiar territory.
+          <p className="text-gray-400 max-w-md mx-auto text-sm sm:text-base md:text-lg px-4">
+            {t('notFound.description')}
           </p>
         </animated.div>
 
         {/* Action buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {trail.map((style, index) => {
-            const Icon = actions[index].icon;
-            return (
-              <animated.div key={actions[index].href} style={style}>
-                <Link
-                  href={actions[index].href}
-                  className="group flex items-center gap-2 px-6 py-3 glass rounded-full border border-white/10 hover:border-purple-500/50 transition-all hover:scale-105"
-                >
-                  <Icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300" />
-                  <span className="text-white/90 group-hover:text-white">{actions[index].label}</span>
-                </Link>
-              </animated.div>
-            );
-          })}
+        <div className="px-4">
+          <p className="text-gray-400 text-sm mb-4">{t('notFound.suggestions')}</p>
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+            {trail.map((style, index) => {
+              const Icon = actions[index].icon;
+              return (
+                <animated.div key={actions[index].href} style={style} className="w-full sm:w-auto">
+                  <Link
+                    href={actions[index].href}
+                    className="group flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-6 py-3 glass rounded-full border border-white/10 hover:border-red-500/50 transition-all hover:scale-105 w-full sm:w-auto"
+                  >
+                    <Icon className="w-4 sm:w-5 h-4 sm:h-5 text-red-400 group-hover:text-orange-400 flex-shrink-0" />
+                    <span className="text-white/90 group-hover:text-white text-sm sm:text-base">{actions[index].label}</span>
+                  </Link>
+                </animated.div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Fun message */}
-        <animated.div style={fadeIn} className="mt-12">
-          <p className="text-gray-500 text-sm">
-            Error Code: STUDENT_404 | Page Not Found
-          </p>
-          <p className="text-gray-600 text-xs mt-2">
-            Pro tip: You can press <kbd className="px-2 py-1 glass rounded text-purple-400">⌘K</kbd> to search
-          </p>
+        {/* Help text - mobile optimized */}
+        <animated.div style={fadeIn} className="mt-8 sm:mt-12 px-4">
+          <div className="glass rounded-lg p-4 sm:p-6 max-w-md mx-auto">
+            <p className="text-gray-400 text-sm leading-relaxed">
+              {t('notFound.helpText')}
+            </p>
+            
+            {/* Mobile-friendly search tip */}
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <p className="text-gray-500 text-xs">
+                <span className="block sm:hidden">Tip: Použijte navigační menu pro hledání</span>
+                <span className="hidden sm:block">Tip: Použijte vyhledávání v navigačním menu</span>
+              </p>
+            </div>
+            
+          </div>
         </animated.div>
 
         {/* Decorative elements */}
-        <div className="absolute -top-20 -left-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute -top-20 -left-20 w-40 h-40 bg-red-500/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
     </div>
   );

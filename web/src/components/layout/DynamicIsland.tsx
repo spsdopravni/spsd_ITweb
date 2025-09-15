@@ -5,12 +5,10 @@ import { usePathname } from 'next/navigation';
 import { useSpring, animated, useSprings } from '@react-spring/web';
 import { 
   Home, 
-  Calendar,
-  Trophy,
-  Settings,
-  Sparkles,
+  Info,
+  BookOpen,
+  FolderOpen,
   FileText,
-  Users,
   Briefcase,
   Clock,
   TrendingUp
@@ -35,20 +33,20 @@ interface SearchSuggestion {
 }
 
 const getNavItems = (t: (key: string, fallback?: string) => string): NavItem[] => [
-  { id: 'home', label: t('nav.home', 'Home'), icon: Home, href: '/' },
-  { id: 'events', label: t('nav.events', 'Events'), icon: Calendar, href: '/events' },
-  { id: 'competitions', label: t('nav.competitions', 'Competitions'), icon: Trophy, href: '/competitions' },
-  { id: 'settings', label: t('nav.settings', 'Settings'), icon: Settings, href: '/settings' },
+  { id: 'home', label: t('nav.home', 'Domů'), icon: Home, href: '/' },
+  { id: 'about', label: t('nav.about', 'O oboru'), icon: Info, href: '/about' },
+  { id: 'curriculum', label: t('nav.curriculum', 'Učební plán'), icon: BookOpen, href: '/curriculum' },
+  { id: 'projects', label: t('nav.projects', 'Projekty'), icon: FolderOpen, href: '/projects' },
 ];
 
 const searchSuggestions: SearchSuggestion[] = [
-  { id: '1', text: 'Upcoming Events', type: 'page', icon: Calendar },
-  { id: '2', text: 'Hackathon 2024', type: 'event', icon: Sparkles },
-  { id: '3', text: 'Study Groups', type: 'page', icon: Users },
-  { id: '4', text: 'Project Submissions', type: 'project', icon: FileText },
-  { id: '5', text: 'Career Fair', type: 'event', icon: Briefcase },
-  { id: '6', text: 'Recent Activities', type: 'page', icon: Clock },
-  { id: '7', text: 'Leaderboard', type: 'competition', icon: TrendingUp },
+  { id: '1', text: 'Informace o oboru', type: 'page', icon: Info },
+  { id: '2', text: 'Učební plán', type: 'page', icon: BookOpen },
+  { id: '3', text: 'Studentské projekty', type: 'project', icon: FolderOpen },
+  { id: '4', text: 'Výukové materiály', type: 'page', icon: FileText },
+  { id: '5', text: 'Kariérní možnosti', type: 'page', icon: Briefcase },
+  { id: '6', text: 'Aktuality oboru', type: 'page', icon: Clock },
+  { id: '7', text: 'Úspěchy absolventů', type: 'page', icon: TrendingUp },
 ];
 
 export const DynamicIsland: React.FC = () => {
@@ -226,7 +224,7 @@ export const DynamicIsland: React.FC = () => {
       >
         {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-30 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-transparent to-pink-600/20 animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-blue-400/20 animate-pulse" />
         </div>
 
         {/* Compact Mode */}

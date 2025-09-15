@@ -29,7 +29,7 @@ export const CompactMode: React.FC<CompactModeProps> = ({
       <div className="flex items-center gap-2 min-w-0 flex-1">
         {currentItem && (
           <>
-            <currentItem.icon className="w-4 h-4 text-purple-400 flex-shrink-0" />
+            <currentItem.icon className="w-4 h-4 text-blue-400 flex-shrink-0" />
             <span className="text-sm font-medium text-white/90 whitespace-nowrap">{currentItem.label}</span>
           </>
         )}

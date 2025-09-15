@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { ArrowRight, Code2, Users, Zap, Trophy } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { ArrowRight, Code2, Users, GraduationCap, BookOpen } from 'lucide-react';
 import { useSpring, animated, useTrail } from '@react-spring/web';
 
 interface Particle {
@@ -13,18 +14,20 @@ interface Particle {
   color: string;
 }
 
-const stats = [
-  { label: 'Active Projects', value: '150+', icon: Code2 },
-  { label: 'Students', value: '1.2k+', icon: Users },
-  { label: 'Hackathons', value: '25+', icon: Trophy },
-  { label: 'Resources', value: '500+', icon: Zap },
-];
 
 export const ParticleHero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number>(0);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const { t } = useLanguage();
+
+  const stats = [
+    { label: t('stats.programs'), value: '4', icon: BookOpen },
+    { label: t('stats.graduates'), value: '500+', icon: GraduationCap },
+    { label: t('stats.projects'), value: '150+', icon: Code2 },
+    { label: t('stats.teachers'), value: '25+', icon: Users },
+  ];
 
   const titleSpring = useSpring({
     from: { opacity: 0, transform: 'translateY(20px)' },
@@ -154,22 +157,22 @@ export const ParticleHero: React.FC = () => {
       
       <div className="relative z-20 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <animated.h1 style={titleSpring} className="text-5xl sm:text-7xl font-bold mb-6">
-          <span className="text-gradient">StudentHub</span>
+          <span className="text-gradient">{t('home.title')}</span>
           <br />
-          <span className="text-white">Where Innovation Meets Education</span>
+          <span className="text-white">{t('home.subtitle')}</span>
         </animated.h1>
         
         <animated.p style={subtitleSpring} className="text-xl sm:text-2xl text-gray-300 mb-8">
-          Connect, create, and excel in a unified digital ecosystem.
+          {t('home.description')}
         </animated.p>
 
         <animated.div style={subtitleSpring} className="flex flex-wrap gap-4 justify-center mb-16">
           <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-semibold text-lg hover:scale-105 transition-transform duration-200 flex items-center">
-            Get Started
+            {t('home.aboutBtn')}
             <ArrowRight className="ml-2 w-5 h-5" />
           </button>
           <button className="px-8 py-3 border border-white/20 text-white rounded-full font-semibold text-lg hover:bg-white/10 transition-all duration-200">
-            Watch Demo
+            {t('home.projectsBtn')}
           </button>
         </animated.div>
 

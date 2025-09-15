@@ -1,0 +1,257 @@
+{
+  "nav": {
+    "home": "Domov",
+    "about": "O odbore",
+    "curriculum": "Učebný plán",
+    "projects": "Projekty",
+    "selectLanguage": "Vyberte jazyk"
+  },
+  "search": {
+    "placeholder": "Hľadať informácie o odbore, projekty...",
+    "suggestions": "Návrhy",
+    "recent": "Posledné vyhľadávanie",
+    "trending": "Trendy",
+    "tips": "Tipy na vyhľadávanie",
+    "clear": "Vymazať"
+  },
+  "common": {
+    "loading": "Načítavanie...",
+    "error": "Chyba",
+    "close": "Zavrieť",
+    "cancel": "Zrušiť",
+    "save": "Uložiť",
+    "delete": "Zmazať",
+    "edit": "Upraviť"
+  },
+  "home": {
+    "title": "Informačné technológie",
+    "subtitle": "Stredná priemyselná škola dopravná, a.s.",
+    "subtitle2": "Praha 5 - Motol",
+    "description": "Štvorročné maturitné štúdium zamerané na programovanie, správu systémov a počítačové siete. Fakultná škola Fakulty dopravnej ČVUT v Prahe.",
+    "aboutBtn": "Viac o odbore",
+    "projectsBtn": "Naše projekty",
+    "watchVideo": "Virtuálna prehliadka",
+    "badge": "Fakultná škola Fakulty dopravnej ČVUT"
+  },
+  "stats": {
+    "students": "Študentov",
+    "teachers": "Zamestnancov",
+    "years": "Rokov pôsobenia",
+    "partners": "Partnerov"
+  },
+  "grid": {
+    "title": "Čo sa naučíte",
+    "subtitle": "Rozcestník našich projektov a technológií pre rok 2026"
+  },
+  "about": {
+    "title": "O odbore Informačné technológie",
+    "subtitle": "Stredná priemyselná škola dopravná - moderné vzdelávanie v oblasti IT",
+    "whatIs": "Čo je odbor IT?",
+    "description1": "Odbor Informačné technológie je štvorročný maturitný odbor, ktorý pripravuje študentov na prácu v dynamicky sa rozvíjajúcej oblasti informačných technológií. Zameriavame sa na praktické zručnosti kombinované s teoretickými základmi.",
+    "description2": "Naši absolventi sú pripravení ako na priamy vstup do praxe, tak na štúdium na vysokých školách technického zamerania."
+  },
+  "projects": {
+    "webApps": "Webové aplikácie",
+    "webAppsDesc": "Pokročilé webové aplikácie využívajúce moderné technológie",
+    "mobileApps": "Mobilné aplikácie",
+    "mobileAppsDesc": "Natívne a hybridné mobilné aplikácie pre Android a iOS",
+    "programming": "Programovanie",
+    "programmingDesc": "Objektovo orientované programovanie v Java, C#, Python",
+    "design": "Grafický dizajn",
+    "designDesc": "2D a 3D grafika, používateľské rozhranie a UX dizajn",
+    "networks": "Siete a IoT",
+    "networksDesc": "Sieťové technológie a Internet vecí (IoT)",
+    "databases": "Databázy",
+    "databasesDesc": "Návrh a správa relačných i NoSQL databáz",
+    "security": "Kybernetická bezpečnosť",
+    "securityDesc": "Ochrana informácií a bezpečnosť IT systémov",
+    "portfolio": "Projekty a portfóliá",
+    "portfolioDesc": "Študentské projekty a portfóliá absolventov"
+  },
+  "notFound": {
+    "title": "Stránka nenájdená",
+    "subtitle": "Hups! Táto stránka neexistuje",
+    "description": "Stránka, ktorú hľadáte, bola presunutá, zmazaná alebo možno nikdy neexistovala.",
+    "backHome": "Späť na domovskú stránku",
+    "suggestions": "Návrhy pre vás:",
+    "aboutProgram": "Informácie o IT odbore",
+    "viewProjects": "Prezrieť naše projekty",
+    "contactUs": "Kontaktovať nás",
+    "helpText": "Potrebujete pomoc? Skúste použiť vyhľadávanie alebo sa vráťte na domovskú stránku."
+  },
+  "features": {
+    "title": "Prečo študovať IT na SPSD",
+    "subtitle": "Naše prednosti, ktoré nás odlišujú od ostatných škôl",
+    "active": "Aktívny",
+    "education": {
+      "title": "Moderné vzdelávanie",
+      "desc": "Komplexné IT vzdelávanie s praktickým zameraním"
+    },
+    "programming": {
+      "title": "Programovanie",
+      "desc": "Výuka moderných programovacích jazykov a technológií"
+    },
+    "teamwork": {
+      "title": "Tímová práca",
+      "desc": "Rozvoj komunikačných zručností a práce v tíme"
+    },
+    "certification": {
+      "title": "Certifikácie",
+      "desc": "Príprava na IT certifikácie a medzinárodné štandardy"
+    },
+    "career": {
+      "title": "Kariérny rast",
+      "desc": "Priame prepojenie s praxou a budúcimi zamestnávateľmi"
+    },
+    "future": {
+      "title": "Budúcnosť IT",
+      "desc": "Príprava na technológie budúcnosti a inovácie"
+    }
+  },
+  "timeline": {
+    "badge": "Študijný program 18-20-M/01",
+    "title": "4 roky k IT odborníkovi",
+    "subtitle": "Kompletná výuka od základov po pokročilé technológie. Pripravujeme programátorov, správcov systémov a sieťových špecialistov.",
+    "outcomes": "Kariérne uplatnenie",
+    "showMore": "Kliknite pre viac",
+    "hideDetails": "Skryť detaily",
+    "year1": {
+      "title": "Základné technológie",
+      "desc": "Programové vybavenie, Hardware, Základy elektrotechniky"
+    },
+    "year2": {
+      "title": "Programovanie a systémy",
+      "desc": "Operačné systémy, Programovanie, CAD systémy"
+    },
+    "year3": {
+      "title": "Siete a databázy",
+      "desc": "Dátové siete, Databázové systémy, Cisco kurzy"
+    },
+    "year4": {
+      "title": "Maturita a certifikácie",
+      "desc": "Maturitná skúška, Oracle, MSDN AA, praktická v DPP"
+    },
+    "detailHeaders": {
+      "goals": "Ciele ročníka",
+      "projects": "Praktické projekty", 
+      "certifications": "Certifikácie",
+      "skills": "Získané zručnosti"
+    },
+    "year1Details": {
+      "goals": ["Osvojiť si základy práce s počítačom", "Pochopenie hardvérových komponentov", "Základy elektrotechniky"],
+      "projects": ["Zostavenie PC", "Základné elektrotechnické obvody", "Prvé programy v MS Office"],
+      "certifications": ["ECDL Start", "Základy IT"],
+      "skills": ["MS Office", "Základy Windows", "Elektrotechnické merania", "Logické myslenie"]
+    },
+    "year2Details": {
+      "goals": ["Naučiť sa programovať v C++", "Ovládanie operačných systémov", "CAD modelovanie"],
+      "projects": ["Kalkulačka v C++", "Správa Windows/Linux", "3D modely v AutoCAD"],
+      "certifications": ["Microsoft Office Specialist", "AutoCAD User"],
+      "skills": ["C++ programovanie", "Windows/Linux admin", "AutoCAD", "Databázy"]
+    },
+    "year3Details": {
+      "goals": ["Konfigurácia sieťových zariadení", "Pokročilé databázy", "Python scripting"],
+      "projects": ["Konfigurácia VLAN", "Webová aplikácia s databázou", "Automatizačné skripty"],
+      "certifications": ["Cisco CCNA Discovery", "Oracle Database"],
+      "skills": ["Cisco IOS", "SQL/MySQL", "Python", "Sieťová bezpečnosť"]
+    },
+    "year4Details": {
+      "goals": ["Úspešná maturita", "Profesijné certifikácie", "Praktické skúsenosti"],
+      "projects": ["Maturitný projekt", "Stáž v DPP", "Portfólio projektov"],
+      "certifications": ["Maturitné vysvedčenie", "Oracle Database Associate", "Microsoft Certified"],
+      "skills": ["Projektové riadenie", "Profesijná komunikácia", "Komplexné IT riešenia"]
+    },
+    "careers": ["Programátor", "Správca sietí a OS", "Vývojár webových riešení", "Databázový špecialista"]
+  },
+  "success": {
+    "badge": "Príbehy úspechu",
+    "title": "Naši absolventi menia svet",
+    "subtitle": "Inšpirujúce príbehy študentov, ktorí vďaka štúdiu na SPSD dosiahli svoje sny",
+    "tabs": {
+      "testimonials": "Absolventi",
+      "projects": "Projekty",
+      "achievements": "Úspechy"
+    }
+  },
+  "cta": {
+    "title": "Začnite svoju IT cestu už dnes",
+    "subtitle": "Pripojte sa k nám a objavte svoj potenciál v oblasti informačných technológií",
+    "formTitle": "Máte otázky? Napíšte nám!",
+    "formSubtitle": "Radi vám poskytneme ďalšie informácie o štúdiu",
+    "contactInfo": "Kontaktné informácie",
+    "quickActions": "Rýchle akcie",
+    "schedule": "Naplánovať návštevu",
+    "virtualTour": "Virtuálna prehliadka",
+    "brochure": "Stiahnuť prospekt",
+    "finalTitle": "Pripravení začať?",
+    "finalSubtitle": "Pripojte sa k viac ako 500 absolventom, ktorí úspešne nastúpili do IT kariéry",
+    "apply": "Prihlásiť sa na štúdium",
+    "learnMore": "Zistiť viac"
+  },
+  "contact": {
+    "address": "Adresa",
+    "phone": "Telefón",
+    "email": "Email",
+    "realAddress": "Plzeňská 298/217a, 150 00 Praha 5 - Motol",
+    "realPhone": "+420 725 044 828",
+    "realEmail": "studijnioddeleni@sps-dopravni.cz",
+    "website": "www.sps-dopravni.cz",
+    "director": "Ing. Lukáš Sobotka",
+    "contact_person": "Mgr. Michaela Franková"
+  },
+  "form": {
+    "name": "Vaše meno",
+    "email": "Váš email",
+    "phone": "Telefón (nepovinné)",
+    "message": "Vaša správa",
+    "submit": "Odoslať správu",
+    "sending": "Odosielanie...",
+    "sent": "Správa odoslaná!",
+    "error": "Chyba pri odosielaní"
+  },
+  "achievements": {
+    "years": "Roky tradície",
+    "students": "Študentov celkom", 
+    "partner": "Hlavný partner",
+    "faculty": "Fakultná škola"
+  },
+  "footer": {
+    "title": "StudentHub",
+    "description": "Posilnenie študentov k dosiahnutiu excelencie prostredníctvom inovatívnych digitálnych riešení.",
+    "platform": "Platforma",
+    "platformLinks": {
+      "dashboard": "Nástenka",
+      "projects": "Projekty",
+      "events": "Udalosti",
+      "resources": "Zdroje",
+      "analytics": "Analytika"
+    },
+    "community": "Komunita",
+    "communityLinks": {
+      "studyGroups": "Študijné skupiny",
+      "forums": "Fóra",
+      "mentorship": "Mentoring",
+      "successStories": "Príbehy úspechu",
+      "blog": "Blog"
+    },
+    "support": "Podpora",
+    "supportLinks": {
+      "helpCenter": "Centrum pomoci",
+      "documentation": "Dokumentácia",
+      "api": "API",
+      "status": "Status",
+      "contact": "Kontakt"
+    },
+    "legal": "Právne",
+    "legalLinks": {
+      "privacy": "Zásady ochrany osobných údajov",
+      "terms": "Podmienky používania",
+      "cookies": "Zásady cookies",
+      "gdpr": "GDPR",
+      "licenses": "Licencie"
+    },
+    "copyright": "© 2025 StudentHub. Všetky práva vyhradené.",
+    "madeWith": "Vytvorené s",
+    "byStudents": "študentmi, pre študentov"
+  }
+}

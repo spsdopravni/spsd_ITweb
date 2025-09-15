@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Calendar, User, Tag, ArrowRight, FileText, Folder, BookOpen, Megaphone } from 'lucide-react';
 import { SearchResult, SearchCategory } from '@/types/search';
 import { useSearch } from '@/contexts/SearchContext';
-import { useSpring, animated, useTrail } from '@react-spring/web';
+import { useSpring, animated } from '@react-spring/web';
 
 const categoryIcons: Record<SearchCategory, React.ElementType> = {
   all: FileText,
@@ -144,7 +144,7 @@ export const SearchResults: React.FC = () => {
   if (query && results.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-400">No results found for "{query}"</p>
+        <p className="text-gray-400">No results found for &quot;{query}&quot;</p>
         <p className="text-gray-500 text-sm mt-2">Try different keywords or filters</p>
       </div>
     );

@@ -60,7 +60,7 @@ export const SearchMode: React.FC<SearchModeProps> = ({
     <div className="h-full flex flex-col">
       <animated.div style={searchInputSpring} className="px-3 sm:px-5 py-2.5 sm:py-3 border-b border-white/10">
         <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 sm:gap-3">
-          <Search className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-purple-400 flex-shrink-0" />
+          <Search className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-blue-400 flex-shrink-0" />
           <input
             ref={searchInputRef}
             type="text"
@@ -96,8 +96,8 @@ export const SearchMode: React.FC<SearchModeProps> = ({
                 onClick={() => handleSuggestionClick(suggestion)}
                 className="w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg hover:bg-white/10 transition-all group text-left mb-1"
               >
-                <div className="p-1.5 sm:p-2 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
-                  <suggestion.icon className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-purple-400" />
+                <div className="p-1.5 sm:p-2 rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
+                  <suggestion.icon className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-blue-400" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs sm:text-sm text-white/90 font-medium truncate">{suggestion.text}</p>

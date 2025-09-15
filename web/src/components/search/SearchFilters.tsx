@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Filter, Calendar, Tag, SortAsc, X } from 'lucide-react';
-import { SearchCategory, SearchFilters as ISearchFilters } from '@/types/search';
+import { SearchCategory } from '@/types/search';
 import { useSearch } from '@/contexts/SearchContext';
 
 const categories: { value: SearchCategory; label: string; color: string }[] = [
@@ -92,7 +92,7 @@ export const SearchFilters: React.FC = () => {
             <SortAsc className="w-4 h-4 text-gray-400" />
             <select
               value={filters.sortBy}
-              onChange={(e) => updateFilters({ sortBy: e.target.value as any })}
+              onChange={(e) => updateFilters({ sortBy: e.target.value as 'relevance' | 'date' | 'title' })}
               className="
                 px-3 py-1 bg-white/5 border border-white/10 rounded-lg
                 text-sm text-white focus:outline-none focus:border-purple-500/50

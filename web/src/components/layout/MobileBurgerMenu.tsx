@@ -3,15 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { 
-  Menu, 
   X, 
   Home, 
-  Calendar, 
-  Trophy, 
-  Settings, 
+  Info, 
+  BookOpen, 
+  FolderOpen, 
   Search,
-  Bell,
-  User,
   Globe,
   ChevronRight
 } from 'lucide-react';
@@ -31,13 +28,13 @@ export const MobileBurgerMenu: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { t, currentLanguage, changeLanguage } = useLanguage();
-  const languages: SupportedLanguage[] = ['cs', 'en', 'uk', 'ru'];
+  const languages: SupportedLanguage[] = ['cs', 'en', 'sk', 'uk', 'ru'];
 
   const navItems: NavItem[] = [
-    { id: 'home', label: t('nav.home', 'Home'), icon: Home, href: '/' },
-    { id: 'events', label: t('nav.events', 'Events'), icon: Calendar, href: '/events' },
-    { id: 'competitions', label: t('nav.competitions', 'Competitions'), icon: Trophy, href: '/competitions' },
-    { id: 'settings', label: t('nav.settings', 'Settings'), icon: Settings, href: '/settings' },
+    { id: 'home', label: t('nav.home', 'Domů'), icon: Home, href: '/' },
+    { id: 'about', label: t('nav.about', 'O oboru'), icon: Info, href: '/about' },
+    { id: 'curriculum', label: t('nav.curriculum', 'Učební plán'), icon: BookOpen, href: '/curriculum' },
+    { id: 'projects', label: t('nav.projects', 'Projekty'), icon: FolderOpen, href: '/projects' },
   ];
 
   // Close menu when route changes
@@ -107,8 +104,8 @@ export const MobileBurgerMenu: React.FC = () => {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6 border-b border-white/10 flex items-center justify-between">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              StudentHub
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
+              SPŠD IT
             </h2>
             <button
               onClick={() => setIsOpen(false)}
@@ -143,16 +140,16 @@ export const MobileBurgerMenu: React.FC = () => {
                   onClick={() => handleNavClick(item.href)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     isActive
-                      ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30'
+                      ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30'
                       : 'hover:bg-white/10'
                   }`}
                 >
-                  <item.icon className={`w-5 h-5 ${isActive ? 'text-purple-400' : 'text-white/70'}`} />
+                  <item.icon className={`w-5 h-5 ${isActive ? 'text-blue-400' : 'text-white/70'}`} />
                   <span className={`text-sm font-medium ${isActive ? 'text-white' : 'text-white/80'}`}>
                     {item.label}
                   </span>
                   {isActive && (
-                    <ChevronRight className="w-4 h-4 text-purple-400 ml-auto" />
+                    <ChevronRight className="w-4 h-4 text-blue-400 ml-auto" />
                   )}
                 </button>
               );
@@ -189,7 +186,7 @@ export const MobileBurgerMenu: React.FC = () => {
                     }}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                       currentLanguage === lang
-                        ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30'
+                        ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30'
                         : 'hover:bg-white/10'
                     }`}
                   >

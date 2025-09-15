@@ -2,12 +2,19 @@
 
 @layer base {
   :root {
-    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-    --gradient-6: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+    /* SPŠD Official Colors */
+    --spsd-navy: #002b4e;
+    --spsd-navy-light: #133f64;
+    --spsd-red: #c81e1c;
+    --spsd-orange: #e95d41;
+    --spsd-white: #ffffff;
+    
+    /* Design System Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--spsd-navy) 0%, var(--spsd-navy-light) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--spsd-red) 0%, var(--spsd-orange) 100%);
+    --gradient-warm: linear-gradient(135deg, var(--spsd-orange) 0%, var(--spsd-red) 100%);
+    --gradient-cool: linear-gradient(135deg, var(--spsd-navy-light) 0%, var(--spsd-navy) 100%);
+    
     --blur-xs: 4px;
     --blur-sm: 8px;
     --blur-md: 12px;
@@ -29,13 +36,13 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #0a0a0a;
-    color: #ffffff;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: white;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: rgba(102, 126, 234, 0.5);
+    background: rgba(200, 30, 28, 0.3);
     color: white;
   }
 
@@ -49,12 +56,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-accent);
     border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    background: var(--gradient-warm);
   }
 }
 
@@ -66,23 +73,9 @@
   }
 
   .glass-dark {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .gradient-border {
-    position: relative;
-    background: linear-gradient(#0a0a0a, #0a0a0a) padding-box,
-                linear-gradient(135deg, #667eea 0%, #764ba2 100%) border-box;
-    border: 2px solid transparent;
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   .animate-float {
@@ -103,19 +96,6 @@
     50% { opacity: 0.8; }
   }
 
-  .glow {
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-  }
-
-  .glow-hover {
-    transition: all 0.3s ease;
-  }
-
-  .glow-hover:hover {
-    box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
-    transform: translateY(-2px);
-  }
-
   @keyframes gradient-shift {
     0%, 100% {
       transform: translateX(0%);
@@ -129,9 +109,39 @@
     animation: gradient-shift 3s ease-in-out infinite;
   }
 
+  /* SPŠD Gradient Utilities */
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+  
+  .gradient-cool {
+    background: var(--gradient-cool);
+  }
+  
+  .text-gradient-accent {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .border-gradient-accent {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--spsd-navy), var(--spsd-navy)) padding-box,
+                var(--gradient-accent) border-box;
+  }
+
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(102, 126, 234, 0.3) transparent;
+    scrollbar-color: rgba(200, 30, 28, 0.3) transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -143,12 +153,25 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(102, 126, 234, 0.3);
+    background: rgba(200, 30, 28, 0.3);
     border-radius: 2px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(102, 126, 234, 0.5);
+    background: rgba(200, 30, 28, 0.5);
+  }
+  
+  .glow-spsd {
+    box-shadow: 0 0 20px rgba(200, 30, 28, 0.5);
+  }
+
+  .glow-spsd-hover {
+    transition: all 0.3s ease;
+  }
+
+  .glow-spsd-hover:hover {
+    box-shadow: 0 0 30px rgba(200, 30, 28, 0.8);
+    transform: translateY(-2px);
   }
 
   .scrollbar-hide {

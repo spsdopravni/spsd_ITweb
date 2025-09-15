@@ -1,15 +1,16 @@
 {
   "nav": {
     "home": "Home",
-    "events": "Events",
-    "competitions": "Competitions",
-    "settings": "Settings"
+    "about": "About the Program",
+    "curriculum": "Curriculum",
+    "projects": "Projects",
+    "selectLanguage": "Select Language"
   },
   "search": {
-    "placeholder": "Search projects, events, resources...",
+    "placeholder": "Search for information about the program, projects...",
     "suggestions": "Suggestions",
     "recent": "Recent Searches",
-    "trending": "Trending Now",
+    "trending": "Trending",
     "tips": "Search Tips",
     "clear": "Clear"
   },
@@ -22,16 +23,235 @@
     "delete": "Delete",
     "edit": "Edit"
   },
-  "hero": {
-    "title": "Discover Everything",
-    "subtitle": "Connect, create, and excel in a unified digital ecosystem.",
-    "getStarted": "Get Started",
-    "watchDemo": "Watch Demo"
+  "home": {
+    "title": "Information Technology",
+    "subtitle": "Secondary Industrial School of Transport, a.s.",
+    "subtitle2": "Prague 5 - Motol",
+    "description": "Four-year matriculation study focused on programming, system administration, and computer networks. Faculty school of the Faculty of Transportation at CTU in Prague.",
+    "aboutBtn": "More about the Program",
+    "projectsBtn": "Our Projects",
+    "watchVideo": "Virtual Tour",
+    "badge": "Faculty School of the Faculty of Transportation at CTU"
   },
   "stats": {
-    "activeProjects": "Active Projects",
     "students": "Students",
-    "hackathons": "Hackathons",
-    "resources": "Resources"
+    "teachers": "Employees",
+    "years": "Years of Operation",
+    "partners": "Partners"
+  },
+  "grid": {
+    "title": "What You'll Learn",
+    "subtitle": "Overview of our projects and technologies for 2026"
+  },
+  "about": {
+    "title": "About the Information Technology Program",
+    "subtitle": "Secondary Industrial School of Transport - modern education in IT",
+    "whatIs": "What is the IT Program?",
+    "description1": "The Information Technology program is a four-year matriculation program that prepares students for work in the dynamically developing field of information technologies. We focus on practical skills combined with theoretical foundations.",
+    "description2": "Our graduates are prepared for direct entry into practice as well as for study at universities with a technical focus."
+  },
+  "projects": {
+    "webApps": "Web Applications",
+    "webAppsDesc": "Advanced web applications using modern technologies",
+    "mobileApps": "Mobile Applications",
+    "mobileAppsDesc": "Native and hybrid mobile applications for Android and iOS",
+    "programming": "Programming",
+    "programmingDesc": "Object-oriented programming in Java, C#, Python",
+    "design": "Graphic Design",
+    "designDesc": "2D and 3D graphics, user interfaces and UX design",
+    "networks": "Networks and IoT",
+    "networksDesc": "Network technologies and Internet of Things (IoT)",
+    "databases": "Databases",
+    "databasesDesc": "Design and management of relational and NoSQL databases",
+    "security": "Cybersecurity",
+    "securityDesc": "Information protection and IT system security",
+    "portfolio": "Projects and Portfolios",
+    "portfolioDesc": "Student projects and graduate portfolios"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "subtitle": "Oops! This page doesn't exist",
+    "description": "The page you're looking for has been moved, deleted, or perhaps never existed.",
+    "backHome": "Back to Home",
+    "suggestions": "Suggestions for you:",
+    "aboutProgram": "Information about the IT Program",
+    "viewProjects": "View Our Projects",
+    "contactUs": "Contact Us",
+    "helpText": "Need help? Try using the search or go back to the home page."
+  },
+  "features": {
+    "title": "Why Study IT at SPSD",
+    "subtitle": "Our advantages that set us apart from other schools",
+    "active": "Active",
+    "education": {
+      "title": "Modern Education",
+      "desc": "Comprehensive IT education with a practical focus"
+    },
+    "programming": {
+      "title": "Programming",
+      "desc": "Teaching modern programming languages and technologies"
+    },
+    "teamwork": {
+      "title": "Teamwork",
+      "desc": "Development of communication skills and team collaboration"
+    },
+    "certification": {
+      "title": "Certification",
+      "desc": "Preparation for IT certifications and international standards"
+    },
+    "career": {
+      "title": "Career Growth",
+      "desc": "Direct connection to practice and future employers"
+    },
+    "future": {
+      "title": "Future of IT",
+      "desc": "Preparation for future technologies and innovations"
+    }
+  },
+  "timeline": {
+    "badge": "Study Program 18-20-M/01",
+    "title": "4 Years to IT Specialist",
+    "subtitle": "Complete education from basics to advanced technologies. We prepare programmers, system administrators, and network specialists.",
+    "outcomes": "Career Opportunities",
+    "showMore": "Click for more",
+    "hideDetails": "Hide details",
+    "year1": {
+      "title": "Basic Technologies",
+      "desc": "Software, Hardware, Basics of Electrical Engineering"
+    },
+    "year2": {
+      "title": "Programming and Systems",
+      "desc": "Operating Systems, Programming, CAD Systems"
+    },
+    "year3": {
+      "title": "Networks and Databases",
+      "desc": "Data Networks, Database Systems, Cisco Courses"
+    },
+    "year4": {
+      "title": "Matriculation and Certification",
+      "desc": "Matriculation Exam, Oracle, MSDN AA, Practical in DPP"
+    },
+    "detailHeaders": {
+      "goals": "Year Goals",
+      "projects": "Practical Projects", 
+      "certifications": "Certifications",
+      "skills": "Acquired Skills"
+    },
+    "year1Details": {
+      "goals": ["Master computer basics", "Understanding hardware components", "Electrical engineering fundamentals"],
+      "projects": ["PC Assembly", "Basic electrical circuits", "First MS Office programs"],
+      "certifications": ["ECDL Start", "IT Basics"],
+      "skills": ["MS Office", "Windows basics", "Electrical measurements", "Logical thinking"]
+    },
+    "year2Details": {
+      "goals": ["Learn C++ programming", "Operating system management", "CAD modeling"],
+      "projects": ["C++ Calculator", "Windows/Linux administration", "3D AutoCAD models"],
+      "certifications": ["Microsoft Office Specialist", "AutoCAD User"],
+      "skills": ["C++ programming", "Windows/Linux admin", "AutoCAD", "Databases"]
+    },
+    "year3Details": {
+      "goals": ["Network device configuration", "Advanced databases", "Python scripting"],
+      "projects": ["VLAN configuration", "Web application with database", "Automation scripts"],
+      "certifications": ["Cisco CCNA Discovery", "Oracle Database"],
+      "skills": ["Cisco IOS", "SQL/MySQL", "Python", "Network security"]
+    },
+    "year4Details": {
+      "goals": ["Successful matriculation", "Professional certification", "Practical experience"],
+      "projects": ["Matriculation project", "DPP internship", "Project portfolio"],
+      "certifications": ["Matriculation certificate", "Oracle Database Associate", "Microsoft Certified"],
+      "skills": ["Project management", "Professional communication", "Complex IT solutions"]
+    },
+    "careers": ["Programmer", "Network and OS Administrator", "Web Developer", "Database Specialist"]
+  },
+  "success": {
+    "badge": "Success Stories",
+    "title": "Our Graduates Are Changing the World",
+    "subtitle": "Inspiring stories of students who achieved their dreams thanks to studying at SPSD",
+    "tabs": {
+      "testimonials": "Graduates",
+      "projects": "Projects",
+      "achievements": "Achievements"
+    }
+  },
+  "cta": {
+    "title": "Start Your IT Journey Today",
+    "subtitle": "Join us and discover your potential in information technologies",
+    "formTitle": "Have Questions? Write to Us!",
+    "formSubtitle": "We'd be happy to provide more information about the study",
+    "contactInfo": "Contact Information",
+    "quickActions": "Quick Actions",
+    "schedule": "Schedule a Visit",
+    "virtualTour": "Virtual Tour",
+    "brochure": "Download Brochure",
+    "finalTitle": "Ready to Start?",
+    "finalSubtitle": "Join more than 500 graduates who have successfully entered IT careers",
+    "apply": "Apply for Study",
+    "learnMore": "Learn More"
+  },
+  "contact": {
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "realAddress": "Plzeňská 298/217a, 150 00 Prague 5 - Motol",
+    "realPhone": "+420 725 044 828",
+    "realEmail": "studijnioddeleni@sps-dopravni.cz",
+    "website": "www.sps-dopravni.cz",
+    "director": "Ing. Lukáš Sobotka",
+    "contact_person": "Mgr. Michaela Franková"
+  },
+  "form": {
+    "name": "Your name",
+    "email": "Your email",
+    "phone": "Phone (optional)",
+    "message": "Your message",
+    "submit": "Send message",
+    "sending": "Sending...",
+    "sent": "Message sent!",
+    "error": "Error sending message"
+  },
+  "achievements": {
+    "years": "Years of tradition",
+    "students": "Total students", 
+    "partner": "Main partner",
+    "faculty": "Faculty school"
+  },
+  "footer": {
+    "title": "StudentHub",
+    "description": "Empowering students to achieve excellence through innovative digital solutions.",
+    "platform": "Platform",
+    "platformLinks": {
+      "dashboard": "Dashboard",
+      "projects": "Projects",
+      "events": "Events",
+      "resources": "Resources",
+      "analytics": "Analytics"
+    },
+    "community": "Community",
+    "communityLinks": {
+      "studyGroups": "Study Groups",
+      "forums": "Forums",
+      "mentorship": "Mentorship",
+      "successStories": "Success Stories",
+      "blog": "Blog"
+    },
+    "support": "Support",
+    "supportLinks": {
+      "helpCenter": "Help Center",
+      "documentation": "Documentation",
+      "api": "API",
+      "status": "Status",
+      "contact": "Contact"
+    },
+    "legal": "Legal",
+    "legalLinks": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "gdpr": "GDPR",
+      "licenses": "Licenses"
+    },
+    "copyright": "© 2025 StudentHub. All rights reserved.",
+    "madeWith": "Made with",
+    "byStudents": "by students, for students"
   }
 }
