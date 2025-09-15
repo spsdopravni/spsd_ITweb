@@ -25,8 +25,8 @@ export const CompactMode: React.FC<CompactModeProps> = ({
   const router = useRouter();
 
   return (
-    <div className="h-full flex items-center justify-between px-5 min-w-fit">
-      <div className="flex items-center gap-2 min-w-fit">
+    <div className="h-full flex items-center justify-between px-3 md:px-5 min-w-0">
+      <div className="flex items-center gap-2 min-w-0 flex-1">
         {currentItem && (
           <>
             <currentItem.icon className="w-4 h-4 text-purple-400 flex-shrink-0" />
@@ -36,7 +36,7 @@ export const CompactMode: React.FC<CompactModeProps> = ({
         {!currentItem && (
           <button
             onClick={() => router.push('/')}
-            className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer min-w-fit"
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer min-w-0"
           >
             <Home className="w-4 h-4 text-gray-400 flex-shrink-0" />
             <span className="text-sm font-medium text-gray-400 whitespace-nowrap">Home</span>

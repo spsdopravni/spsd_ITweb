@@ -4,6 +4,7 @@ import React from 'react';
 import { ModernFooter } from "@/components/layout/ModernFooter";
 import { FloatingActionMenu } from "@/components/ui/FloatingActionMenu";
 import { DynamicIsland } from "@/components/layout/DynamicIsland";
+import { MobileBurgerMenu } from "@/components/layout/MobileBurgerMenu";
 
 interface ClientLayoutProps {
   children: React.ReactNode;
@@ -12,7 +13,10 @@ interface ClientLayoutProps {
 export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   return (
     <>
-      <DynamicIsland />
+      <div className="hidden min-[550px]:block">
+        <DynamicIsland />
+      </div>
+      <MobileBurgerMenu />
       <main>
         {children}
       </main>

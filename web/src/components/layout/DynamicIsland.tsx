@@ -80,10 +80,22 @@ export const DynamicIsland: React.FC = () => {
   }, [searchQuery]);
 
 
+  // Detect if mobile
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Island container animation - height and border radius only
   const islandSpring = useSpring({
-    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? 280 : 56) : mode === 'language' ? 200 : 64,
-    borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : 32,
+    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : 56) : mode === 'language' ? (isMobile ? 180 : 200) : (isMobile ? 'auto' : 64),
+    borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : (isMobile ? 24 : 32),
     config: { 
       tension: 280,
       friction: 30,
@@ -197,19 +209,18 @@ export const DynamicIsland: React.FC = () => {
   };
 
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed top-2 md:top-4 left-1/2 transform -translate-x-1/2 z-50 px-2 md:px-4 w-full max-w-[95vw] md:max-w-[600px] lg:max-w-[800px]">
       <animated.div
         ref={islandRef}
         style={{
-          height: islandSpring.height.to(h => `${h}px`),
+          height: isMobile && mode === 'expanded' ? 'auto' : islandSpring.height.to(h => typeof h === 'string' ? h : `${h}px`),
           borderRadius: islandSpring.borderRadius.to(r => `${r}px`)
         }}
-        className={`glass backdrop-blur-xl bg-black/60 border border-white/20 shadow-2xl relative overflow-hidden
-          ${mode === 'compact' ? 'min-w-[200px] max-w-[600px]' : ''}
-          ${mode === 'expanded' ? 'min-w-[400px] max-w-[95vw]' : ''}
-          ${mode === 'search' ? 'min-w-[400px] max-w-[600px]' : ''}
-          ${mode === 'language' ? 'min-w-[300px] max-w-[400px]' : ''}
-          w-fit`}
+        className={`glass backdrop-blur-xl bg-black/60 border border-white/20 shadow-2xl relative overflow-hidden mx-auto
+          ${mode === 'compact' ? 'w-fit min-w-[160px] max-w-full' : ''}
+          ${mode === 'expanded' ? 'w-full max-w-full' : ''}
+          ${mode === 'search' ? 'w-full max-w-full' : ''}
+          ${mode === 'language' ? 'w-full max-w-[400px]' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
