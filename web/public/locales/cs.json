@@ -48,7 +48,44 @@
     "subtitle": "Střední průmyslová škola dopravní - moderní vzdělání v oblasti IT",
     "whatIs": "Co je obor IT?",
     "description1": "Obor Informační technologie je čtyřletý maturitní obor, který připravuje studenty na práci v dynamicky se rozvíjející oblasti informačních technologií. Zaměřujeme se na praktické dovednosti kombinované s teoretickými základy.",
-    "description2": "Naši absolventi jsou připraveni jak pro přímý vstup do praxe, tak pro studium na vysokých školách technického zaměření."
+    "description2": "Naši absolventi jsou připraveni jak pro přímý vstup do praxe, tak pro studium na vysokých školách technického zaměření.",
+    "fieldFocus": {
+      "title": "Zaměření oboru",
+      "items": [
+        "Vývoj webových a mobilních aplikací",
+        "Programování v moderních jazycích",
+        "Databázové systémy a Big Data",
+        "Počítačové sítě a kybernetická bezpečnost",
+        "Grafický design a UX/UI",
+        "Internet věcí (IoT)"
+      ]
+    },
+    "graduateEmployment": {
+      "title": "Uplatnění absolventů",
+      "items": [
+        "Programátor / Vývojář aplikací",
+        "Webový developer",
+        "Databázový specialista",
+        "IT technik / Správce sítí",
+        "Grafický designer",
+        "Kybernetický bezpečnostní analytik"
+      ]
+    },
+    "whyChooseUs": {
+      "title": "Proč si vybrat náš obor?",
+      "modernEquipment": {
+        "title": "Moderní vybavení",
+        "description": "Decentní hardware a software, profesionální vývojové nástroje"
+      },
+      "companiesPractice": {
+        "title": "Praxe v firmách",
+        "description": "Studenti získávají reálné zkušenosti během praxí ve firmách jejich volby"
+      },
+      "experiencedTeachers": {
+        "title": "Zkušení učitelé",
+        "description": "Učitelé s praxí v IT oboru a průběžným vzděláváním"
+      }
+    }
   },
   "projects": {
     "webApps": "Webové aplikace",

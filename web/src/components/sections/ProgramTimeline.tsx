@@ -39,10 +39,10 @@ export const ProgramTimeline: React.FC = () => {
       color: 'from-blue-500 to-cyan-500',
       gradient: 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10',
       detailedInfo: {
-        goals: t('timeline.year1Details.goals') || ['Osvojit si základy práce s počítačem', 'Pochopení hardwarových komponent', 'Základy elektrotechniky'],
-        projects: t('timeline.year1Details.projects') || ['Sestavení PC', 'Základní elektrotechnické obvody', 'První programy v MS Office'],
-        certifications: t('timeline.year1Details.certifications') || ['ECDL Start', 'Základy IT'],
-        skills: t('timeline.year1Details.skills') || ['MS Office', 'Základy Windows', 'Elektrotechnické měření', 'Logické myšlení']
+        goals: Array.isArray(t('timeline.year1Details.goals')) ? t('timeline.year1Details.goals') as string[] : ['Osvojit si základy práce s počítačem', 'Pochopení hardwarových komponent', 'Základy elektrotechniky'],
+        projects: Array.isArray(t('timeline.year1Details.projects')) ? t('timeline.year1Details.projects') as string[] : ['Sestavení PC', 'Základní elektrotechnické obvody', 'První programy v MS Office'],
+        certifications: Array.isArray(t('timeline.year1Details.certifications')) ? t('timeline.year1Details.certifications') as string[] : ['ECDL Start', 'Základy IT'],
+        skills: Array.isArray(t('timeline.year1Details.skills')) ? t('timeline.year1Details.skills') as string[] : ['MS Office', 'Základy Windows', 'Elektrotechnické měření', 'Logické myšlení']
       }
     },
     {
@@ -54,10 +54,10 @@ export const ProgramTimeline: React.FC = () => {
       color: 'from-green-500 to-emerald-500',
       gradient: 'bg-gradient-to-br from-green-500/10 to-emerald-500/10',
       detailedInfo: {
-        goals: t('timeline.year2Details.goals') || ['Naučit se programovat v C++', 'Ovládání operačních systémů', 'CAD modelování'],
-        projects: t('timeline.year2Details.projects') || ['Kalkulačka v C++', 'Správa Windows/Linux', '3D modely v AutoCAD'],
-        certifications: t('timeline.year2Details.certifications') || ['Microsoft Office Specialist', 'AutoCAD User'],
-        skills: t('timeline.year2Details.skills') || ['C++ programování', 'Windows/Linux admin', 'AutoCAD', 'Databáze']
+        goals: Array.isArray(t('timeline.year2Details.goals')) ? t('timeline.year2Details.goals') as string[] : ['Naučit se programovat v C++', 'Ovládání operačních systémů', 'CAD modelování'],
+        projects: Array.isArray(t('timeline.year2Details.projects')) ? t('timeline.year2Details.projects') as string[] : ['Kalkulačka v C++', 'Správa Windows/Linux', '3D modely v AutoCAD'],
+        certifications: Array.isArray(t('timeline.year2Details.certifications')) ? t('timeline.year2Details.certifications') as string[] : ['Microsoft Office Specialist', 'AutoCAD User'],
+        skills: Array.isArray(t('timeline.year2Details.skills')) ? t('timeline.year2Details.skills') as string[] : ['C++ programování', 'Windows/Linux admin', 'AutoCAD', 'Databáze']
       }
     },
     {
@@ -69,10 +69,10 @@ export const ProgramTimeline: React.FC = () => {
       color: 'from-blue-500 to-blue-400',
       gradient: 'bg-gradient-to-br from-blue-500/10 to-blue-400/10',
       detailedInfo: {
-        goals: t('timeline.year3Details.goals') || ['Konfigurace síťových zařízení', 'Pokročilé databáze', 'Python scripting'],
-        projects: t('timeline.year3Details.projects') || ['Konfigurace VLAN', 'Webová aplikace s databází', 'Automatizační skripty'],
-        certifications: t('timeline.year3Details.certifications') || ['Cisco CCNA Discovery', 'Oracle Database'],
-        skills: t('timeline.year3Details.skills') || ['Cisco IOS', 'SQL/MySQL', 'Python', 'Síťová bezpečnost']
+        goals: Array.isArray(t('timeline.year3Details.goals')) ? t('timeline.year3Details.goals') as string[] : ['Konfigurace síťových zařízení', 'Pokročilé databáze', 'Python scripting'],
+        projects: Array.isArray(t('timeline.year3Details.projects')) ? t('timeline.year3Details.projects') as string[] : ['Konfigurace VLAN', 'Webová aplikace s databází', 'Automatizační skripty'],
+        certifications: Array.isArray(t('timeline.year3Details.certifications')) ? t('timeline.year3Details.certifications') as string[] : ['Cisco CCNA Discovery', 'Oracle Database'],
+        skills: Array.isArray(t('timeline.year3Details.skills')) ? t('timeline.year3Details.skills') as string[] : ['Cisco IOS', 'SQL/MySQL', 'Python', 'Síťová bezpečnost']
       }
     },
     {
@@ -84,10 +84,10 @@ export const ProgramTimeline: React.FC = () => {
       color: 'from-orange-500 to-red-500',
       gradient: 'bg-gradient-to-br from-orange-500/10 to-red-500/10',
       detailedInfo: {
-        goals: t('timeline.year4Details.goals') || ['Úspěšná maturita', 'Profesionální certifikace', 'Praktické zkušenosti'],
-        projects: t('timeline.year4Details.projects') || ['Maturitní projekt', 'Stáž v DPP', 'Portfolio projektů'],
-        certifications: t('timeline.year4Details.certifications') || ['Maturitní vysvědčení', 'Oracle Database Associate', 'Microsoft Certified'],
-        skills: t('timeline.year4Details.skills') || ['Projektové řízení', 'Profesionální komunikace', 'Komplexní IT řešení']
+        goals: Array.isArray(t('timeline.year4Details.goals')) ? t('timeline.year4Details.goals') as string[] : ['Úspěšná maturita', 'Profesionální certifikace', 'Praktické zkušenosti'],
+        projects: Array.isArray(t('timeline.year4Details.projects')) ? t('timeline.year4Details.projects') as string[] : ['Maturitní projekt', 'Stáž v DPP', 'Portfolio projektů'],
+        certifications: Array.isArray(t('timeline.year4Details.certifications')) ? t('timeline.year4Details.certifications') as string[] : ['Maturitní vysvědčení', 'Oracle Database Associate', 'Microsoft Certified'],
+        skills: Array.isArray(t('timeline.year4Details.skills')) ? t('timeline.year4Details.skills') as string[] : ['Projektové řízení', 'Profesionální komunikace', 'Komplexní IT řešení']
       }
     },
   ];
@@ -286,7 +286,7 @@ export const ProgramTimeline: React.FC = () => {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6">
-              {(t('timeline.careers') || [
+              {(Array.isArray(t('timeline.careers')) ? t('timeline.careers') as string[] : [
                 'Programátor',
                 'Správce sítí a OS', 
                 'Vývojář webových řešení',

@@ -48,7 +48,44 @@
     "subtitle": "Stredná priemyselná škola dopravná - moderné vzdelávanie v oblasti IT",
     "whatIs": "Čo je odbor IT?",
     "description1": "Odbor Informačné technológie je štvorročný maturitný odbor, ktorý pripravuje študentov na prácu v dynamicky sa rozvíjajúcej oblasti informačných technológií. Zameriavame sa na praktické zručnosti kombinované s teoretickými základmi.",
-    "description2": "Naši absolventi sú pripravení ako na priamy vstup do praxe, tak na štúdium na vysokých školách technického zamerania."
+    "description2": "Naši absolventi sú pripravení ako na priamy vstup do praxe, tak na štúdium na vysokých školách technického zamerania.",
+    "fieldFocus": {
+      "title": "Zameranie odboru",
+      "items": [
+        "Vývoj webových a mobilných aplikácií",
+        "Programovanie v moderných jazykoch",
+        "Databázové systémy a Big Data",
+        "Počítačové siete a kybernetická bezpečnosť",
+        "Grafický dizajn a UX/UI",
+        "Internet vecí (IoT)"
+      ]
+    },
+    "graduateEmployment": {
+      "title": "Uplatnenie absolventov",
+      "items": [
+        "Programátor / Vývojár aplikácií",
+        "Webový developer",
+        "Databázový špecialista",
+        "IT technik / Správca sietí",
+        "Grafický dizajnér",
+        "Kybernetický bezpečnostný analytik"
+      ]
+    },
+    "whyChooseUs": {
+      "title": "Prečo si vybrať náš odbor?",
+      "modernEquipment": {
+        "title": "Moderné vybavenie",
+        "description": "Kvalitný hardvér a softvér, profesionálne vývojové nástroje"
+      },
+      "companiesPractice": {
+        "title": "Prax vo firmách",
+        "description": "Študenti získavajú reálne skúsenosti počas praxí vo firmách ich voľby"
+      },
+      "experiencedTeachers": {
+        "title": "Skúsení učitelia",
+        "description": "Učitelia s praxou v IT odbore a priebežným vzdelávaním"
+      }
+    }
   },
   "projects": {
     "webApps": "Webové aplikácie",

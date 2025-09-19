@@ -10,7 +10,7 @@ export default function About() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            {t('about.title')} <span className="text-gradient">Informační technologie</span>
+            {t('about.title')}
           </h1>
           <p className="text-xl text-gray-300">
             {t('about.subtitle')}
@@ -30,49 +30,43 @@ export default function About() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="glass p-6 rounded-xl">
-              <h3 className="text-xl font-semibold text-white mb-3">Zaměření oboru</h3>
+              <h3 className="text-xl font-semibold text-white mb-3">{t('about.fieldFocus.title')}</h3>
               <ul className="space-y-2 text-gray-300">
-                <li>• Vývoj webových a mobilních aplikací</li>
-                <li>• Programování v moderních jazycích</li>
-                <li>• Databázové systémy a Big Data</li>
-                <li>• Počítačové sítě a kybernetická bezpečnost</li>
-                <li>• Grafický design a UX/UI</li>
-                <li>• Internet věcí (IoT)</li>
+                {(Array.isArray(t('about.fieldFocus.items')) ? (t('about.fieldFocus.items') as unknown as string[]) : []).map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
 
             <div className="glass p-6 rounded-xl">
-              <h3 className="text-xl font-semibold text-white mb-3">Uplatnění absolventů</h3>
+              <h3 className="text-xl font-semibold text-white mb-3">{t('about.graduateEmployment.title')}</h3>
               <ul className="space-y-2 text-gray-300">
-                <li>• Programátor / Vývojář aplikací</li>
-                <li>• Webový developer</li>
-                <li>• Databázový specialista</li>
-                <li>• IT technik / Správce sítí</li>
-                <li>• Grafický designer</li>
-                <li>• Kybernetický bezpečnostní analytik</li>
+                {(Array.isArray(t('about.graduateEmployment.items')) ? (t('about.graduateEmployment.items') as unknown as string[]) : []).map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
           </div>
 
           <div className="glass p-8 rounded-2xl">
-            <h2 className="text-2xl font-semibold text-white mb-4">Proč si vybrat náš obor?</h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">{t('about.whyChooseUs.title')}</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div>
-                <h4 className="font-semibold text-purple-400 mb-2">Moderní vybavení</h4>
+                <h4 className="font-semibold text-purple-400 mb-2">{t('about.whyChooseUs.modernEquipment.title')}</h4>
                 <p className="text-gray-300 text-sm">
-                  Nejnovější hardware a software, profesionální vývojová prostředí
+                  {t('about.whyChooseUs.modernEquipment.description')}
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-purple-400 mb-2">Praxe v firmách</h4>
+                <h4 className="font-semibold text-purple-400 mb-2">{t('about.whyChooseUs.companiesPractice.title')}</h4>
                 <p className="text-gray-300 text-sm">
-                  Spolupráce s předními IT firmami, stáže a projektová práce
+                  {t('about.whyChooseUs.companiesPractice.description')}
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-purple-400 mb-2">Zkušení lektoři</h4>
+                <h4 className="font-semibold text-purple-400 mb-2">{t('about.whyChooseUs.experiencedTeachers.title')}</h4>
                 <p className="text-gray-300 text-sm">
-                  Učitelé s praxí v IT oboru a průběžným vzděláváním
+                  {t('about.whyChooseUs.experiencedTeachers.description')}
                 </p>
               </div>
             </div>

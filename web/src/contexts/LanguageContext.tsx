@@ -8,7 +8,7 @@ interface LanguageContextType {
   currentLanguage: SupportedLanguage;
   translations: Record<string, unknown>;
   changeLanguage: (lang: SupportedLanguage) => void;
-  t: (key: string, fallback?: string) => string;
+  t: (key: string, fallback?: string) => string | any;
   isLoading: boolean;
 }
 
@@ -103,7 +103,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [loadTranslations]);
 
   // Translation function with dot notation support
-  const t = useCallback((key: string, fallback?: string): string => {
+  const t = useCallback((key: string, fallback?: string): string | any => {
     const keys = key.split('.');
     let value: unknown = translations;
     
@@ -115,6 +115,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       }
     }
     
+    // Return arrays as is, strings as is, or fallback
+    if (Array.isArray(value)) {
+      return value;
+    }
     return typeof value === 'string' ? value : fallback || key;
   }, [translations]);
 

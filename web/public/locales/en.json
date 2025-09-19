@@ -48,7 +48,44 @@
     "subtitle": "Secondary Industrial School of Transport - modern education in IT",
     "whatIs": "What is the IT Program?",
     "description1": "The Information Technology program is a four-year matriculation program that prepares students for work in the dynamically developing field of information technologies. We focus on practical skills combined with theoretical foundations.",
-    "description2": "Our graduates are prepared for direct entry into practice as well as for study at universities with a technical focus."
+    "description2": "Our graduates are prepared for direct entry into practice as well as for study at universities with a technical focus.",
+    "fieldFocus": {
+      "title": "Field Focus",
+      "items": [
+        "Web and mobile application development",
+        "Programming in modern languages",
+        "Database systems and Big Data",
+        "Computer networks and cybersecurity",
+        "Graphic design and UX/UI",
+        "Internet of Things (IoT)"
+      ]
+    },
+    "graduateEmployment": {
+      "title": "Graduate Employment",
+      "items": [
+        "Programmer / Application Developer",
+        "Web Developer",
+        "Database Specialist",
+        "IT Technician / Network Administrator",
+        "Graphic Designer",
+        "Cybersecurity Analyst"
+      ]
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Our Program?",
+      "modernEquipment": {
+        "title": "Modern Equipment",
+        "description": "Quality hardware and software, professional development tools"
+      },
+      "companiesPractice": {
+        "title": "Practice in Companies",
+        "description": "Students gain real experience during internships in companies of their choice"
+      },
+      "experiencedTeachers": {
+        "title": "Experienced Teachers",
+        "description": "Teachers with IT industry experience and continuous education"
+      }
+    }
   },
   "projects": {
     "webApps": "Web Applications",
