@@ -3,6 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Globe, Palette } from 'lucide-react';
+import { useTheme } from '@/lib/theme/useTheme';
 
 interface NavItem {
   id: string;
@@ -25,6 +26,50 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
   onLanguageModeChange
 }) => {
   const router = useRouter();
+  const { theme, classicMode } = useTheme();
+
+  // Theme-aware colors
+  const getTextColors = () => {
+    if (theme === 'classic' && classicMode === 'light') {
+      return {
+        primary: 'text-[var(--spsd-navy)]',
+        secondary: 'text-[var(--spsd-navy)]/70',
+        hover: 'hover:text-[var(--spsd-red)]',
+        hoverBg: 'hover:bg-[var(--spsd-navy)]/10',
+        activeBg: 'bg-gradient-to-r from-[var(--spsd-orange)]/25 to-[var(--spsd-red)]/25',
+        activeBorder: 'border-[var(--spsd-orange)]/30',
+        activeShadow: 'shadow-lg shadow-[var(--spsd-orange)]/20',
+        actionIcon: 'text-blue-500',
+        actionHover: 'hover:text-blue-600'
+      };
+    } else if (theme === 'classic' && classicMode === 'dark') {
+      return {
+        primary: 'text-slate-100',
+        secondary: 'text-slate-100/70',
+        hover: 'hover:text-white',
+        hoverBg: 'hover:bg-white/10',
+        activeBg: 'bg-gradient-to-r from-[var(--spsd-orange)]/25 to-[var(--spsd-red)]/25',
+        activeBorder: 'border-[var(--spsd-orange)]/30',
+        activeShadow: 'shadow-lg shadow-[var(--spsd-orange)]/20',
+        actionIcon: 'text-blue-400',
+        actionHover: 'hover:text-blue-300'
+      };
+    } else {
+      return {
+        primary: 'text-white',
+        secondary: 'text-white/70',
+        hover: 'hover:text-white',
+        hoverBg: 'hover:bg-white/10',
+        activeBg: 'bg-gradient-to-r from-[var(--spsd-orange)]/25 to-[var(--spsd-red)]/25',
+        activeBorder: 'border-[var(--spsd-orange)]/30',
+        activeShadow: 'shadow-lg shadow-[var(--spsd-orange)]/20',
+        actionIcon: 'text-blue-400',
+        actionHover: 'hover:text-blue-300'
+      };
+    }
+  };
+
+  const colors = getTextColors();
 
   const handleNavClick = (href: string) => {
     router.push(href);
@@ -43,8 +88,8 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
               className={`
                 flex items-center gap-1 md:gap-2 px-2 md:px-3.5 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0
                 ${isActive 
-                  ? 'bg-gradient-to-r from-blue-500/25 to-blue-400/25 text-white border border-blue-500/30 shadow-lg shadow-blue-500/20' 
-                  : 'text-white/70 hover:text-white hover:bg-white/10 border border-transparent'
+                  ? `${colors.activeBg} ${colors.primary} border ${colors.activeBorder} ${colors.activeShadow}` 
+                  : `${colors.secondary} ${colors.hover} ${colors.hoverBg} border border-transparent`
                 }
               `}
             >
@@ -59,26 +104,26 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
         {pathname !== '/search' && (
           <button
             onClick={() => onModeChange('search')}
-            className="p-1.5 md:p-2 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110"
+            className={`p-1.5 md:p-2 rounded-full ${colors.hoverBg} transition-all duration-200 hover:scale-110`}
           >
-            <Search className="w-3.5 md:w-4 h-3.5 md:h-4 text-white/70 hover:text-white" />
+            <Search className={`w-3.5 md:w-4 h-3.5 md:h-4 ${colors.actionIcon} ${colors.actionHover}`} />
           </button>
         )}
         
         <button
           onClick={() => onModeChange('theme')}
-          className="p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110"
+          className={`p-1.5 sm:p-2 rounded-full ${colors.hoverBg} transition-all duration-200 hover:scale-110`}
           title="Change Theme"
         >
-          <Palette className="w-3.5 md:w-4 h-3.5 md:h-4 text-white/70 hover:text-white" />
+          <Palette className={`w-3.5 md:w-4 h-3.5 md:h-4 ${colors.actionIcon} ${colors.actionHover}`} />
         </button>
         
         <button
           onClick={onLanguageModeChange}
-          className="p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110"
+          className={`p-1.5 sm:p-2 rounded-full ${colors.hoverBg} transition-all duration-200 hover:scale-110`}
           title="Change Language"
         >
-          <Globe className="w-3.5 md:w-4 h-3.5 md:h-4 text-white/70 hover:text-white" />
+          <Globe className={`w-3.5 md:w-4 h-3.5 md:h-4 ${colors.actionIcon} ${colors.actionHover}`} />
         </button>
         
         {/* Notifications - Commented out for now */}

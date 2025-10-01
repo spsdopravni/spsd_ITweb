@@ -3,6 +3,8 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Home, ChevronDown } from 'lucide-react';
+import { useTheme } from '@/lib/theme/useTheme';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface NavItem {
   id: string;
@@ -23,23 +25,59 @@ export const CompactMode: React.FC<CompactModeProps> = ({
   onModeChange
 }) => {
   const router = useRouter();
+  const { theme, classicMode } = useTheme();
+  const { t } = useLanguage();
+
+  // Theme-aware colors
+  const getTextColors = () => {
+    if (theme === 'classic' && classicMode === 'light') {
+      return {
+        primary: 'text-[var(--spsd-navy)]',
+        secondary: 'text-[var(--spsd-navy)]/70',
+        hover: 'hover:text-blue-600',
+        hoverBg: 'hover:bg-blue-50',
+        accent: 'text-[var(--spsd-orange)]',
+        actionIcon: 'text-blue-500'
+      };
+    } else if (theme === 'classic' && classicMode === 'dark') {
+      return {
+        primary: 'text-slate-100',
+        secondary: 'text-slate-100/70',
+        hover: 'hover:text-blue-300',
+        hoverBg: 'hover:bg-blue-500/10',
+        accent: 'text-[var(--spsd-orange)]',
+        actionIcon: 'text-blue-400'
+      };
+    } else {
+      return {
+        primary: 'text-white/90',
+        secondary: 'text-white/70',
+        hover: 'hover:text-blue-300',
+        hoverBg: 'hover:bg-blue-500/10',
+        accent: 'text-[var(--spsd-orange)]',
+        actionIcon: 'text-blue-400'
+      };
+    }
+  };
+
+  const colors = getTextColors();
 
   return (
     <div className="h-full flex items-center justify-between px-3 md:px-5 min-w-0">
       <div className="flex items-center gap-2 min-w-0 flex-1">
         {currentItem && (
           <>
-            <currentItem.icon className="w-4 h-4 text-blue-400 flex-shrink-0" />
-            <span className="text-sm font-medium text-white/90 whitespace-nowrap">{currentItem.label}</span>
+            <currentItem.icon className={`w-4 h-4 ${colors.accent} flex-shrink-0`} />
+            <span className={`text-sm font-medium ${colors.primary} whitespace-nowrap`}>{currentItem.label}</span>
           </>
         )}
         {!currentItem && (
           <button
             onClick={() => router.push('/')}
-            className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer min-w-0"
+            className={`flex items-center gap-2 ${colors.hover} transition-opacity cursor-pointer min-w-0`}
           >
-            <Home className="w-4 h-4 text-gray-400 flex-shrink-0" />
-            <span className="text-sm font-medium text-gray-400 whitespace-nowrap">Home</span>
+            <Home className={`w-4 h-4 ${colors.secondary} flex-shrink-0`} />
+            <span className={`text-sm font-medium ${colors.secondary} whitespace-nowrap`}>{t('nav.home', 'Domů')}</span>
           </button>
         )}
       </div>
@@ -48,17 +86,17 @@ export const CompactMode: React.FC<CompactModeProps> = ({
         {pathname !== '/search' && (
           <button
             onClick={() => onModeChange('search')}
-            className="p-2 rounded-full hover:bg-white/10 hover:scale-110 transition-all duration-200"
+            className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-all duration-200`}
           >
-            <Search className="w-4 h-4 text-white/70 hover:text-white" />
+            <Search className={`w-4 h-4 ${colors.actionIcon} ${colors.hover}`} />
           </button>
         )}
         
         <button
           onClick={() => onModeChange('expanded')}
-          className="p-2 rounded-full hover:bg-white/10 hover:scale-110 transition-all duration-200"
+          className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-all duration-200`}
         >
-          <ChevronDown className="w-4 h-4 text-white/70 hover:text-white" />
+          <ChevronDown className={`w-4 h-4 ${colors.actionIcon} ${colors.hover}`} />
         </button>
       </div>
     </div>

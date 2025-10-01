@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/lib/theme/useTheme';
 import { Calendar, Code, Database, Globe } from 'lucide-react';
 
 export const ClassicProgramTimeline: React.FC = () => {
   const { t } = useLanguage();
+  const { classicMode } = useTheme();
 
   const timeline = [
     {
@@ -35,33 +37,75 @@ export const ClassicProgramTimeline: React.FC = () => {
   ];
 
   return (
-    <section className="section bg-gray-50">
+    <section className={`py-16 md:py-24 transition-colors duration-300 ${
+      classicMode === 'light'
+        ? 'bg-gray-50'
+        : 'bg-gradient-to-r from-[var(--spsd-navy)] to-[var(--spsd-navy-light)]'
+    }`}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <div className="accent-bar w-24 mx-auto"></div>
-          <h2 className="text-4xl font-bold mb-4">{t('timeline.title', 'Studijní program')}</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+        <div className="text-center mb-16">
+          <div className={`w-24 h-1 mx-auto mb-6 rounded-full ${
+            classicMode === 'light'
+              ? 'bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-orange)]'
+              : 'bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-orange)]'
+          }`}></div>
+          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${
+            classicMode === 'light'
+              ? 'text-[var(--spsd-navy)]'
+              : 'text-white'
+          }`}>
+            {t('timeline.title', '4 roky k IT odborníkovi')}
+          </h2>
+          <p className={`text-lg max-w-2xl mx-auto ${
+            classicMode === 'light'
+              ? 'text-[var(--spsd-navy)]/70'
+              : 'text-white/80'
+          }`}>
             {t('timeline.description', 'Čtyřletý vzdělávací program zaměřený na praktické dovednosti v IT')}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {timeline.map((item, index) => (
-            <div key={index} className="card">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 rounded-lg bg-[var(--spsd-navy)] text-white flex items-center justify-center mr-3">
+            <div key={index} className={`p-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+              classicMode === 'light'
+                ? 'bg-white border border-gray-200 hover:border-[var(--spsd-red)]/30 shadow-md hover:shadow-xl'
+                : 'bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20'
+            }`}>
+              <div className="flex items-center mb-6">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-3 ${
+                  classicMode === 'light'
+                    ? 'bg-gradient-to-br from-[var(--spsd-red)] to-[var(--spsd-orange)] text-white'
+                    : 'bg-white/20 backdrop-blur text-white'
+                }`}>
                   {item.icon}
                 </div>
                 <div>
-                  <div className="text-sm text-[var(--spsd-red)] font-semibold">{item.year}</div>
-                  <h3 className="font-semibold">{item.title}</h3>
+                  <div className={`text-sm font-semibold ${
+                    classicMode === 'light'
+                      ? 'text-[var(--spsd-red)]'
+                      : 'text-white/90'
+                  }`}>{item.year}</div>
+                  <h3 className={`font-semibold ${
+                    classicMode === 'light'
+                      ? 'text-[var(--spsd-navy)]'
+                      : 'text-white'
+                  }`}>{item.title}</h3>
                 </div>
               </div>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {item.subjects.map((subject, idx) => (
                   <li key={idx} className="flex items-start">
-                    <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                    <span className="text-sm text-gray-600">{subject}</span>
+                    <span className={`w-2 h-2 rounded-full mt-1.5 mr-3 flex-shrink-0 ${
+                      classicMode === 'light'
+                        ? 'bg-[var(--spsd-orange)]'
+                        : 'bg-[var(--spsd-orange)]'
+                    }`}></span>
+                    <span className={`text-sm ${
+                      classicMode === 'light'
+                        ? 'text-[var(--spsd-navy)]/70'
+                        : 'text-white/80'
+                    }`}>{subject}</span>
                   </li>
                 ))}
               </ul>

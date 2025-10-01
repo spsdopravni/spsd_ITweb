@@ -233,9 +233,9 @@ export const DynamicIsland: React.FC = () => {
         // Dynamic theme-aware styling
         className={`glass backdrop-blur-xl relative overflow-hidden mx-auto transition-all duration-300
           ${theme === 'classic' && classicMode === 'light' 
-            ? 'bg-white/95 border-2 border-gray-300 shadow-lg text-gray-900' 
+            ? 'bg-white/98 border-2 border-[var(--spsd-navy)]/20 shadow-2xl shadow-[var(--spsd-navy)]/10 text-gray-900 ring-1 ring-[var(--spsd-navy)]/5' 
             : theme === 'classic' && classicMode === 'dark'
-            ? 'bg-slate-800/95 border-2 border-slate-600 shadow-2xl text-slate-100'
+            ? 'bg-slate-800/95 border-2 border-slate-500 shadow-2xl text-slate-100'
             : 'bg-black/60 border border-white/20 shadow-2xl text-white'
           }
           ${mode === 'compact' ? 'w-fit min-w-[160px] max-w-full' : ''}
@@ -247,15 +247,20 @@ export const DynamicIsland: React.FC = () => {
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Animated background gradient - theme aware */}
-        <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <div className="absolute inset-0 opacity-40 pointer-events-none">
           <div className={`absolute inset-0 animate-pulse ${
             theme === 'classic' && classicMode === 'light'
-              ? 'bg-gradient-to-br from-[var(--spsd-navy)]/10 via-transparent to-[var(--spsd-red)]/10'
+              ? 'bg-gradient-to-br from-[var(--spsd-navy)]/15 via-[var(--spsd-red)]/5 to-[var(--spsd-navy)]/15'
               : theme === 'classic' && classicMode === 'dark'
               ? 'bg-gradient-to-br from-blue-400/20 via-transparent to-slate-400/20'
               : 'bg-gradient-to-br from-blue-600/20 via-transparent to-blue-400/20'
           }`} />
         </div>
+
+        {/* Additional outline for light mode visibility */}
+        {theme === 'classic' && classicMode === 'light' && (
+          <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-r from-[var(--spsd-navy)]/5 to-[var(--spsd-red)]/5 pointer-events-none" />
+        )}
 
         {/* Compact Mode */}
         {mode === 'compact' && (

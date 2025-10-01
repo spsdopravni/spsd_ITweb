@@ -10,7 +10,7 @@ const mockData: SearchResult[] = [
     category: 'projects',
     url: '/projects/ai-study-assistant',
     tags: ['AI', 'Machine Learning', 'Education', 'Python'],
-    date: new Date('2024-03-15'),
+    date: new Date('2025-03-15'),
     author: 'Sarah Chen',
     thumbnail: '/projects/ai-assistant.jpg',
   },
@@ -21,7 +21,7 @@ const mockData: SearchResult[] = [
     category: 'projects',
     url: '/projects/campus-nav',
     tags: ['Mobile', 'AR', 'Navigation', 'React Native'],
-    date: new Date('2024-03-10'),
+    date: new Date('2025-03-10'),
     author: 'Michael Torres',
   },
   {
@@ -31,19 +31,19 @@ const mockData: SearchResult[] = [
     category: 'projects',
     url: '/projects/energy-dashboard',
     tags: ['IoT', 'Sustainability', 'Data Visualization', 'Node.js'],
-    date: new Date('2024-03-05'),
+    date: new Date('2025-03-05'),
     author: 'Emily Johnson',
   },
   
   // Events
   {
     id: 'event-1',
-    title: 'Hackathon 2024: Innovation Challenge',
+    title: 'Hackathon 2025: Innovation Challenge',
     description: 'Annual 48-hour hackathon focused on solving real-world problems using cutting-edge technology.',
     category: 'events',
-    url: '/events/hackathon-2024',
+    url: '/events/hackathon-2025',
     tags: ['Hackathon', 'Competition', 'Coding', 'Innovation'],
-    date: new Date('2024-04-20'),
+    date: new Date('2025-04-20'),
     author: 'Tech Club',
   },
   {
@@ -53,7 +53,7 @@ const mockData: SearchResult[] = [
     category: 'events',
     url: '/events/ai-ethics-symposium',
     tags: ['AI', 'Ethics', 'Conference', 'Discussion'],
-    date: new Date('2024-04-15'),
+    date: new Date('2025-04-15'),
     author: 'CS Department',
   },
   {
@@ -63,7 +63,7 @@ const mockData: SearchResult[] = [
     category: 'events',
     url: '/events/career-fair-tech',
     tags: ['Career', 'Networking', 'Jobs', 'Internships'],
-    date: new Date('2024-04-10'),
+    date: new Date('2025-04-10'),
     author: 'Career Services',
   },
   
@@ -75,7 +75,7 @@ const mockData: SearchResult[] = [
     category: 'resources',
     url: '/resources/python-guide',
     tags: ['Python', 'Programming', 'Tutorial', 'Guide'],
-    date: new Date('2024-03-01'),
+    date: new Date('2025-03-01'),
     author: 'Prof. David Kim',
   },
   {
@@ -85,7 +85,7 @@ const mockData: SearchResult[] = [
     category: 'resources',
     url: '/resources/paper-templates',
     tags: ['Research', 'Writing', 'Academic', 'Templates'],
-    date: new Date('2024-02-28'),
+    date: new Date('2025-02-28'),
     author: 'Academic Writing Center',
   },
   {
@@ -95,7 +95,7 @@ const mockData: SearchResult[] = [
     category: 'resources',
     url: '/resources/data-science-toolkit',
     tags: ['Data Science', 'Tools', 'Analytics', 'R', 'Python'],
-    date: new Date('2024-02-25'),
+    date: new Date('2025-02-25'),
     author: 'Data Science Lab',
   },
   
@@ -107,7 +107,7 @@ const mockData: SearchResult[] = [
     category: 'announcements',
     url: '/announcements/new-lab',
     tags: ['Facility', 'Lab', 'Announcement'],
-    date: new Date('2024-03-18'),
+    date: new Date('2025-03-18'),
     author: 'IT Department',
   },
   {
@@ -117,7 +117,7 @@ const mockData: SearchResult[] = [
     category: 'announcements',
     url: '/announcements/scholarships',
     tags: ['Scholarship', 'Financial Aid', 'Application'],
-    date: new Date('2024-03-12'),
+    date: new Date('2025-03-12'),
     author: 'Financial Aid Office',
   },
 ];
@@ -278,7 +278,7 @@ export class SearchEngine {
   async getTrendingSearches(): Promise<string[]> {
     return [
       'Machine Learning',
-      'Hackathon 2024',
+      'Hackathon 2025',
       'Python Programming',
       'Career Fair',
       'Research Papers',

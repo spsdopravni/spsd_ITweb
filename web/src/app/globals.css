@@ -269,11 +269,6 @@
 
   .classic-theme .section {
     padding: 60px 0;
-    border-bottom: 1px solid var(--spsd-bg-light-secondary);
-  }
-
-  .classic-theme.dark .section {
-    border-bottom: 1px solid var(--spsd-navy-light);
   }
 
   .classic-theme .card {
@@ -340,7 +335,6 @@
   }
 
   .classic-theme .hero-section {
-    background: linear-gradient(135deg, var(--spsd-navy) 0%, var(--spsd-navy-light) 100%);
     color: white;
     padding: 80px 0;
   }

@@ -40,7 +40,9 @@
     "classic": "Classic",
     "classicDesc": "Traditional, clean, focused",
     "modern": "Modern",
-    "modernDesc": "Dynamic, animated, futuristic"
+    "modernDesc": "Dynamic, animated, futuristic",
+    "light": "Light",
+    "dark": "Dark"
   },
   "home": {
     "title": "Information Technology",
@@ -308,6 +310,8 @@
     },
     "copyright": "© 2025 StudentHub. All rights reserved.",
     "madeWith": "Made with",
-    "byStudents": "by students, for students"
+    "byStudents": "by students",
+    "followUs": "Follow us",
+    "rights": "All rights reserved"
   }
 }

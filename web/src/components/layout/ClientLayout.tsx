@@ -39,7 +39,7 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
         <ThemeTransition>
           {theme === 'modern' ? (
             <UnifiedBackground>
-              <div className="hidden min-[550px]:block">
+              <div className="hidden min-[1024px]:block">
                 <DynamicIsland />
               </div>
               <MobileBurgerMenu />
@@ -50,7 +50,7 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
             </UnifiedBackground>
           ) : (
             <div className={`min-h-screen ${getBackgroundClass()}`}>
-              <div className="hidden min-[550px]:block">
+              <div className="hidden min-[1024px]:block">
                 <DynamicIsland />
               </div>
               <MobileBurgerMenu />

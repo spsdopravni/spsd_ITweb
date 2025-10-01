@@ -32,7 +32,7 @@ function SearchPageContent() {
   // Mock trending searches - replace with actual API call
   const trendingSearches = [
     'Machine Learning',
-    'Hackathon 2024',
+    'Hackathon 2025',
     'Python Programming',
     'Career Fair',
     'Research Papers',

@@ -72,7 +72,7 @@ export const SuccessStories: React.FC = () => {
       image: '/api/placeholder/80/80',
       quote: 'Jako fakultní škola ČVUT mi SPŠD usnadnila přechod na vysokou školu. Mám výborný základ.',
       rating: 5,
-      year: '2024'
+      year: '2025'
     }
   ];
 

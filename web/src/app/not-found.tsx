@@ -5,8 +5,11 @@ import Link from 'next/link';
 import { Home, Compass, AlertCircle, BookOpen } from 'lucide-react';
 import { useSpring, animated, useTrail } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { usePreferences } from '@/contexts/PreferencesContext';
+import { Classic404 } from '@/components/sections/Classic404';
 
 export default function NotFound() {
+  const { theme } = usePreferences();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [glitchText, setGlitchText] = useState('404');
 
@@ -66,6 +69,11 @@ export default function NotFound() {
     { icon: BookOpen, label: t('notFound.aboutProgram'), href: '/about' },
     { icon: Compass, label: t('notFound.viewProjects'), href: '/projects' },
   ];
+
+  // Show classic 404 if classic theme is selected
+  if (theme === 'classic') {
+    return <Classic404 />;
+  }
 
   return (
     <div className="min-h-screen bg-black overflow-hidden relative flex items-center justify-center">

@@ -10,9 +10,12 @@ import {
   FolderOpen, 
   Search,
   Globe,
-  ChevronRight
+  ChevronRight,
+  Sparkles,
+  Layers
 } from 'lucide-react';
 import { useLanguage, getLanguageFlag, getLanguageName, type SupportedLanguage } from '@/contexts/LanguageContext';
+import { usePreferences } from '@/contexts/PreferencesContext';
 import { useSpring, animated } from '@react-spring/web';
 
 interface NavItem {
@@ -25,9 +28,11 @@ interface NavItem {
 export const MobileBurgerMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showLanguages, setShowLanguages] = useState(false);
+  const [showThemes, setShowThemes] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { t, currentLanguage, changeLanguage } = useLanguage();
+  const { theme, setTheme } = usePreferences();
   const languages: SupportedLanguage[] = ['cs', 'en', 'sk', 'uk', 'ru'];
 
   const tString = (key: string, fallback?: string): string => {
@@ -81,7 +86,7 @@ export const MobileBurgerMenu: React.FC = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed top-4 left-4 z-50 p-3 rounded-full glass backdrop-blur-xl bg-black/60 border border-white/20 shadow-xl min-[550px]:hidden hover:bg-black/70 transition-all duration-200"
+          className="fixed top-4 left-4 z-50 p-3 rounded-full glass backdrop-blur-xl bg-black/60 border border-white/20 shadow-xl min-[1024px]:hidden hover:bg-black/70 transition-all duration-200"
           aria-label="Open menu"
         >
           <div className="w-6 h-6 relative flex items-center justify-center">
@@ -96,7 +101,7 @@ export const MobileBurgerMenu: React.FC = () => {
       {isOpen && (
         <animated.div
           style={overlaySpring}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 min-[550px]:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 min-[1024px]:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -104,7 +109,7 @@ export const MobileBurgerMenu: React.FC = () => {
       {/* Navigation Drawer */}
       <animated.div
         style={drawerSpring}
-        className="fixed top-0 left-0 h-full w-[280px] glass backdrop-blur-xl bg-black/90 border-r border-white/20 shadow-2xl z-[45] min-[550px]:hidden"
+        className="fixed top-0 left-0 h-full w-[280px] glass backdrop-blur-xl bg-black/90 border-r border-white/20 shadow-2xl z-[45] min-[1024px]:hidden"
       >
         <div className="flex flex-col h-full">
           {/* Header */}
@@ -163,17 +168,33 @@ export const MobileBurgerMenu: React.FC = () => {
 
           {/* Bottom Section */}
           <div className="p-4 border-t border-white/10 space-y-2">
-            {/* Language Section */}
-            {!showLanguages ? (
-              <button
-                onClick={() => setShowLanguages(true)}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-all"
-              >
-                <Globe className="w-5 h-5 text-white/70" />
-                <span className="text-sm text-white/80">Language</span>
-                <span className="ml-auto text-sm">{getLanguageFlag(currentLanguage)}</span>
-              </button>
-            ) : (
+            {/* Show main buttons when no submenu is active */}
+            {!showLanguages && !showThemes && (
+              <>
+                {/* Language Button */}
+                <button
+                  onClick={() => setShowLanguages(true)}
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-all"
+                >
+                  <Globe className="w-5 h-5 text-white/70" />
+                  <span className="text-sm text-white/80">Language</span>
+                  <span className="ml-auto text-sm">{getLanguageFlag(currentLanguage)}</span>
+                </button>
+
+                {/* Theme Button */}
+                <button
+                  onClick={() => setShowThemes(true)}
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-all"
+                >
+                  <Sparkles className="w-5 h-5 text-white/70" />
+                  <span className="text-sm text-white/80">Theme</span>
+                  <span className="ml-auto text-sm capitalize text-white/60">{theme}</span>
+                </button>
+              </>
+            )}
+
+            {/* Language Selection */}
+            {showLanguages && (
               <div className="space-y-2">
                 <button
                   onClick={() => setShowLanguages(false)}
@@ -200,6 +221,53 @@ export const MobileBurgerMenu: React.FC = () => {
                     <span className="text-xs text-white/50 uppercase ml-auto">{lang}</span>
                   </button>
                 ))}
+              </div>
+            )}
+
+            {/* Theme Selection */}
+            {showThemes && (
+              <div className="space-y-2">
+                <button
+                  onClick={() => setShowThemes(false)}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-white/60 hover:text-white/80 transition-all"
+                >
+                  <ChevronRight className="w-4 h-4 rotate-180" />
+                  Back
+                </button>
+                
+                <button
+                  onClick={() => {
+                    setTheme('modern');
+                    setShowThemes(false);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    theme === 'modern'
+                      ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30'
+                      : 'hover:bg-white/10'
+                  }`}
+                >
+                  <Sparkles className="w-5 h-5 text-purple-400" />
+                  <span className="text-sm text-white/80">Modern</span>
+                  <span className="text-xs text-white/50 ml-auto">Futuristic design</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setTheme('classic');
+                    setShowThemes(false);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    theme === 'classic'
+                      ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30'
+                      : 'hover:bg-white/10'
+                  }`}
+                >
+                  <Layers className="w-5 h-5 text-blue-400" />
+                  <span className="text-sm text-white/80">Classic</span>
+                  <span className="text-xs text-white/50 ml-auto">Traditional style</span>
+                </button>
               </div>
             )}
 

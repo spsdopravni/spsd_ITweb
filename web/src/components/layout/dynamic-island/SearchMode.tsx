@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { animated, SpringValue } from '@react-spring/web';
 import { Search, ChevronDown } from 'lucide-react';
+import { useTheme } from '@/lib/theme/useTheme';
 
 interface SearchSuggestion {
   id: string;
@@ -40,6 +41,50 @@ export const SearchMode: React.FC<SearchModeProps> = ({
   onEscape
 }) => {
   const router = useRouter();
+  const { theme, classicMode } = useTheme();
+
+  // Theme-aware colors
+  const getTextColors = () => {
+    if (theme === 'classic' && classicMode === 'light') {
+      return {
+        primary: 'text-[var(--spsd-navy)]',
+        secondary: 'text-[var(--spsd-navy)]/70',
+        muted: 'text-[var(--spsd-navy)]/50',
+        accent: 'text-[var(--spsd-orange)]',
+        placeholder: 'placeholder-[var(--spsd-navy)]/40',
+        hoverBg: 'hover:bg-blue-50',
+        suggestionBg: 'bg-blue-50 group-hover:bg-blue-100',
+        suggestionIcon: 'text-blue-500',
+        borderColor: 'border-[var(--spsd-navy)]/10'
+      };
+    } else if (theme === 'classic' && classicMode === 'dark') {
+      return {
+        primary: 'text-slate-100',
+        secondary: 'text-slate-100/70',
+        muted: 'text-slate-100/50',
+        accent: 'text-[var(--spsd-orange)]',
+        placeholder: 'placeholder-slate-100/40',
+        hoverBg: 'hover:bg-blue-500/10',
+        suggestionBg: 'bg-blue-500/10 group-hover:bg-blue-500/20',
+        suggestionIcon: 'text-blue-400',
+        borderColor: 'border-white/10'
+      };
+    } else {
+      return {
+        primary: 'text-white',
+        secondary: 'text-white/70',
+        muted: 'text-white/50',
+        accent: 'text-[var(--spsd-orange)]',
+        placeholder: 'placeholder-white/40',
+        hoverBg: 'hover:bg-blue-500/10',
+        suggestionBg: 'bg-blue-500/10 group-hover:bg-blue-500/20',
+        suggestionIcon: 'text-blue-400',
+        borderColor: 'border-white/10'
+      };
+    }
+  };
+
+  const colors = getTextColors();
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,9 +103,9 @@ export const SearchMode: React.FC<SearchModeProps> = ({
 
   return (
     <div className="h-full flex flex-col">
-      <animated.div style={searchInputSpring} className="px-3 sm:px-5 py-2.5 sm:py-3 border-b border-white/10">
+      <animated.div style={searchInputSpring} className={`px-3 sm:px-5 py-2.5 sm:py-3 border-b ${colors.borderColor}`}>
         <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 sm:gap-3">
-          <Search className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-blue-400 flex-shrink-0" />
+          <Search className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${colors.accent} flex-shrink-0`} />
           <input
             ref={searchInputRef}
             type="text"
@@ -68,7 +113,7 @@ export const SearchMode: React.FC<SearchModeProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={onEscape}
-            className="flex-1 bg-transparent text-white placeholder-white/40 text-xs sm:text-sm outline-none min-w-0"
+            className={`flex-1 bg-transparent ${colors.primary} ${colors.placeholder} text-xs sm:text-sm outline-none min-w-0`}
           />
           <button
             type="button"
@@ -76,7 +121,7 @@ export const SearchMode: React.FC<SearchModeProps> = ({
               onModeChange('expanded');
               setSearchQuery('');
             }}
-            className="text-white/40 hover:text-white/60 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-white/5 hover:bg-white/10 transition-all"
+            className={`${colors.muted} hover:${colors.secondary} text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-white/5 hover:bg-white/10 transition-all`}
           >
             ESC
           </button>
@@ -94,17 +139,17 @@ export const SearchMode: React.FC<SearchModeProps> = ({
               <button
                 key={suggestion.id}
                 onClick={() => handleSuggestionClick(suggestion)}
-                className="w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg hover:bg-white/10 transition-all group text-left mb-1"
+                className={`w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg ${colors.hoverBg} transition-all group text-left mb-1`}
               >
-                <div className="p-1.5 sm:p-2 rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
-                  <suggestion.icon className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-blue-400" />
+                <div className={`p-1.5 sm:p-2 rounded-lg ${colors.suggestionBg} transition-colors`}>
+                  <suggestion.icon className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${colors.suggestionIcon}`} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs sm:text-sm text-white/90 font-medium truncate">{suggestion.text}</p>
-                  <p className="text-[10px] sm:text-xs text-white/50 capitalize">{suggestion.type}</p>
+                  <p className={`text-xs sm:text-sm ${colors.primary} font-medium truncate`}>{suggestion.text}</p>
+                  <p className={`text-[10px] sm:text-xs ${colors.muted} capitalize`}>{suggestion.type}</p>
                 </div>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ChevronDown className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-white/30 -rotate-90" />
+                  <ChevronDown className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${colors.muted} -rotate-90`} />
                 </div>
               </button>
             );

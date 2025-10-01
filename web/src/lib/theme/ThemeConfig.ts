@@ -37,7 +37,7 @@ export const THEME_CONFIGS: Record<ThemeType, ThemeConfig> = {
         icon: Sun,
         colors: ['#002b4e', '#c81e1c', '#e95d41'],
         cssClass: 'classic-light',
-        backgroundGradient: 'bg-gradient-to-b from-white to-slate-50'
+        backgroundGradient: 'bg-white'
       },
       {
         id: 'dark',

@@ -40,7 +40,9 @@
     "classic": "Klasický",
     "classicDesc": "Tradiční, čistý, soustředěný",
     "modern": "Moderní",
-    "modernDesc": "Dynamický, animovaný, futuristický"
+    "modernDesc": "Dynamický, animovaný, futuristický",
+    "light": "Světlý",
+    "dark": "Tmavý"
   },
   "home": {
     "title": "Informační technologie",
@@ -308,6 +310,8 @@
     },
     "copyright": "© 2025 StudentHub. Všechna práva vyhrazena.",
     "madeWith": "Vytvořeno s",
-    "byStudents": "studenty, pro studenty"
+    "byStudents": "studenty",
+    "followUs": "Sledujte nás",
+    "rights": "Všechna práva vyhrazena"
   }
 }

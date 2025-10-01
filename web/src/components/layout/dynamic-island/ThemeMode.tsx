@@ -16,6 +16,43 @@ export const ThemeMode: React.FC<ThemeModeProps> = ({ onClose }) => {
   const { theme, classicMode, switchTheme, isCurrentTheme } = useTheme();
   const [expandedTheme, setExpandedTheme] = useState<ThemeType | null>(null);
 
+  // Theme-aware colors
+  const getTextColors = () => {
+    if (theme === 'classic' && classicMode === 'light') {
+      return {
+        primary: 'text-[var(--spsd-navy)]',
+        secondary: 'text-[var(--spsd-navy)]/70',
+        muted: 'text-[var(--spsd-navy)]/50',
+        accent: 'text-[var(--spsd-orange)]',
+        hoverBg: 'hover:bg-blue-50',
+        borderColor: 'border-[var(--spsd-navy)]/10',
+        themeHover: 'hover:text-blue-600'
+      };
+    } else if (theme === 'classic' && classicMode === 'dark') {
+      return {
+        primary: 'text-slate-100',
+        secondary: 'text-slate-100/70',
+        muted: 'text-slate-100/50',
+        accent: 'text-[var(--spsd-orange)]',
+        hoverBg: 'hover:bg-blue-500/10',
+        borderColor: 'border-white/10',
+        themeHover: 'hover:text-blue-300'
+      };
+    } else {
+      return {
+        primary: 'text-white',
+        secondary: 'text-white/70',
+        muted: 'text-white/50',
+        accent: 'text-[var(--spsd-orange)]',
+        hoverBg: 'hover:bg-blue-500/10',
+        borderColor: 'border-white/10',
+        themeHover: 'hover:text-blue-300'
+      };
+    }
+  };
+
+  const colors = getTextColors();
+
   const tString = (key: string, fallback?: string): string => {
     const result = t(key, fallback);
     return Array.isArray(result) ? result[0] || fallback || key : result;
@@ -32,13 +69,13 @@ export const ThemeMode: React.FC<ThemeModeProps> = ({ onClose }) => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="px-3 sm:px-5 py-2.5 sm:py-3 border-b border-white/10">
+      <div className={`px-3 sm:px-5 py-2.5 sm:py-3 border-b ${colors.borderColor}`}>
         <div className="flex items-center gap-2 sm:gap-3">
-          <Palette className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-purple-400 flex-shrink-0" />
-          <span className="text-white text-xs sm:text-sm font-medium">{t('theme.title', 'Choose Theme')}</span>
+          <Palette className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${colors.accent} flex-shrink-0`} />
+          <span className={`${colors.primary} text-xs sm:text-sm font-medium`}>{t('theme.title', 'Choose Theme')}</span>
           <button
             onClick={onClose}
-            className="ml-auto text-white/40 hover:text-white/60 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-white/5 hover:bg-white/10 transition-all"
+            className={`ml-auto ${colors.muted} hover:${colors.secondary} text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-white/5 hover:bg-white/10 transition-all`}
           >
             ESC
           </button>
@@ -58,19 +95,19 @@ export const ThemeMode: React.FC<ThemeModeProps> = ({ onClose }) => {
                     toggleExpanded(themeConfig.id);
                   }
                 }}
-                className="flex-1 flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2.5 sm:py-3 rounded-lg hover:bg-white/10 transition-all group text-left"
+                className={`flex-1 flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2.5 sm:py-3 rounded-lg ${colors.hoverBg} transition-all group text-left`}
               >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                  <themeConfig.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  <themeConfig.icon className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.primary}`} />
                 </div>
                 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-white text-xs sm:text-sm font-medium group-hover:text-blue-300 transition-colors">
+                      <div className={`${colors.primary} text-xs sm:text-sm font-medium ${colors.themeHover} transition-colors`}>
                         {tString(`theme.${themeConfig.id}`, themeConfig.name)}
                       </div>
-                      <div className="text-white/50 text-[10px] sm:text-xs">
+                      <div className={`${colors.muted} text-[10px] sm:text-xs`}>
                         {tString(`theme.${themeConfig.id}Desc`, themeConfig.description)}
                       </div>
                     </div>
@@ -82,9 +119,9 @@ export const ThemeMode: React.FC<ThemeModeProps> = ({ onClose }) => {
                       {themeConfig.variants.length > 1 && (
                         <div>
                           {expandedTheme === themeConfig.id ? (
-                            <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-white/60" />
+                            <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 ${colors.secondary}`} />
                           ) : (
-                            <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 text-white/60" />
+                            <ChevronRight className={`w-3 h-3 sm:w-4 sm:h-4 ${colors.secondary}`} />
                           )}
                         </div>
                       )}
@@ -101,19 +138,19 @@ export const ThemeMode: React.FC<ThemeModeProps> = ({ onClose }) => {
                   <button
                     key={variant.id}
                     onClick={() => handleThemeSelect(themeConfig.id, variant.id)}
-                    className="w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-md hover:bg-white/5 transition-all group text-left"
+                    className={`w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 sm:py-2.5 rounded-md hover:bg-white/5 transition-all group text-left`}
                   >
                     <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md bg-white/5 flex items-center justify-center flex-shrink-0">
-                      <variant.icon className="w-3 h-3 sm:w-4 sm:h-4 text-white/80" />
+                      <variant.icon className={`w-3 h-3 sm:w-4 sm:h-4 ${colors.secondary}`} />
                     </div>
                     
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <div>
-                          <div className="text-white/90 text-[10px] sm:text-xs font-medium group-hover:text-blue-300 transition-colors">
+                          <div className={`${colors.primary} text-[10px] sm:text-xs font-medium ${colors.themeHover} transition-colors`}>
                             {tString(`theme.${variant.id}`, variant.name)}
                           </div>
-                          <div className="text-white/40 text-[9px] sm:text-[10px]">
+                          <div className={`${colors.muted} text-[9px] sm:text-[10px]`}>
                             {tString(`theme.${variant.id}Desc`, variant.description)}
                           </div>
                         </div>

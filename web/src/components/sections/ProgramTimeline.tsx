@@ -31,7 +31,7 @@ export const ProgramTimeline: React.FC = () => {
     const result = t(key, fallback);
     return Array.isArray(result) ? result[0] || fallback || key : result;
   };
-  const [activeYear, setActiveYear] = useState<number>(1);
+  const [activeYear, setActiveYear] = useState<number | null>(null);
   const [ref, inView] = useInView({ once: true });
 
   const yearsData: YearData[] = [
@@ -159,7 +159,7 @@ export const ProgramTimeline: React.FC = () => {
                     className={`w-full md:w-5/12 ml-12 sm:ml-16 md:ml-0 pr-4 sm:pr-0 ${
                       isEven ? 'md:pr-12' : 'md:pl-12'
                     } cursor-pointer group`}
-                    onClick={() => setActiveYear(isActive ? 0 : yearData.year)}
+                    onClick={() => setActiveYear(isActive ? null : yearData.year)}
                   >
                     <div className={`glass rounded-xl sm:rounded-2xl p-4 sm:p-6 border transition-all duration-300 ${
                       isActive 
