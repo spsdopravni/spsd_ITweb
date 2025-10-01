@@ -98,17 +98,17 @@ export const ModernFooter: React.FC = () => {
               {/* Desktop: Normal display, Mobile: Collapsible */}
               <h3 
                 className="text-white font-semibold mb-2 md:mb-4 md:cursor-default cursor-pointer flex items-center justify-between md:justify-start py-2 md:py-0"
-                onClick={() => toggleSection(section.title)}
+                onClick={() => toggleSection(Array.isArray(section.title) ? section.title[0] || '' : section.title)}
               >
                 {section.title}
                 <ChevronDown 
                   className={`w-4 h-4 md:hidden transition-transform duration-200 ${
-                    expandedSection === section.title ? 'rotate-180' : ''
+                    expandedSection === (Array.isArray(section.title) ? section.title[0] || '' : section.title) ? 'rotate-180' : ''
                   }`}
                 />
               </h3>
               <ul className={`space-y-2 transition-all duration-300 md:block ${
-                expandedSection === section.title ? 'block mb-2 pl-4 md:pl-0' : 'hidden'
+                expandedSection === (Array.isArray(section.title) ? section.title[0] || '' : section.title) ? 'block mb-2 pl-4 md:pl-0' : 'hidden'
               }`}>
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>

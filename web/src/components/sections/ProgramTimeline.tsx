@@ -26,14 +26,19 @@ interface YearData {
 
 export const ProgramTimeline: React.FC = () => {
   const { t } = useLanguage();
+  
+  const tString = (key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  };
   const [activeYear, setActiveYear] = useState<number>(1);
   const [ref, inView] = useInView({ once: true });
 
   const yearsData: YearData[] = [
     {
       year: 1,
-      title: t('timeline.year1.title') || 'Základní technologie',
-      description: t('timeline.year1.desc') || 'Programové vybavení, Hardware, Základy elektrotechniky',
+      title: tString('timeline.year1.title', 'Základní technologie'),
+      description: tString('timeline.year1.desc', 'Programové vybavení, Hardware, Základy elektrotechniky'),
       subjects: ['Programové vybavení', 'Hardware', 'Základy elektrotechniky', 'Matematika'],
       icon: Code2,
       color: 'from-blue-500 to-cyan-500',
@@ -47,8 +52,8 @@ export const ProgramTimeline: React.FC = () => {
     },
     {
       year: 2,
-      title: t('timeline.year2.title') || 'Programování a systémy',
-      description: t('timeline.year2.desc') || 'Operační systémy, Programování, CAD systémy',
+      title: tString('timeline.year2.title', 'Programování a systémy'),
+      description: tString('timeline.year2.desc', 'Operační systémy, Programování, CAD systémy'),
       subjects: ['Operační systémy', 'Programování', 'CAD systémy', 'Databázové systémy'],
       icon: Database,
       color: 'from-green-500 to-emerald-500',
@@ -62,8 +67,8 @@ export const ProgramTimeline: React.FC = () => {
     },
     {
       year: 3,
-      title: t('timeline.year3.title') || 'Sítě a databáze',
-      description: t('timeline.year3.desc') || 'Datové sítě, Databázové systémy, Cisco kurzy',
+      title: tString('timeline.year3.title', 'Sítě a databáze'),
+      description: tString('timeline.year3.desc', 'Datové sítě, Databázové systémy, Cisco kurzy'),
       subjects: ['Datové sítě', 'Databázové systémy', 'Cisco kurzy', 'Python workshop'],
       icon: Palette,
       color: 'from-blue-500 to-blue-400',
@@ -77,8 +82,8 @@ export const ProgramTimeline: React.FC = () => {
     },
     {
       year: 4,
-      title: t('timeline.year4.title') || 'Maturita a certifikace',
-      description: t('timeline.year4.desc') || 'Maturitní zkouška, Oracle, MSDN AA, praxe v DPP',
+      title: tString('timeline.year4.title', 'Maturita a certifikace'),
+      description: tString('timeline.year4.desc', 'Maturitní zkouška, Oracle, MSDN AA, praxe v DPP'),
       subjects: ['Maturitní zkouška', 'Oracle certifikace', 'MSDN AA', 'Praxe v DPP'],
       icon: GraduationCap,
       color: 'from-orange-500 to-red-500',

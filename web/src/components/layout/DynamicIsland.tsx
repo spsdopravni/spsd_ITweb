@@ -14,9 +14,10 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { CompactMode, SearchMode, ExpandedMode, LanguageMode } from './dynamic-island';
+import { useTheme } from '@/lib/theme/useTheme';
+import { CompactMode, SearchMode, ExpandedMode, LanguageMode, ThemeMode } from './dynamic-island';
 
-type IslandMode = 'compact' | 'expanded' | 'search' | 'language';
+type IslandMode = 'compact' | 'expanded' | 'search' | 'language' | 'theme';
 
 interface NavItem {
   id: string;
@@ -32,12 +33,19 @@ interface SearchSuggestion {
   icon: React.ComponentType<{ className?: string }>;
 }
 
-const getNavItems = (t: (key: string, fallback?: string) => string): NavItem[] => [
-  { id: 'home', label: t('nav.home', 'Domů'), icon: Home, href: '/' },
-  { id: 'about', label: t('nav.about', 'O oboru'), icon: Info, href: '/about' },
-  { id: 'curriculum', label: t('nav.curriculum', 'Učební plán'), icon: BookOpen, href: '/curriculum' },
-  { id: 'projects', label: t('nav.projects', 'Projekty'), icon: FolderOpen, href: '/projects' },
-];
+const getNavItems = (t: (key: string, fallback?: string) => string | string[]): NavItem[] => {
+  const tString = (key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  };
+
+  return [
+    { id: 'home', label: tString('nav.home', 'Domů'), icon: Home, href: '/' },
+    { id: 'about', label: tString('nav.about', 'O oboru'), icon: Info, href: '/about' },
+    { id: 'curriculum', label: tString('nav.curriculum', 'Učební plán'), icon: BookOpen, href: '/curriculum' },
+    { id: 'projects', label: tString('nav.projects', 'Projekty'), icon: FolderOpen, href: '/projects' },
+  ];
+};
 
 const searchSuggestions: SearchSuggestion[] = [
   { id: '1', text: 'Informace o oboru', type: 'page', icon: Info },
@@ -57,10 +65,11 @@ export const DynamicIsland: React.FC = () => {
   const [filteredSuggestions, setFilteredSuggestions] = useState<SearchSuggestion[]>([]);
   
   const pathname = usePathname();
+  const { t } = useLanguage();
+  const { theme, classicMode } = useTheme();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const islandRef = useRef<HTMLDivElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
-  const { t } = useLanguage();
 
   const navItems = getNavItems(t);
   const currentItem = navItems.find(item => item.href === pathname);
@@ -92,11 +101,11 @@ export const DynamicIsland: React.FC = () => {
 
   // Island container animation - height and border radius only
   const islandSpring = useSpring({
-    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : 56) : mode === 'language' ? (isMobile ? 180 : 200) : (isMobile ? 'auto' : 64),
-    borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : (isMobile ? 24 : 32),
+    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : 56) : mode === 'language' ? (isMobile ? 180 : 200) : mode === 'theme' ? (isMobile ? 140 : 215) : (isMobile ? 'auto' : 64),
+    borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : mode === 'theme' ? 24 : (isMobile ? 24 : 32),
     config: { 
-      tension: 280,
-      friction: 30,
+      tension: 0,
+      friction: 10,
       precision: 0.001
     },
     onStart: () => {
@@ -122,6 +131,13 @@ export const DynamicIsland: React.FC = () => {
   const languageSpring = useSpring({
     opacity: mode === 'language' && !isAnimating ? 1 : 0,
     transform: mode === 'language' && !isAnimating ? 'translateY(0px)' : 'translateY(-10px)',
+    config: { tension: 350, friction: 30 }
+  });
+  
+  // Theme options spring animation
+  const themeSpring = useSpring({
+    opacity: mode === 'theme' && !isAnimating ? 1 : 0,
+    transform: mode === 'theme' && !isAnimating ? 'translateY(0px)' : 'translateY(-10px)',
     config: { tension: 350, friction: 30 }
   });
 
@@ -163,8 +179,8 @@ export const DynamicIsland: React.FC = () => {
   // Click away handler for search, expanded, and language modes
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if ((mode === 'search' || mode === 'expanded' || mode === 'language') && islandRef.current && !islandRef.current.contains(event.target as Node)) {
-        if (mode === 'search' || mode === 'language') {
+      if ((mode === 'search' || mode === 'expanded' || mode === 'language' || mode === 'theme') && islandRef.current && !islandRef.current.contains(event.target as Node)) {
+        if (mode === 'search' || mode === 'language' || mode === 'theme') {
           setMode('expanded');
         } else {
           setMode('compact');
@@ -175,7 +191,7 @@ export const DynamicIsland: React.FC = () => {
       }
     };
 
-    if (mode === 'search' || mode === 'expanded' || mode === 'language') {
+    if (mode === 'search' || mode === 'expanded' || mode === 'language' || mode === 'theme') {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
@@ -195,7 +211,7 @@ export const DynamicIsland: React.FC = () => {
 
   const handleEscape = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
-      if (mode === 'search' || mode === 'language') {
+      if (mode === 'search' || mode === 'language' || mode === 'theme') {
         setMode('expanded');
       } else {
         setMode('compact');
@@ -214,17 +230,31 @@ export const DynamicIsland: React.FC = () => {
           height: isMobile && mode === 'expanded' ? 'auto' : islandSpring.height.to(h => typeof h === 'string' ? h : `${h}px`),
           borderRadius: islandSpring.borderRadius.to(r => `${r}px`)
         }}
-        className={`glass backdrop-blur-xl bg-black/60 border border-white/20 shadow-2xl relative overflow-hidden mx-auto
+        // Dynamic theme-aware styling
+        className={`glass backdrop-blur-xl relative overflow-hidden mx-auto transition-all duration-300
+          ${theme === 'classic' && classicMode === 'light' 
+            ? 'bg-white/95 border-2 border-gray-300 shadow-lg text-gray-900' 
+            : theme === 'classic' && classicMode === 'dark'
+            ? 'bg-slate-800/95 border-2 border-slate-600 shadow-2xl text-slate-100'
+            : 'bg-black/60 border border-white/20 shadow-2xl text-white'
+          }
           ${mode === 'compact' ? 'w-fit min-w-[160px] max-w-full' : ''}
           ${mode === 'expanded' ? 'w-full max-w-full' : ''}
           ${mode === 'search' ? 'w-full max-w-full' : ''}
-          ${mode === 'language' ? 'w-full max-w-[400px]' : ''}`}
+          ${mode === 'language' ? 'w-full max-w-[400px]' : ''}
+          ${mode === 'theme' ? 'w-full max-w-[400px]' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Animated background gradient */}
+        {/* Animated background gradient - theme aware */}
         <div className="absolute inset-0 opacity-30 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-blue-400/20 animate-pulse" />
+          <div className={`absolute inset-0 animate-pulse ${
+            theme === 'classic' && classicMode === 'light'
+              ? 'bg-gradient-to-br from-[var(--spsd-navy)]/10 via-transparent to-[var(--spsd-red)]/10'
+              : theme === 'classic' && classicMode === 'dark'
+              ? 'bg-gradient-to-br from-blue-400/20 via-transparent to-slate-400/20'
+              : 'bg-gradient-to-br from-blue-600/20 via-transparent to-blue-400/20'
+          }`} />
         </div>
 
         {/* Compact Mode */}
@@ -261,6 +291,15 @@ export const DynamicIsland: React.FC = () => {
               languageSpring={languageSpring}
               onModeChange={setMode}
               onEscape={handleEscape}
+            />
+          </div>
+        )}
+        
+        {/* Theme Mode */}
+        {mode === 'theme' && (
+          <div className="w-full h-full">
+            <ThemeMode
+              onClose={() => setMode('expanded')}
             />
           </div>
         )}

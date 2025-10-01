@@ -3,6 +3,7 @@ import "./globals.css";
 import { SearchProvider } from "@/contexts/SearchContext";
 import { CommandPaletteProvider } from "@/contexts/CommandPaletteContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { PreferencesProvider } from "@/contexts/PreferencesContext";
 import { ClientLayout } from "@/components/layout/ClientLayout";
 
 
@@ -19,15 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-black">
-        <LanguageProvider>
-          <SearchProvider>
-            <CommandPaletteProvider>
-              <ClientLayout>
-                {children}
-              </ClientLayout>
-            </CommandPaletteProvider>
-          </SearchProvider>
-        </LanguageProvider>
+        <PreferencesProvider>
+          <LanguageProvider>
+            <SearchProvider>
+              <CommandPaletteProvider>
+                <ClientLayout>
+                  {children}
+                </ClientLayout>
+              </CommandPaletteProvider>
+            </SearchProvider>
+          </LanguageProvider>
+        </PreferencesProvider>
       </body>
     </html>
   );

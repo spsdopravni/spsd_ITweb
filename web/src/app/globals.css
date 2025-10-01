@@ -2,12 +2,32 @@
 
 @layer base {
   :root {
-    /* SPŠD Official Colors */
+    /* SPŠD Official Colors - Primary Palette */
     --spsd-navy: #002b4e;
     --spsd-navy-light: #133f64;
     --spsd-red: #c81e1c;
     --spsd-orange: #e95d41;
     --spsd-white: #ffffff;
+    
+    /* SPŠD Extended Palette for Themes */
+    --spsd-navy-dark: #001a2e;
+    --spsd-navy-lighter: #1e4a70;
+    --spsd-red-dark: #a01915;
+    --spsd-red-light: #dc3530;
+    --spsd-orange-dark: #d44d31;
+    --spsd-orange-light: #f06b4f;
+    
+    /* Theme-specific backgrounds */
+    --spsd-bg-light: #ffffff;
+    --spsd-bg-light-secondary: #f8fafc;
+    --spsd-bg-dark: #002b4e;
+    --spsd-bg-dark-secondary: #001a2e;
+    
+    /* Theme-specific text colors */
+    --spsd-text-light: #002b4e;
+    --spsd-text-light-secondary: #133f64;
+    --spsd-text-dark: #ffffff;
+    --spsd-text-dark-secondary: #e2e8f0;
     
     /* Design System Gradients */
     --gradient-primary: linear-gradient(135deg, var(--spsd-navy) 0%, var(--spsd-navy-light) 100%);
@@ -182,4 +202,155 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+}
+
+@layer components {
+  /* Classic Theme Styles - Strict SPSD Colors */
+  .classic-theme {
+    background: var(--spsd-bg-light);
+    color: var(--spsd-text-light);
+  }
+
+  .classic-theme.dark {
+    background: var(--spsd-bg-dark);
+    color: var(--spsd-text-dark);
+  }
+
+  .classic-theme h1,
+  .classic-theme h2,
+  .classic-theme h3,
+  .classic-theme h4,
+  .classic-theme h5,
+  .classic-theme h6 {
+    color: var(--spsd-navy);
+    font-weight: 600;
+  }
+
+  .classic-theme.dark h1,
+  .classic-theme.dark h2,
+  .classic-theme.dark h3,
+  .classic-theme.dark h4,
+  .classic-theme.dark h5,
+  .classic-theme.dark h6 {
+    color: var(--spsd-white);
+    font-weight: 600;
+  }
+
+  .classic-theme p {
+    color: var(--spsd-text-light-secondary);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .classic-theme.dark p {
+    color: var(--spsd-text-dark-secondary);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .classic-theme a {
+    color: var(--spsd-red);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .classic-theme a:hover {
+    color: var(--spsd-orange);
+    text-decoration: underline;
+  }
+
+  .classic-theme.dark a {
+    color: var(--spsd-red-light);
+  }
+
+  .classic-theme.dark a:hover {
+    color: var(--spsd-orange-light);
+  }
+
+  .classic-theme .section {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--spsd-bg-light-secondary);
+  }
+
+  .classic-theme.dark .section {
+    border-bottom: 1px solid var(--spsd-navy-light);
+  }
+
+  .classic-theme .card {
+    background: var(--spsd-bg-light);
+    border: 2px solid var(--spsd-navy-light);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 43, 78, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .classic-theme.dark .card {
+    background: var(--spsd-bg-dark-secondary);
+    border: 2px solid var(--spsd-navy-lighter);
+    color: var(--spsd-text-dark);
+    box-shadow: 0 8px 25px rgba(0, 26, 46, 0.3);
+  }
+
+  .classic-theme .card:hover {
+    box-shadow: 0 8px 25px rgba(0, 43, 78, 0.15);
+    border-color: var(--spsd-red);
+    transform: translateY(-2px);
+  }
+
+  .classic-theme.dark .card:hover {
+    box-shadow: 0 12px 35px rgba(0, 26, 46, 0.4);
+    border-color: var(--spsd-red-light);
+    transform: translateY(-2px);
+  }
+
+  .classic-theme .btn-primary {
+    background: var(--spsd-navy);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: none;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .classic-theme .btn-primary:hover {
+    background: var(--spsd-navy-light);
+  }
+
+  .classic-theme .btn-secondary {
+    background: white;
+    color: var(--spsd-navy);
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: 2px solid var(--spsd-navy);
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .classic-theme .btn-secondary:hover {
+    background: var(--spsd-navy);
+    color: white;
+  }
+
+  .classic-theme .accent-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--spsd-red) 0%, var(--spsd-orange) 100%);
+    margin-bottom: 24px;
+  }
+
+  .classic-theme .hero-section {
+    background: linear-gradient(135deg, var(--spsd-navy) 0%, var(--spsd-navy-light) 100%);
+    color: white;
+    padding: 80px 0;
+  }
+
+  .classic-theme .hero-section h1 {
+    color: white;
+  }
+
+  .classic-theme .hero-section p {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
 }

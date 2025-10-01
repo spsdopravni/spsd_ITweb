@@ -30,11 +30,16 @@ export const MobileBurgerMenu: React.FC = () => {
   const { t, currentLanguage, changeLanguage } = useLanguage();
   const languages: SupportedLanguage[] = ['cs', 'en', 'sk', 'uk', 'ru'];
 
+  const tString = (key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  };
+
   const navItems: NavItem[] = [
-    { id: 'home', label: t('nav.home', 'Domů'), icon: Home, href: '/' },
-    { id: 'about', label: t('nav.about', 'O oboru'), icon: Info, href: '/about' },
-    { id: 'curriculum', label: t('nav.curriculum', 'Učební plán'), icon: BookOpen, href: '/curriculum' },
-    { id: 'projects', label: t('nav.projects', 'Projekty'), icon: FolderOpen, href: '/projects' },
+    { id: 'home', label: tString('nav.home', 'Domů'), icon: Home, href: '/' },
+    { id: 'about', label: tString('nav.about', 'O oboru'), icon: Info, href: '/about' },
+    { id: 'curriculum', label: tString('nav.curriculum', 'Učební plán'), icon: BookOpen, href: '/curriculum' },
+    { id: 'projects', label: tString('nav.projects', 'Projekty'), icon: FolderOpen, href: '/projects' },
   ];
 
   // Close menu when route changes

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Globe } from 'lucide-react';
+import { Search, Globe, Palette } from 'lucide-react';
 
 interface NavItem {
   id: string;
@@ -14,7 +14,7 @@ interface NavItem {
 interface ExpandedModeProps {
   navItems: NavItem[];
   pathname: string;
-  onModeChange: (mode: 'search') => void;
+  onModeChange: (mode: 'search' | 'theme') => void;
   onLanguageModeChange: () => void;
 }
 
@@ -64,6 +64,14 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
             <Search className="w-3.5 md:w-4 h-3.5 md:h-4 text-white/70 hover:text-white" />
           </button>
         )}
+        
+        <button
+          onClick={() => onModeChange('theme')}
+          className="p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110"
+          title="Change Theme"
+        >
+          <Palette className="w-3.5 md:w-4 h-3.5 md:h-4 text-white/70 hover:text-white" />
+        </button>
         
         <button
           onClick={onLanguageModeChange}

@@ -23,6 +23,25 @@
     "delete": "Zmazať",
     "edit": "Upraviť"
   },
+  "welcome": {
+    "selectLanguage": "Vyberte jazyk",
+    "continue": "Pokračovať",
+    "chooseStyle": "Vyberte štýl",
+    "selectTheme": "Vyberte preferovaný vzhľad",
+    "classic": "Klasický",
+    "classicDesc": "Tradičný, čistý, sústredený",
+    "modern": "Moderný",
+    "modernDesc": "Dynamický, animovaný, futuristický",
+    "light": "Svetlý",
+    "dark": "Tmavý"
+  },
+  "theme": {
+    "title": "Vyberte tému",
+    "classic": "Klasický",
+    "classicDesc": "Tradičný, čistý, sústredený",
+    "modern": "Moderný",
+    "modernDesc": "Dynamický, animovaný, futuristický"
+  },
   "home": {
     "title": "Informačné technológie",
     "subtitle": "Stredná priemyselná škola dopravná, a.s.",

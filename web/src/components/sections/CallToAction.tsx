@@ -10,6 +10,11 @@ import {
 
 export const CallToAction: React.FC = () => {
   const { t } = useLanguage();
+  
+  const tString = (key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  };
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -107,7 +112,7 @@ export const CallToAction: React.FC = () => {
                   <input
                     type="text"
                     name="name"
-                    placeholder={t('form.name') || 'Vaše jméno'}
+                    placeholder={tString('form.name', 'Vaše jméno')}
                     value={formData.name}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 glass rounded-lg border border-white/10 focus:border-red-400 focus:outline-none text-white placeholder-white/50 transition-all duration-300"
@@ -118,7 +123,7 @@ export const CallToAction: React.FC = () => {
                   <input
                     type="email"
                     name="email"
-                    placeholder={t('form.email') || 'Váš email'}
+                    placeholder={tString('form.email', 'Váš email')}
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 glass rounded-lg border border-white/10 focus:border-red-400 focus:outline-none text-white placeholder-white/50 transition-all duration-300"
@@ -130,7 +135,7 @@ export const CallToAction: React.FC = () => {
               <input
                 type="tel"
                 name="phone"
-                placeholder={t('form.phone') || 'Telefon (nepovinné)'}
+                placeholder={tString('form.phone', 'Telefon (nepovinné)')}
                 value={formData.phone}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 glass rounded-lg border border-white/10 focus:border-red-400 focus:outline-none text-white placeholder-white/50 transition-all duration-300"
@@ -138,7 +143,7 @@ export const CallToAction: React.FC = () => {
 
               <textarea
                 name="message"
-                placeholder={t('form.message') || 'Vaše zpráva'}
+                placeholder={tString('form.message', 'Vaše zpráva')}
                 rows={4}
                 value={formData.message}
                 onChange={handleInputChange}

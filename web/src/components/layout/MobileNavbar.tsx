@@ -18,11 +18,16 @@ export const MobileNavbar: React.FC = () => {
   const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  const tString = (key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  };
+
   const navItems: NavItem[] = [
-    { id: 'home', label: t('nav.home', 'Home'), icon: Home, href: '/' },
-    { id: 'events', label: t('nav.events', 'Events'), icon: Calendar, href: '/events' },
-    { id: 'competitions', label: t('nav.competitions', 'Competitions'), icon: Trophy, href: '/competitions' },
-    { id: 'settings', label: t('nav.settings', 'Settings'), icon: Settings, href: '/settings' },
+    { id: 'home', label: tString('nav.home', 'Home'), icon: Home, href: '/' },
+    { id: 'events', label: tString('nav.events', 'Events'), icon: Calendar, href: '/events' },
+    { id: 'competitions', label: tString('nav.competitions', 'Competitions'), icon: Trophy, href: '/competitions' },
+    { id: 'settings', label: tString('nav.settings', 'Settings'), icon: Settings, href: '/settings' },
   ];
 
   return (

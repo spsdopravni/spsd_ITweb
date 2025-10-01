@@ -23,6 +23,25 @@
     "delete": "Delete",
     "edit": "Edit"
   },
+  "welcome": {
+    "selectLanguage": "Choose language",
+    "continue": "Continue",
+    "chooseStyle": "Choose style",
+    "selectTheme": "Select your preferred theme",
+    "classic": "Classic",
+    "classicDesc": "Traditional, clean, focused",
+    "modern": "Modern",
+    "modernDesc": "Dynamic, animated, futuristic",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "theme": {
+    "title": "Choose Theme",
+    "classic": "Classic",
+    "classicDesc": "Traditional, clean, focused",
+    "modern": "Modern",
+    "modernDesc": "Dynamic, animated, futuristic"
+  },
   "home": {
     "title": "Information Technology",
     "subtitle": "Secondary Industrial School of Transport, a.s.",

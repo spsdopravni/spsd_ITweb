@@ -179,7 +179,7 @@ export const ParticleHero: React.FC = () => {
         <animated.div style={subtitleSpring} className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <animated.div
-              key={stat.label}
+              key={Array.isArray(stat.label) ? stat.label[0] || index : stat.label}
               style={trail[index]}
               className="glass p-4 rounded-xl"
             >
