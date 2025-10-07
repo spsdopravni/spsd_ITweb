@@ -2,6 +2,7 @@
 
 # dependencies
 .claude
+.DS_Store
 /node_modules
 /.pnp
 .pnp.*
