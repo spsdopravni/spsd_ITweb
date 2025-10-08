@@ -150,14 +150,14 @@ export default function About() {
                   ? 'text-[var(--spsd-navy)]/80'
                   : 'text-white/90'
               }`}>
-                {t('about.description1', 'Obor Informační technologie je čtyřletý maturitní obor, který připravuje studenty na práci v dynamicky se rozvíjející oblasti informačních technologií. Zaměřujeme se na praktické dovednosti kombinované s teoretickými základy.')}
+                {t('about.description1', 'Obor Informační technologie – Aplikace, grafika a webdesign je čtyřletý maturitní obor (ŠVP 18-20-M/01), který připravuje studenty na práci v dynamicky se rozvíjející oblasti IT. Program zahrnuje celkem 136 hodin výuky za studium s důrazem na praktické dovednosti.')}
               </p>
               <p className={`leading-relaxed ${
                 classicMode === 'light'
                   ? 'text-[var(--spsd-navy)]/80'
                   : 'text-white/90'
               }`}>
-                {t('about.description2', 'Naši studenti získávají znalosti v programování, správě sítí, databázových systémech a moderních technologiích. Důraz klademe na týmovou práci a reálné projekty.')}
+                {t('about.description2', 'Studenti získávají rozsáhlé znalosti v programování (8 hod celkem), datových sítích (8 hod), databázových systémech (6 hod), CAD systémech (6 hod), grafické tvorbě (7 hod) a dalších oblastech IT. Důraz klademe na praxi ve firmách (9 hod celkem) a reálné projekty.')}
               </p>
             </div>
           </div>
@@ -186,23 +186,31 @@ export default function About() {
               <ul className="space-y-3">
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Programování a vývoj aplikací</span>
+                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Programování (C/C++, Python, Java)</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Správa sítí a serverů</span>
+                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Datové sítě a Cisco technologie</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Databázové systémy</span>
+                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Databázové systémy (SQL, Oracle)</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Webové technologie</span>
+                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Webdesign a grafická tvorba</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Kybernetická bezpečnost</span>
+                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>CAD systémy a 3D modelování</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Hardware a operační systémy</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-[var(--spsd-orange)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className={classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/90'}>Virtualizace a cloud technologie</span>
                 </li>
               </ul>
             </div>

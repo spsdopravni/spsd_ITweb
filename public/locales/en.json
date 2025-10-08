@@ -313,5 +313,78 @@
     "byStudents": "by students",
     "followUs": "Follow us",
     "rights": "All rights reserved"
+  },
+  "curriculum": {
+    "title": "Curriculum",
+    "subtitle": "Secondary Technical School of Transport, Inc.",
+    "badge": "School Educational Program",
+    "schoolName": "Secondary Technical School of Transport, Inc.",
+    "address": "Plzeňská 298/217a, 150 00 Prague 5",
+    "info": {
+      "school": "School",
+      "rvpCode": "RVP Code and Name",
+      "rvpValue": "18-20-M/01 Information Technology",
+      "svpName": "ŠVP Name",
+      "svpValue": "Information Technology – Applications, Graphics and Web Design",
+      "duration": "Length and Form of Education",
+      "durationValue": "4 years, full-time study",
+      "validity": "ŠVP Valid From",
+      "validityValue": "September 1, 2021"
+    },
+    "table": {
+      "title": "Number of Weekly Teaching Hours per Study",
+      "subject": "Categories and Names of Subjects",
+      "year1": "1st Year",
+      "year2": "2nd Year",
+      "year3": "3rd Year",
+      "year4": "4th Year",
+      "total": "total"
+    },
+    "subjects": {
+      "czech": "Czech Language and Literature",
+      "english": "English Language",
+      "german": "German Language",
+      "civics": "Civics",
+      "history": "History",
+      "law": "Fundamentals of Law",
+      "physics": "Physics",
+      "chemistry": "Chemistry",
+      "ecology": "Ecology",
+      "math": "Mathematics",
+      "pe": "Physical Education",
+      "it": "Information Technology",
+      "economics": "Economics",
+      "hardware": "Hardware",
+      "os": "Operating Systems",
+      "software": "Software",
+      "networks": "Data Networks",
+      "programming": "Programming",
+      "digital": "Digital Technology",
+      "electronics": "Fundamentals of Electrical Engineering",
+      "cad": "CAD Systems",
+      "databases": "Database Systems",
+      "webdesign": "Web Design",
+      "graphics": "Graphic Design",
+      "virtualization": "Virtualization",
+      "seminar": "Graduation Exam Seminar",
+      "practice": "Practice",
+      "total": "Total"
+    },
+    "stats": {
+      "title": "Curriculum Statistics",
+      "totalHours": "Total Hours",
+      "itSubjects": "IT Subjects",
+      "generalSubjects": "General Subjects",
+      "practiceHours": "Practice"
+    },
+    "highlights": {
+      "title": "Key IT Subjects",
+      "description": "Main professional subjects focused on information technology"
+    },
+    "categories": {
+      "general": "General Subjects",
+      "it": "IT Professional Subjects",
+      "practice": "Practice"
+    }
   }
 }

@@ -313,5 +313,78 @@
     "byStudents": "studenty",
     "followUs": "Sledujte nás",
     "rights": "Všechna práva vyhrazena"
+  },
+  "curriculum": {
+    "title": "Učební plán",
+    "subtitle": "Střední průmyslová škola dopravní, a.s.",
+    "badge": "Školní vzdělávací program",
+    "schoolName": "Střední průmyslová škola dopravní, a.s.",
+    "address": "Plzeňská 298/217a, 150 00 Praha 5",
+    "info": {
+      "school": "Škola",
+      "rvpCode": "Kód a název RVP",
+      "rvpValue": "18-20-M/01 Informační technologie",
+      "svpName": "Název ŠVP",
+      "svpValue": "Informační technologie – Aplikace, grafika a webdesign",
+      "duration": "Délka a forma vzdělávání",
+      "durationValue": "4 roky, denní studium",
+      "validity": "Platnost ŠVP od",
+      "validityValue": "1. září 2021"
+    },
+    "table": {
+      "title": "Počet vyučovacích hodin za studium týdenních",
+      "subject": "Kategorie a názvy vyučovacích předmětů",
+      "year1": "1. ročník",
+      "year2": "2. ročník",
+      "year3": "3. ročník",
+      "year4": "4. ročník",
+      "total": "celkový"
+    },
+    "subjects": {
+      "czech": "Český jazyk a literatura",
+      "english": "Anglický jazyk",
+      "german": "Německý jazyk",
+      "civics": "Občanská nauka",
+      "history": "Dějepis",
+      "law": "Základy práva",
+      "physics": "Fyzika",
+      "chemistry": "Chemie",
+      "ecology": "Ekologie",
+      "math": "Matematika",
+      "pe": "Tělesná výchova",
+      "it": "Informační technologie",
+      "economics": "Ekonomika",
+      "hardware": "Hardware",
+      "os": "Operační systémy",
+      "software": "Programové vybavení",
+      "networks": "Datové sítě",
+      "programming": "Programování",
+      "digital": "Číslicová technika",
+      "electronics": "Základy elektrotechniky",
+      "cad": "CAD systémy",
+      "databases": "Databázové systémy",
+      "webdesign": "Webdesign",
+      "graphics": "Grafická tvorba",
+      "virtualization": "Virtualizace",
+      "seminar": "Seminář k maturitní zkoušce",
+      "practice": "Praxe",
+      "total": "Celkem"
+    },
+    "stats": {
+      "title": "Statistiky učebního plánu",
+      "totalHours": "Celkový počet hodin",
+      "itSubjects": "IT předměty",
+      "generalSubjects": "Všeobecné předměty",
+      "practiceHours": "Praxe"
+    },
+    "highlights": {
+      "title": "Klíčové IT předměty",
+      "description": "Hlavní odborné předměty zaměřené na informační technologie"
+    },
+    "categories": {
+      "general": "Všeobecné předměty",
+      "it": "IT odborné předměty",
+      "practice": "Praxe"
+    }
   }
 }

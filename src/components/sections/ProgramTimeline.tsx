@@ -37,62 +37,62 @@ export const ProgramTimeline: React.FC = () => {
   const yearsData: YearData[] = [
     {
       year: 1,
-      title: tString('timeline.year1.title', 'Základní technologie'),
-      description: tString('timeline.year1.desc', 'Programové vybavení, Hardware, Základy elektrotechniky'),
-      subjects: ['Programové vybavení', 'Hardware', 'Základy elektrotechniky', 'Matematika'],
+      title: tString('timeline.year1.title', 'Základy IT a technologie'),
+      description: tString('timeline.year1.desc', 'Úvod do IT světa - hardware, software, elektrotechnika a programování'),
+      subjects: ['Informační technologie (2 hod)', 'Hardware (2 hod)', 'Programové vybavení (4 hod)', 'Operační systémy (2 hod)', 'Základy elektrotechniky (2 hod)', 'Číslicová technika (2 hod)', 'Programování (2 hod)', 'Praxe (2 hod)'],
       icon: Code2,
       color: 'from-blue-500 to-cyan-500',
       gradient: 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10',
       detailedInfo: {
-        goals: Array.isArray(t('timeline.year1Details.goals')) ? t('timeline.year1Details.goals') as string[] : ['Osvojit si základy práce s počítačem', 'Pochopení hardwarových komponent', 'Základy elektrotechniky'],
-        projects: Array.isArray(t('timeline.year1Details.projects')) ? t('timeline.year1Details.projects') as string[] : ['Sestavení PC', 'Základní elektrotechnické obvody', 'První programy v MS Office'],
-        certifications: Array.isArray(t('timeline.year1Details.certifications')) ? t('timeline.year1Details.certifications') as string[] : ['ECDL Start', 'Základy IT'],
-        skills: Array.isArray(t('timeline.year1Details.skills')) ? t('timeline.year1Details.skills') as string[] : ['MS Office', 'Základy Windows', 'Elektrotechnické měření', 'Logické myšlení']
+        goals: Array.isArray(t('timeline.year1Details.goals')) ? t('timeline.year1Details.goals') as string[] : ['Pochopit základy hardware a sestavení PC', 'Naučit se pracovat s operačními systémy', 'Získat základy elektrotechniky a číslicové techniky', 'Osvojit si základy programování'],
+        projects: Array.isArray(t('timeline.year1Details.projects')) ? t('timeline.year1Details.projects') as string[] : ['Sestavení a konfigurace PC', 'Základní elektrotechnické obvody', 'První programy', 'Práce se software nástroji'],
+        certifications: Array.isArray(t('timeline.year1Details.certifications')) ? t('timeline.year1Details.certifications') as string[] : ['ECDL Start'],
+        skills: Array.isArray(t('timeline.year1Details.skills')) ? t('timeline.year1Details.skills') as string[] : ['Hardware diagnostika', 'Instalace OS', 'MS Office', 'Základy programování', 'Elektrotechnické měření']
       }
     },
     {
       year: 2,
-      title: tString('timeline.year2.title', 'Programování a systémy'),
-      description: tString('timeline.year2.desc', 'Operační systémy, Programování, CAD systémy'),
-      subjects: ['Operační systémy', 'Programování', 'CAD systémy', 'Databázové systémy'],
+      title: tString('timeline.year2.title', 'Programování a CAD systémy'),
+      description: tString('timeline.year2.desc', 'Pokročilé programování, databáze, CAD návrhy a grafická tvorba'),
+      subjects: ['Informační technologie (2 hod)', 'Programové vybavení (4 hod)', 'Programování (4 hod)', 'CAD systémy (6 hod)', 'Databázové systémy (4 hod)', 'Grafická tvorba (4 hod)', 'Datové sítě (2 hod)', 'Praxe (3 hod)'],
       icon: Database,
       color: 'from-green-500 to-emerald-500',
       gradient: 'bg-gradient-to-br from-green-500/10 to-emerald-500/10',
       detailedInfo: {
-        goals: Array.isArray(t('timeline.year2Details.goals')) ? t('timeline.year2Details.goals') as string[] : ['Naučit se programovat v C++', 'Ovládání operačních systémů', 'CAD modelování'],
-        projects: Array.isArray(t('timeline.year2Details.projects')) ? t('timeline.year2Details.projects') as string[] : ['Kalkulačka v C++', 'Správa Windows/Linux', '3D modely v AutoCAD'],
-        certifications: Array.isArray(t('timeline.year2Details.certifications')) ? t('timeline.year2Details.certifications') as string[] : ['Microsoft Office Specialist', 'AutoCAD User'],
-        skills: Array.isArray(t('timeline.year2Details.skills')) ? t('timeline.year2Details.skills') as string[] : ['C++ programování', 'Windows/Linux admin', 'AutoCAD', 'Databáze']
+        goals: Array.isArray(t('timeline.year2Details.goals')) ? t('timeline.year2Details.goals') as string[] : ['Pokročilé programování v C/C++', 'Návrhy v CAD systémech', 'Práce s databázemi', 'Grafická tvorba a design'],
+        projects: Array.isArray(t('timeline.year2Details.projects')) ? t('timeline.year2Details.projects') as string[] : ['Aplikace v C++', '3D modely v CAD', 'Databázové aplikace', 'Grafické návrhy', 'Síťová konfigurace'],
+        certifications: Array.isArray(t('timeline.year2Details.certifications')) ? t('timeline.year2Details.certifications') as string[] : ['AutoCAD User', 'Microsoft Office Specialist'],
+        skills: Array.isArray(t('timeline.year2Details.skills')) ? t('timeline.year2Details.skills') as string[] : ['C/C++ programování', 'AutoCAD', 'SQL databáze', 'Adobe/Grafika', 'Základy sítí']
       }
     },
     {
       year: 3,
-      title: tString('timeline.year3.title', 'Sítě a databáze'),
-      description: tString('timeline.year3.desc', 'Datové sítě, Databázové systémy, Cisco kurzy'),
-      subjects: ['Datové sítě', 'Databázové systémy', 'Cisco kurzy', 'Python workshop'],
+      title: tString('timeline.year3.title', 'Sítě, databáze a pokročilé technologie'),
+      description: tString('timeline.year3.desc', 'Datové sítě, pokročilé databáze, CAD a grafika, ekonomika'),
+      subjects: ['Programování (6 hod)', 'Datové sítě (4 hod)', 'Databázové systémy (4 hod)', 'CAD systémy (6 hod)', 'Grafická tvorba (4 hod)', 'Ekonomika (4 hod)', 'Praxe (2 hod)'],
       icon: Palette,
-      color: 'from-blue-500 to-blue-400',
-      gradient: 'bg-gradient-to-br from-blue-500/10 to-blue-400/10',
+      color: 'from-purple-500 to-pink-500',
+      gradient: 'bg-gradient-to-br from-purple-500/10 to-pink-500/10',
       detailedInfo: {
-        goals: Array.isArray(t('timeline.year3Details.goals')) ? t('timeline.year3Details.goals') as string[] : ['Konfigurace síťových zařízení', 'Pokročilé databáze', 'Python scripting'],
-        projects: Array.isArray(t('timeline.year3Details.projects')) ? t('timeline.year3Details.projects') as string[] : ['Konfigurace VLAN', 'Webová aplikace s databází', 'Automatizační skripty'],
-        certifications: Array.isArray(t('timeline.year3Details.certifications')) ? t('timeline.year3Details.certifications') as string[] : ['Cisco CCNA Discovery', 'Oracle Database'],
-        skills: Array.isArray(t('timeline.year3Details.skills')) ? t('timeline.year3Details.skills') as string[] : ['Cisco IOS', 'SQL/MySQL', 'Python', 'Síťová bezpečnost']
+        goals: Array.isArray(t('timeline.year3Details.goals')) ? t('timeline.year3Details.goals') as string[] : ['Pokročilá správa sítí', 'Databázové systémy a optimalizace', 'Profesionální CAD návrhy', 'Grafický design'],
+        projects: Array.isArray(t('timeline.year3Details.projects')) ? t('timeline.year3Details.projects') as string[] : ['Síťová infrastruktura', 'Webová aplikace s DB', 'Komplexní CAD projekty', 'Profesionální grafika', 'Business case studies'],
+        certifications: Array.isArray(t('timeline.year3Details.certifications')) ? t('timeline.year3Details.certifications') as string[] : ['Cisco CCNA', 'Oracle Database'],
+        skills: Array.isArray(t('timeline.year3Details.skills')) ? t('timeline.year3Details.skills') as string[] : ['Cisco networking', 'SQL/MySQL pokročilé', 'Python/Java', 'CAD pokročilé', 'Adobe Suite', 'Ekonomické myšlení']
       }
     },
     {
       year: 4,
-      title: tString('timeline.year4.title', 'Maturita a certifikace'),
-      description: tString('timeline.year4.desc', 'Maturitní zkouška, Oracle, MSDN AA, praxe v DPP'),
-      subjects: ['Maturitní zkouška', 'Oracle certifikace', 'MSDN AA', 'Praxe v DPP'],
+      title: tString('timeline.year4.title', 'Specializace a maturita'),
+      description: tString('timeline.year4.desc', 'Pokročilé technologie, webdesign, virtualizace a příprava na maturitu'),
+      subjects: ['Programování (4 hod)', 'Datové sítě (3 hod)', 'Databázové systémy (4 hod)', 'Webdesign (4 hod)', 'Grafická tvorba (6 hod)', 'Virtualizace (3 hod)', 'Seminář k maturitě (1 hod)', 'Praxe (2 hod)'],
       icon: GraduationCap,
       color: 'from-orange-500 to-red-500',
       gradient: 'bg-gradient-to-br from-orange-500/10 to-red-500/10',
       detailedInfo: {
-        goals: Array.isArray(t('timeline.year4Details.goals')) ? t('timeline.year4Details.goals') as string[] : ['Úspěšná maturita', 'Profesionální certifikace', 'Praktické zkušenosti'],
-        projects: Array.isArray(t('timeline.year4Details.projects')) ? t('timeline.year4Details.projects') as string[] : ['Maturitní projekt', 'Stáž v DPP', 'Portfolio projektů'],
-        certifications: Array.isArray(t('timeline.year4Details.certifications')) ? t('timeline.year4Details.certifications') as string[] : ['Maturitní vysvědčení', 'Oracle Database Associate', 'Microsoft Certified'],
-        skills: Array.isArray(t('timeline.year4Details.skills')) ? t('timeline.year4Details.skills') as string[] : ['Projektové řízení', 'Profesionální komunikace', 'Komplexní IT řešení']
+        goals: Array.isArray(t('timeline.year4Details.goals')) ? t('timeline.year4Details.goals') as string[] : ['Úspěšná maturitní zkouška', 'Realizace maturitního projektu', 'Praktické zkušenosti', 'Příprava na praxi nebo VŠ'],
+        projects: Array.isArray(t('timeline.year4Details.projects')) ? t('timeline.year4Details.projects') as string[] : ['Maturitní projekt', 'Komplexní webové stránky', 'Virtualizované prostředí', 'Portfolio prací', 'Firemní praxe'],
+        certifications: Array.isArray(t('timeline.year4Details.certifications')) ? t('timeline.year4Details.certifications') as string[] : ['Maturitní vysvědčení', 'Oracle Database', 'Cisco CCNA', 'Adobe Certified'],
+        skills: Array.isArray(t('timeline.year4Details.skills')) ? t('timeline.year4Details.skills') as string[] : ['Full-stack development', 'HTML/CSS/JS/PHP', 'Virtualizace (VMware/Docker)', 'Profesionální komunikace', 'Projektové řízení']
       }
     },
   ];

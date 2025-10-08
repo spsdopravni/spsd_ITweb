@@ -13,26 +13,26 @@ export const ClassicProgramTimeline: React.FC = () => {
     {
       year: '1. ročník',
       icon: <Code className="w-6 h-6" />,
-      title: 'Základy programování',
-      subjects: ['Algoritmizace', 'HTML/CSS', 'JavaScript základy', 'Databáze úvod']
+      title: 'Základy IT a technologie',
+      subjects: ['Informační technologie', 'Hardware', 'Programové vybavení', 'Operační systémy', 'Základy elektrotechniky', 'Programování']
     },
     {
       year: '2. ročník',
       icon: <Database className="w-6 h-6" />,
-      title: 'Pokročilé technologie',
-      subjects: ['OOP programování', 'SQL databáze', 'React/Vue', 'Git verzování']
+      title: 'Programování a CAD systémy',
+      subjects: ['Programování', 'CAD systémy', 'Databázové systémy', 'Grafická tvorba', 'Datové sítě']
     },
     {
       year: '3. ročník',
       icon: <Globe className="w-6 h-6" />,
-      title: 'Profesionální vývoj',
-      subjects: ['Full-stack development', 'Cloud technologie', 'DevOps', 'Týmové projekty']
+      title: 'Sítě a pokročilé technologie',
+      subjects: ['Datové sítě', 'Databázové systémy', 'CAD systémy', 'Grafická tvorba', 'Ekonomika']
     },
     {
       year: '4. ročník',
       icon: <Calendar className="w-6 h-6" />,
       title: 'Specializace a maturita',
-      subjects: ['Maturitní projekt', 'Firemní praxe', 'Specializační předměty', 'Příprava na VŠ']
+      subjects: ['Webdesign', 'Virtualizace', 'Grafická tvorba', 'Databázové systémy', 'Seminář k maturitě']
     }
   ];
 
