@@ -15,7 +15,7 @@ interface NavItem {
 interface ExpandedModeProps {
   navItems: NavItem[];
   pathname: string;
-  onModeChange: (mode: 'search' | 'theme') => void;
+  onModeChange: (mode: 'search' | 'theme' | 'compact') => void;
   onLanguageModeChange: () => void;
 }
 
@@ -73,13 +73,18 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
 
   const handleNavClick = (href: string) => {
     router.push(href);
+    // Close the island after navigation
+    setTimeout(() => onModeChange('compact'), 100);
   };
+
+  // Normalize pathname by removing trailing slash for comparison
+  const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
 
   return (
     <div className="h-full flex flex-row items-center justify-between px-3 md:px-5 py-0 gap-2 min-w-0 overflow-x-auto">
       <div className="flex items-center gap-1 md:gap-2 flex-nowrap min-w-0">
         {navItems.map((navItem) => {
-          const isActive = pathname === navItem.href;
+          const isActive = normalizedPathname === navItem.href;
           
           return (
             <button
@@ -99,9 +104,10 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
           );
         })}
       </div>
-      
+
+
       <div className="flex items-center gap-1 md:gap-2 flex-shrink-0 ml-2 md:ml-3">
-        {pathname !== '/search' && (
+        {normalizedPathname !== '/search' && (
           <button
             onClick={() => onModeChange('search')}
             className={`p-1.5 md:p-2 rounded-full ${colors.hoverBg} transition-all duration-200 hover:scale-110`}

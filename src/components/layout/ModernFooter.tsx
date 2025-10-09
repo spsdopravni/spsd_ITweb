@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Github, Twitter, Linkedin, Instagram, Heart, ChevronDown } from 'lucide-react';
+import { Sparkles, Github, Facebook, Youtube, Instagram, Heart, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export const ModernFooter: React.FC = () => {
@@ -42,20 +42,20 @@ export const ModernFooter: React.FC = () => {
     {
       title: t('footer.legal') || 'Legal',
       links: [
-        t('footer.legalLinks.privacy') || 'Privacy Policy',
-        t('footer.legalLinks.terms') || 'Terms of Service',
-        t('footer.legalLinks.cookies') || 'Cookie Policy',
-        t('footer.legalLinks.gdpr') || 'GDPR',
-        t('footer.legalLinks.licenses') || 'Licenses'
+        { text: t('footer.legalLinks.privacy') || 'Privacy Policy', href: '/privacy' },
+        { text: t('footer.legalLinks.terms') || 'Terms of Service', href: '/terms' },
+        { text: t('footer.legalLinks.cookies') || 'Cookie Policy', href: '#' },
+        { text: t('footer.legalLinks.gdpr') || 'GDPR', href: '#' },
+        { text: t('footer.legalLinks.licenses') || 'Licenses', href: '#' }
       ]
     }
   ];
 
   const socialLinks = [
-    { icon: Github, href: '#' },
-    { icon: Twitter, href: '#' },
-    { icon: Linkedin, href: '#' },
-    { icon: Instagram, href: '#' },
+    { icon: Facebook, href: 'https://www.facebook.com/spsdopravni' },
+    { icon: Instagram, href: 'https://www.instagram.com/spsdopravni/' },
+    { icon: Youtube, href: 'https://www.youtube.com/@stredniprumyslovaskoladopr4784' },
+    { icon: Github, href: 'https://github.com/spsdopravni' },
   ];
 
   const toggleSection = (title: string) => {
@@ -80,16 +80,21 @@ export const ModernFooter: React.FC = () => {
               {t('footer.description') || 'Empowering students to achieve excellence through innovative digital solutions.'}
             </p>
             <div className="flex gap-2 lg:gap-3">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="w-8 h-8 lg:w-10 lg:h-10 glass rounded-lg flex items-center justify-center
-                           text-gray-400 hover:text-red-400 transition-colors"
-                >
-                  <social.icon className="w-4 h-4 lg:w-5 lg:h-5" />
-                </a>
-              ))}
+              {socialLinks.map((social, index) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 lg:w-10 lg:h-10 glass rounded-lg flex items-center justify-center
+                             text-gray-400 hover:text-red-400 transition-colors"
+                  >
+                    <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -110,13 +115,17 @@ export const ModernFooter: React.FC = () => {
               <ul className={`space-y-2 transition-all duration-300 lg:block ${
                 expandedSection === (Array.isArray(section.title) ? section.title[0] || '' : section.title) ? 'block mb-2 pl-4 lg:pl-0' : 'hidden'
               }`}>
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors block py-1">
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {section.links.map((link, linkIndex) => {
+                  const linkText = typeof link === 'object' && link !== null && 'text' in link ? link.text : link;
+                  const linkHref = typeof link === 'object' && link !== null && 'href' in link ? link.href : '#';
+                  return (
+                    <li key={linkIndex}>
+                      <a href={linkHref} className="text-gray-400 hover:text-white text-sm transition-colors block py-1">
+                        {linkText}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

@@ -8,11 +8,13 @@
   },
   "search": {
     "placeholder": "Hledat informace o oboru, projekty...",
+    "placeholderShort": "Hledat...",
     "suggestions": "Návrhy",
     "recent": "Poslední vyhledávání",
     "trending": "Trendy",
     "tips": "Tipy pro vyhledávání",
-    "clear": "Vymazat"
+    "clear": "Vymazat",
+    "noResults": "Žádné výsledky"
   },
   "common": {
     "loading": "Načítání...",
@@ -48,7 +50,7 @@
     "title": "Informační technologie",
     "subtitle": "Střední průmyslová škola dopravní, a.s.",
     "subtitle2": "Praha 5 - Motol",
-    "description": "Čtyřleté maturitní studium zaměřené na programování, správu systémů a počítačové sítě. Fakultní škola Fakulty dopravní ČVUT v Praze.",
+    "description": "Čtyřleté maturitní studium zaměřené na programování, správu systémů a počítačové sítě.",
     "aboutBtn": "Více o oboru",
     "projectsBtn": "Naše projekty",
     "watchVideo": "Virtuální prohlídka",
@@ -109,22 +111,103 @@
     }
   },
   "projects": {
-    "webApps": "Webové aplikace",
-    "webAppsDesc": "Pokročilé webové aplikace využívající moderní technologie",
-    "mobileApps": "Mobilní aplikace",
-    "mobileAppsDesc": "Nativní a hybridní mobilní aplikace pro Android a iOS",
-    "programming": "Programování",
-    "programmingDesc": "Objektově orientované programování v Java, C#, Python",
-    "design": "Grafický design",
-    "designDesc": "2D a 3D grafika, uživatelské rozhraní a UX design",
-    "networks": "Sítě a IoT",
-    "networksDesc": "Síťové technologie a Internet věcí (IoT)",
-    "databases": "Databáze",
-    "databasesDesc": "Návrh a správa relačních i NoSQL databází",
-    "security": "Kybernetická bezpečnost",
-    "securityDesc": "Ochrana informací a bezpečnost IT systémů",
-    "portfolio": "Projekty a portfolia",
-    "portfolioDesc": "Studentské projekty a portfolia absolventů"
+    "title": "Projekty IT oboru",
+    "subtitle": "Přehled aktuálních a plánovaných projektů studentů a pedagogů",
+    "badge": "Studentské projekty",
+    "filters": {
+      "all": "Všechny projekty",
+      "inProgress": "Probíhající",
+      "planned": "Plánované",
+      "completed": "Dokončené"
+    },
+    "labels": {
+      "students": "Studenti",
+      "teachers": "Pedagogové",
+      "status": "Stav",
+      "deadline": "Termín",
+      "ongoing": "průběžně",
+      "maturity": "Maturitní práce",
+      "internship": "Praxe",
+      "noStudents": "Zatím nepřiřazeno"
+    },
+    "list": {
+      "itCertifications": {
+        "name": "Certifikace IT",
+        "description": "Přehled a návrh certifikací do výuky"
+      },
+      "digitalLiteracyTest": {
+        "name": "Úvodní test digitální gramotnosti",
+        "description": "Tvorba testu pro nové žáky"
+      },
+      "specializedTest": {
+        "name": "Úvodní test z odborných předmětů",
+        "description": "Sledování vývoje žáků"
+      },
+      "itWebsite": {
+        "name": "Web oboru IT",
+        "description": "Webová prezentace oboru + obsah + rozcestník"
+      },
+      "interactiveGame": {
+        "name": "Interaktivní hra",
+        "description": "Vývoj hry s tématem školy / IT"
+      },
+      "thesisEvidence": {
+        "name": "Evidence MZ prací",
+        "description": "Přihlašovací a evidenční systém"
+      },
+      "surveySystem": {
+        "name": "Anketní systém",
+        "description": "Aplikace pro zpětnou vazbu"
+      },
+      "itCompetition": {
+        "name": "IT soutěž",
+        "description": "Návrh a organizace soutěže pro žáky"
+      },
+      "classroomDesign": {
+        "name": "Návrh učebny IT",
+        "description": "Model nové/fiktivní IT učebny"
+      },
+      "departureBoard": {
+        "name": "Odjezdová tabule",
+        "description": "Rozšíření a grafika tabule MHD"
+      },
+      "departureBoardHW": {
+        "name": "HW realizace odjezdové tabule",
+        "description": "Hardwarová implementace odjezdové tabule MHD"
+      },
+      "chatbot": {
+        "name": "Chatbot pro obor / školu",
+        "description": "Chatbot pro dotazy uchazečů, studentů"
+      },
+      "promoVideo": {
+        "name": "Propagační video",
+        "description": "Video o oboru IT, pro DOD nebo sociální sítě"
+      },
+      "studentCounseling": {
+        "name": "Studentská poradna",
+        "description": "Digitální prostor pro podporu studentů"
+      },
+      "competitionsOverview": {
+        "name": "Přehled IT soutěží",
+        "description": "Sběr a prezentace aktuálních soutěží"
+      },
+      "discordServer": {
+        "name": "Oficiální školní Discord server",
+        "description": "Vytvořit komunitu, která si vzájemně pomáhá"
+      },
+      "antivandalPC": {
+        "name": "Přestavba 'antivandal' PC stanice",
+        "description": "Rekonstrukce odolné PC stanice"
+      },
+      "graphicPresentation": {
+        "name": "Grafická prezentace oboru IT / realizace nástěnky IT oboru",
+        "description": "Vizuální reprezentace IT oboru"
+      },
+      "attendanceTracking": {
+        "name": "Sledování prezence školních akcí",
+        "description": "Systém pro sledování účasti na školních akcích"
+      }
+    }
   },
   "notFound": {
     "title": "Stránka nenalezena",

@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { useSpring, animated, useSprings } from '@react-spring/web';
-import { 
-  Home, 
+import { useSpring, animated } from '@react-spring/web';
+import {
+  Home,
   Info,
   BookOpen,
   FolderOpen,
@@ -16,6 +16,8 @@ import {
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
 import { CompactMode, SearchMode, ExpandedMode, LanguageMode, ThemeMode } from './dynamic-island';
+import { SearchEngine } from '@/lib/search/searchEngine';
+import type { SearchResult } from '@/types/search';
 
 type IslandMode = 'compact' | 'expanded' | 'search' | 'language' | 'theme';
 
@@ -29,9 +31,37 @@ interface NavItem {
 interface SearchSuggestion {
   id: string;
   text: string;
-  type: 'page' | 'event' | 'competition' | 'project';
+  type: 'page' | 'event' | 'competition' | 'project' | 'projects';
   icon: React.ComponentType<{ className?: string }>;
+  url: string;
 }
+
+// Icon mapping for different content types
+const getIconForCategory = (category: string): React.ComponentType<{ className?: string }> => {
+  switch (category) {
+    case 'page':
+      return FileText;
+    case 'projects':
+      return FolderOpen;
+    case 'event':
+      return Clock;
+    case 'competition':
+      return TrendingUp;
+    default:
+      return Info;
+  }
+};
+
+// Convert SearchResult to SearchSuggestion
+const convertSearchResultToSuggestion = (result: SearchResult): SearchSuggestion => {
+  return {
+    id: result.id,
+    text: result.title,
+    type: result.category as SearchSuggestion['type'],
+    icon: getIconForCategory(result.category),
+    url: result.url
+  };
+};
 
 const getNavItems = (t: (key: string, fallback?: string) => string | string[]): NavItem[] => {
   const tString = (key: string, fallback?: string): string => {
@@ -47,43 +77,69 @@ const getNavItems = (t: (key: string, fallback?: string) => string | string[]): 
   ];
 };
 
-const searchSuggestions: SearchSuggestion[] = [
-  { id: '1', text: 'Informace o oboru', type: 'page', icon: Info },
-  { id: '2', text: 'Učební plán', type: 'page', icon: BookOpen },
-  { id: '3', text: 'Studentské projekty', type: 'project', icon: FolderOpen },
-  { id: '4', text: 'Výukové materiály', type: 'page', icon: FileText },
-  { id: '5', text: 'Kariérní možnosti', type: 'page', icon: Briefcase },
-  { id: '6', text: 'Aktuality oboru', type: 'page', icon: Clock },
-  { id: '7', text: 'Úspěchy absolventů', type: 'page', icon: TrendingUp },
-];
-
 export const DynamicIsland: React.FC = () => {
   const [mode, setMode] = useState<IslandMode>('compact');
   const [searchQuery, setSearchQuery] = useState('');
   const [isHovered, setIsHovered] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<SearchSuggestion[]>([]);
-  
+
   const pathname = usePathname();
   const { t } = useLanguage();
   const { theme, classicMode } = useTheme();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const islandRef = useRef<HTMLDivElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const searchEngineRef = useRef<SearchEngine>(SearchEngine.getInstance());
 
   const navItems = getNavItems(t);
-  const currentItem = navItems.find(item => item.href === pathname);
+  // Normalize pathname by removing trailing slash for comparison
+  const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+  const currentItem = navItems.find(item => item.href === normalizedPathname);
 
-  // Filter search suggestions based on query
+  // Filter search suggestions based on query using SearchEngine
   useEffect(() => {
-    if (searchQuery.trim()) {
-      const filtered = searchSuggestions.filter(suggestion =>
-        suggestion.text.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredSuggestions(filtered);
-    } else {
-      setFilteredSuggestions(searchSuggestions.slice(0, 4));
-    }
+    const performSearch = async () => {
+      try {
+        const searchEngine = searchEngineRef.current;
+
+        // If search query is empty, show popular/default results
+        if (!searchQuery.trim()) {
+          const defaultResults = await searchEngine.search('', {
+            categories: ['all'],
+            sortBy: 'relevance',
+            sortOrder: 'desc'
+          });
+
+          // Show first 6 default results
+          const suggestions = defaultResults
+            .slice(0, 6)
+            .map(convertSearchResultToSuggestion);
+
+          setFilteredSuggestions(suggestions);
+          return;
+        }
+
+        // Search with query
+        const results = await searchEngine.search(searchQuery, {
+          categories: ['all'],
+          sortBy: 'relevance',
+          sortOrder: 'desc'
+        });
+
+        // Convert search results to suggestions and limit to 8
+        const suggestions = results
+          .slice(0, 8)
+          .map(convertSearchResultToSuggestion);
+
+        setFilteredSuggestions(suggestions);
+      } catch (error) {
+        console.error('Search error:', error);
+        setFilteredSuggestions([]);
+      }
+    };
+
+    performSearch();
   }, [searchQuery]);
 
 
@@ -101,7 +157,7 @@ export const DynamicIsland: React.FC = () => {
 
   // Island container animation - height and border radius only
   const islandSpring = useSpring({
-    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : 56) : mode === 'language' ? (isMobile ? 180 : 200) : mode === 'theme' ? (isMobile ? 140 : 215) : (isMobile ? 'auto' : 64),
+    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : (searchQuery.trim() ? 180 : (isMobile ? 240 : 280))) : mode === 'language' ? (isMobile ? 180 : 200) : mode === 'theme' ? (isMobile ? 140 : 215) : (isMobile ? 'auto' : 64),
     borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : mode === 'theme' ? 24 : (isMobile ? 24 : 32),
     config: { 
       tension: 0,
@@ -115,17 +171,6 @@ export const DynamicIsland: React.FC = () => {
       setIsAnimating(false);
     }
   });
-
-  // Search suggestions springs for parallel animation
-  const suggestionSprings = useSprings(
-    filteredSuggestions.length,
-    filteredSuggestions.map(() => ({
-      opacity: mode === 'search' && !isAnimating ? 1 : 0,
-      transform: mode === 'search' && !isAnimating ? 'translateX(0px)' : 'translateX(-10px)',
-      config: { tension: 350, friction: 30 },
-      delay: mode === 'search' ? 80 : 0
-    }))
-  );
 
   // Language options spring animation
   const languageSpring = useSpring({
@@ -201,11 +246,13 @@ export const DynamicIsland: React.FC = () => {
   }, [mode]);
 
 
-  const handleModeChange = (newMode: IslandMode) => {
-    if (newMode === mode) {
+  const handleModeChange = (newMode: IslandMode | 'compact') => {
+    if (newMode === 'compact') {
+      setMode('compact');
+    } else if (newMode === mode) {
       setMode('compact');
     } else {
-      setMode(newMode);
+      setMode(newMode as IslandMode);
     }
   };
 
@@ -282,7 +329,6 @@ export const DynamicIsland: React.FC = () => {
               filteredSuggestions={filteredSuggestions}
               searchInputRef={searchInputRef}
               searchInputSpring={searchInputSpring}
-              suggestionSprings={suggestionSprings}
               onModeChange={setMode}
               onEscape={handleEscape}
             />

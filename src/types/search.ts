@@ -1,4 +1,4 @@
-export type SearchCategory = 'all' | 'projects' | 'events' | 'resources' | 'students' | 'announcements';
+export type SearchCategory = 'all' | 'page' | 'projects' | 'events' | 'resources' | 'students' | 'announcements';
 
 export interface SearchResult {
   id: string;

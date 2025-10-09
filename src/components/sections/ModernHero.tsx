@@ -27,13 +27,6 @@ export const ModernHero: React.FC = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Real statistics from SPŠD
-  // const stats = [
-  //   { label: t('stats.students') || 'Studentů', value: '~1400', icon: Users },
-  //   { label: t('stats.teachers') || 'Zaměstnanců', value: '200+', icon: GraduationCap },
-  //   { label: t('stats.years') || 'Let působení', value: '70+', icon: Sparkles },
-  // ];
-
   // Animation springs
   const mainContentSpring = useSpring({
     from: { opacity: 0, transform: 'translateY(30px)' },
@@ -46,12 +39,6 @@ export const ModernHero: React.FC = () => {
     to: { opacity: 1, transform: 'scale(1)' },
     delay: 800,
   });
-
-  // const statsTrail = useTrail(stats.length, {
-  //   from: { opacity: 0, transform: 'translateX(-20px)' },
-  //   to: { opacity: 1, transform: 'translateX(0px)' },
-  //   delay: 1000,
-  // });
 
   return (
     <section 

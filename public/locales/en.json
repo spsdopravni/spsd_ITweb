@@ -8,11 +8,13 @@
   },
   "search": {
     "placeholder": "Search for information about the program, projects...",
+    "placeholderShort": "Search...",
     "suggestions": "Suggestions",
     "recent": "Recent Searches",
     "trending": "Trending",
     "tips": "Search Tips",
-    "clear": "Clear"
+    "clear": "Clear",
+    "noResults": "No results"
   },
   "common": {
     "loading": "Loading...",
@@ -109,22 +111,103 @@
     }
   },
   "projects": {
-    "webApps": "Web Applications",
-    "webAppsDesc": "Advanced web applications using modern technologies",
-    "mobileApps": "Mobile Applications",
-    "mobileAppsDesc": "Native and hybrid mobile applications for Android and iOS",
-    "programming": "Programming",
-    "programmingDesc": "Object-oriented programming in Java, C#, Python",
-    "design": "Graphic Design",
-    "designDesc": "2D and 3D graphics, user interfaces and UX design",
-    "networks": "Networks and IoT",
-    "networksDesc": "Network technologies and Internet of Things (IoT)",
-    "databases": "Databases",
-    "databasesDesc": "Design and management of relational and NoSQL databases",
-    "security": "Cybersecurity",
-    "securityDesc": "Information protection and IT system security",
-    "portfolio": "Projects and Portfolios",
-    "portfolioDesc": "Student projects and graduate portfolios"
+    "title": "IT Department Projects",
+    "subtitle": "Overview of current and planned projects by students and teachers",
+    "badge": "Student Projects",
+    "filters": {
+      "all": "All Projects",
+      "inProgress": "In Progress",
+      "planned": "Planned",
+      "completed": "Completed"
+    },
+    "labels": {
+      "students": "Students",
+      "teachers": "Teachers",
+      "status": "Status",
+      "deadline": "Deadline",
+      "ongoing": "ongoing",
+      "maturity": "Thesis",
+      "internship": "Internship",
+      "noStudents": "Not assigned yet"
+    },
+    "list": {
+      "itCertifications": {
+        "name": "IT Certifications",
+        "description": "Overview and proposal of certifications for curriculum"
+      },
+      "digitalLiteracyTest": {
+        "name": "Initial Digital Literacy Test",
+        "description": "Creating a test for new students"
+      },
+      "specializedTest": {
+        "name": "Initial Specialized Subject Test",
+        "description": "Tracking student development"
+      },
+      "itWebsite": {
+        "name": "IT Department Website",
+        "description": "Web presentation of the department + content + directory"
+      },
+      "interactiveGame": {
+        "name": "Interactive Game",
+        "description": "Development of a game with school / IT theme"
+      },
+      "thesisEvidence": {
+        "name": "Thesis Evidence System",
+        "description": "Registration and evidence system"
+      },
+      "surveySystem": {
+        "name": "Survey System",
+        "description": "Application for feedback"
+      },
+      "itCompetition": {
+        "name": "IT Competition",
+        "description": "Design and organization of competition for students"
+      },
+      "classroomDesign": {
+        "name": "IT Classroom Design",
+        "description": "Model of new/fictional IT classroom"
+      },
+      "departureBoard": {
+        "name": "Departure Board",
+        "description": "Extension and graphics for public transport board"
+      },
+      "departureBoardHW": {
+        "name": "HW Implementation of Departure Board",
+        "description": "Hardware implementation of public transport departure board"
+      },
+      "chatbot": {
+        "name": "Chatbot for Department / School",
+        "description": "Chatbot for applicants and students queries"
+      },
+      "promoVideo": {
+        "name": "Promotional Video",
+        "description": "Video about IT department, for open days or social media"
+      },
+      "studentCounseling": {
+        "name": "Student Counseling",
+        "description": "Digital space for student support"
+      },
+      "competitionsOverview": {
+        "name": "IT Competitions Overview",
+        "description": "Collection and presentation of current competitions"
+      },
+      "discordServer": {
+        "name": "Official School Discord Server",
+        "description": "Create a community that helps each other"
+      },
+      "antivandalPC": {
+        "name": "Anti-vandal PC Station Rebuild",
+        "description": "Reconstruction of durable PC station"
+      },
+      "graphicPresentation": {
+        "name": "Graphic Presentation of IT Department / IT Department Board",
+        "description": "Visual representation of IT department"
+      },
+      "attendanceTracking": {
+        "name": "School Events Attendance Tracking",
+        "description": "System for tracking participation in school events"
+      }
+    }
   },
   "notFound": {
     "title": "Page Not Found",

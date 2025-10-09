@@ -339,68 +339,6 @@ export default function About() {
             </div>
           </div>
 
-          {/* Statistics */}
-          <div className={`p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-            classicMode === 'light'
-              ? 'bg-gradient-to-br from-gray-50 to-white border border-gray-200 shadow-md'
-              : 'bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20'
-          }`}>
-            <h3 className={`text-2xl font-bold text-center mb-8 ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-navy)]'
-                : 'text-white'
-            }`}>Naše výsledky</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className={`text-3xl font-bold mb-2 ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]'
-                    : 'text-white'
-                }`}>150+</div>
-                <div className={`text-sm ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]/70'
-                    : 'text-white/70'
-                }`}>Absolventů ročně</div>
-              </div>
-              <div>
-                <div className={`text-3xl font-bold mb-2 ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]'
-                    : 'text-white'
-                }`}>95%</div>
-                <div className={`text-sm ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]/70'
-                    : 'text-white/70'
-                }`}>Úspěšnost u maturity</div>
-              </div>
-              <div>
-                <div className={`text-3xl font-bold mb-2 ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]'
-                    : 'text-white'
-                }`}>80%</div>
-                <div className={`text-sm ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]/70'
-                    : 'text-white/70'
-                }`}>Pokračuje na VŠ</div>
-              </div>
-              <div>
-                <div className={`text-3xl font-bold mb-2 ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]'
-                    : 'text-white'
-                }`}>75%</div>
-                <div className={`text-sm ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]/70'
-                    : 'text-white/70'
-                }`}>Práce v oboru</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

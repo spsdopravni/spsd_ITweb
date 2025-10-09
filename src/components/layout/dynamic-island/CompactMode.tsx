@@ -62,6 +62,9 @@ export const CompactMode: React.FC<CompactModeProps> = ({
 
   const colors = getTextColors();
 
+  // Normalize pathname for comparison
+  const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+
   return (
     <div className="h-full flex items-center justify-between px-3 md:px-5 min-w-0">
       <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -81,9 +84,9 @@ export const CompactMode: React.FC<CompactModeProps> = ({
           </button>
         )}
       </div>
-      
+
       <div className="flex items-center gap-1 flex-shrink-0 ml-3">
-        {pathname !== '/search' && (
+        {normalizedPathname !== '/search' && (
           <button
             onClick={() => onModeChange('search')}
             className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-all duration-200`}

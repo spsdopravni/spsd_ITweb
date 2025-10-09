@@ -175,14 +175,14 @@ export const CallToAction: React.FC = () => {
             </form>
           </div>
 
-          {/* Contact info and quick actions */}
+          {/* Contact info */}
           <div className="space-y-8">
             {/* Contact information */}
             <div className="glass rounded-2xl p-8 border border-white/10">
               <h3 className="text-xl font-bold text-white mb-6">
                 {t('cta.contactInfo') || 'Kontaktní informace'}
               </h3>
-              
+
               <div className="space-y-4">
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon;
@@ -191,7 +191,7 @@ export const CallToAction: React.FC = () => {
                       <div className="w-10 h-10 gradient-accent rounded-lg flex items-center justify-center flex-shrink-0">
                         <Icon className="w-5 h-5 text-white" />
                       </div>
-                      
+
                       <div>
                         <div className="font-semibold text-white/90 text-sm">
                           {info.label}
@@ -204,37 +204,6 @@ export const CallToAction: React.FC = () => {
                   );
                 })}
               </div>
-            </div>
-
-            {/* Quick actions */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-white">
-                {t('cta.quickActions') || 'Rychlé akce'}
-              </h3>
-              
-              {quickActions.map((action, index) => {
-                const Icon = action.icon;
-                return (
-                  <div key={index} className="glass rounded-xl p-4 border border-white/10 hover:border-red-400/30 transition-all duration-300 group cursor-pointer">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 ${index === 0 ? 'gradient-accent' : 'gradient-cool'} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      
-                      <div className="flex-1">
-                        <div className="font-semibold text-white group-hover:text-orange-300 transition-colors">
-                          {action.title}
-                        </div>
-                        <div className="text-white/60 text-sm">
-                          {action.description}
-                        </div>
-                      </div>
-                      
-                      <ArrowRight className="w-5 h-5 text-white/40 group-hover:text-red-400 group-hover:translate-x-1 transition-all duration-300" />
-                    </div>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>
@@ -250,13 +219,23 @@ export const CallToAction: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 gradient-accent text-white font-semibold rounded-full hover:gradient-warm transition-all duration-300 hover:scale-105 glow-spsd-hover">
+            <a
+              href="https://www.sps-dopravni.cz/pro-uchazece/info/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 gradient-accent text-white font-semibold rounded-full hover:gradient-warm transition-all duration-300 hover:scale-105 glow-spsd-hover inline-flex items-center justify-center"
+            >
               {t('cta.apply') || 'Přihlásit se ke studiu'}
-            </button>
-            
-            <button className="px-8 py-3 border-2 border-white/20 text-white font-semibold rounded-full hover:border-red-400 hover:bg-red-400/10 transition-all duration-300">
+            </a>
+
+            <a
+              href="https://www.sps-dopravni.cz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 border-2 border-white/20 text-white font-semibold rounded-full hover:border-red-400 hover:bg-red-400/10 transition-all duration-300 inline-flex items-center justify-center"
+            >
               {t('cta.learnMore') || 'Zjistit více'}
-            </button>
+            </a>
           </div>
         </div>
       </animated.div>

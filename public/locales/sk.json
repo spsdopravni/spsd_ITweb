@@ -8,11 +8,13 @@
   },
   "search": {
     "placeholder": "Hľadať informácie o odbore, projekty...",
+    "placeholderShort": "Hľadať...",
     "suggestions": "Návrhy",
     "recent": "Posledné vyhľadávanie",
     "trending": "Trendy",
     "tips": "Tipy na vyhľadávanie",
-    "clear": "Vymazať"
+    "clear": "Vymazať",
+    "noResults": "Žiadne výsledky"
   },
   "common": {
     "loading": "Načítavanie...",
@@ -109,22 +111,103 @@
     }
   },
   "projects": {
-    "webApps": "Webové aplikácie",
-    "webAppsDesc": "Pokročilé webové aplikácie využívajúce moderné technológie",
-    "mobileApps": "Mobilné aplikácie",
-    "mobileAppsDesc": "Natívne a hybridné mobilné aplikácie pre Android a iOS",
-    "programming": "Programovanie",
-    "programmingDesc": "Objektovo orientované programovanie v Java, C#, Python",
-    "design": "Grafický dizajn",
-    "designDesc": "2D a 3D grafika, používateľské rozhranie a UX dizajn",
-    "networks": "Siete a IoT",
-    "networksDesc": "Sieťové technológie a Internet vecí (IoT)",
-    "databases": "Databázy",
-    "databasesDesc": "Návrh a správa relačných i NoSQL databáz",
-    "security": "Kybernetická bezpečnosť",
-    "securityDesc": "Ochrana informácií a bezpečnosť IT systémov",
-    "portfolio": "Projekty a portfóliá",
-    "portfolioDesc": "Študentské projekty a portfóliá absolventov"
+    "title": "Projekty IT odboru",
+    "subtitle": "Prehľad aktuálnych a plánovaných projektov študentov a pedagógov",
+    "badge": "Študentské projekty",
+    "filters": {
+      "all": "Všetky projekty",
+      "inProgress": "Prebiehajúce",
+      "planned": "Plánované",
+      "completed": "Dokončené"
+    },
+    "labels": {
+      "students": "Študenti",
+      "teachers": "Pedagógovia",
+      "status": "Stav",
+      "deadline": "Termín",
+      "ongoing": "priebežne",
+      "maturity": "Maturitná práca",
+      "internship": "Prax",
+      "noStudents": "Zatiaľ nepriradené"
+    },
+    "list": {
+      "itCertifications": {
+        "name": "Certifikácie IT",
+        "description": "Prehľad a návrh certifikácií do výučby"
+      },
+      "digitalLiteracyTest": {
+        "name": "Úvodný test digitálnej gramotnosti",
+        "description": "Tvorba testu pre nových žiakov"
+      },
+      "specializedTest": {
+        "name": "Úvodný test z odborných predmetov",
+        "description": "Sledovanie vývoja žiakov"
+      },
+      "itWebsite": {
+        "name": "Web odboru IT",
+        "description": "Webová prezentácia odboru + obsah + rozcestník"
+      },
+      "interactiveGame": {
+        "name": "Interaktívna hra",
+        "description": "Vývoj hry s témou školy / IT"
+      },
+      "thesisEvidence": {
+        "name": "Evidencia MZ prác",
+        "description": "Prihlasovací a evidenčný systém"
+      },
+      "surveySystem": {
+        "name": "Anketný systém",
+        "description": "Aplikácia pre spätnú väzbu"
+      },
+      "itCompetition": {
+        "name": "IT súťaž",
+        "description": "Návrh a organizácia súťaže pre žiakov"
+      },
+      "classroomDesign": {
+        "name": "Návrh učebne IT",
+        "description": "Model novej/fiktívnej IT učebne"
+      },
+      "departureBoard": {
+        "name": "Odjazdová tabuľa",
+        "description": "Rozšírenie a grafika tabule MHD"
+      },
+      "departureBoardHW": {
+        "name": "HW realizácia odjazdovej tabule",
+        "description": "Hardwarová implementácia odjazdovej tabule MHD"
+      },
+      "chatbot": {
+        "name": "Chatbot pre odbor / školu",
+        "description": "Chatbot pre dotazy uchádzačov, študentov"
+      },
+      "promoVideo": {
+        "name": "Propagačné video",
+        "description": "Video o odbore IT, pre DOD alebo sociálne siete"
+      },
+      "studentCounseling": {
+        "name": "Študentská poradňa",
+        "description": "Digitálny priestor pre podporu študentov"
+      },
+      "competitionsOverview": {
+        "name": "Prehľad IT súťaží",
+        "description": "Zber a prezentácia aktuálnych súťaží"
+      },
+      "discordServer": {
+        "name": "Oficiálny školský Discord server",
+        "description": "Vytvoriť komunitu, ktorá si vzájomne pomáha"
+      },
+      "antivandalPC": {
+        "name": "Prestavba 'antivandal' PC stanice",
+        "description": "Rekonštrukcia odolnej PC stanice"
+      },
+      "graphicPresentation": {
+        "name": "Grafická prezentácia odboru IT / realizácia nástenky IT odboru",
+        "description": "Vizuálna reprezentácia IT odboru"
+      },
+      "attendanceTracking": {
+        "name": "Sledovanie prezencie školských akcií",
+        "description": "Systém pre sledovanie účasti na školských akciách"
+      }
+    }
   },
   "notFound": {
     "title": "Stránka nenájdená",

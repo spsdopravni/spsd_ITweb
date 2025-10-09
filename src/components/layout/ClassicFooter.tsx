@@ -38,10 +38,10 @@ export const ClassicFooter: React.FC = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Youtube, href: '#', label: 'YouTube' },
-    { icon: Github, href: '#', label: 'GitHub' }
+    { icon: Facebook, href: 'https://www.facebook.com/spsdopravni', label: 'Facebook' },
+    { icon: Instagram, href: 'https://www.instagram.com/spsdopravni/', label: 'Instagram' },
+    { icon: Youtube, href: 'https://www.youtube.com/@stredniprumyslovaskoladopr4784', label: 'YouTube' },
+    { icon: Github, href: 'https://github.com/spsdopravni', label: 'GitHub' }
   ];
 
   return (
@@ -96,8 +96,8 @@ export const ClassicFooter: React.FC = () => {
                 classicMode === 'light' ? 'hover:bg-[var(--spsd-navy)]/5' : 'hover:bg-white/5'
               }`}>
                 <div className={`p-2 rounded-lg transition-colors duration-200 ${
-                  classicMode === 'light' 
-                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20' 
+                  classicMode === 'light'
+                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20'
                     : 'bg-white/10 group-hover:bg-white/20'
                 }`}>
                   <MapPin className={`w-4 h-4 ${
@@ -107,15 +107,15 @@ export const ClassicFooter: React.FC = () => {
                 <span className={`text-sm font-medium ${
                   classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
                 }`}>
-                  Praha 5 - Motol
+                  {t('contact.realAddress', 'Plzeňská 298/217a, 150 00 Praha 5 - Motol')}
                 </span>
               </div>
               <div className={`flex items-center space-x-3 group p-2 rounded-lg transition-colors duration-200 ${
                 classicMode === 'light' ? 'hover:bg-[var(--spsd-navy)]/5' : 'hover:bg-white/5'
               }`}>
                 <div className={`p-2 rounded-lg transition-colors duration-200 ${
-                  classicMode === 'light' 
-                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20' 
+                  classicMode === 'light'
+                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20'
                     : 'bg-white/10 group-hover:bg-white/20'
                 }`}>
                   <Phone className={`w-4 h-4 ${
@@ -125,15 +125,15 @@ export const ClassicFooter: React.FC = () => {
                 <span className={`text-sm font-medium ${
                   classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
                 }`}>
-                  +420 123 456 789
+                  {t('contact.realPhone', '+420 725 044 828')}
                 </span>
               </div>
               <div className={`flex items-center space-x-3 group p-2 rounded-lg transition-colors duration-200 ${
                 classicMode === 'light' ? 'hover:bg-[var(--spsd-navy)]/5' : 'hover:bg-white/5'
               }`}>
                 <div className={`p-2 rounded-lg transition-colors duration-200 ${
-                  classicMode === 'light' 
-                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20' 
+                  classicMode === 'light'
+                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20'
                     : 'bg-white/10 group-hover:bg-white/20'
                 }`}>
                   <Mail className={`w-4 h-4 ${
@@ -143,7 +143,7 @@ export const ClassicFooter: React.FC = () => {
                 <span className={`text-sm font-medium ${
                   classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
                 }`}>
-                  info@spsd.cz
+                  {t('contact.realEmail', 'studijnioddeleni@sps-dopravni.cz')}
                 </span>
               </div>
             </div>
@@ -199,20 +199,25 @@ export const ClassicFooter: React.FC = () => {
             {/* Social links */}
             <div className="flex items-center gap-2">
               <div className="flex space-x-2">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className={`group p-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-br hover:from-[var(--spsd-red)] hover:to-[var(--spsd-red-light)] hover:scale-95 hover:-translate-y-1 shadow-lg hover:shadow-xl ${
-                      classicMode === 'light'
-                        ? 'bg-[var(--spsd-navy)]/10 text-[var(--spsd-navy)]/80 hover:text-white'
-                        : 'bg-white/10 text-white/80 hover:text-white'
-                    }`}
-                    aria-label={social.label}
-                  >
-                    <social.icon className="w-5 h-5 transition-transform duration-300" />
-                  </a>
-                ))}
+                {socialLinks.map((social, index) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={index}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`group p-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-br hover:from-[var(--spsd-red)] hover:to-[var(--spsd-red-light)] hover:scale-95 hover:-translate-y-1 shadow-lg hover:shadow-xl ${
+                        classicMode === 'light'
+                          ? 'bg-[var(--spsd-navy)]/10 text-[var(--spsd-navy)]/80 hover:text-white'
+                          : 'bg-white/10 text-white/80 hover:text-white'
+                      }`}
+                      aria-label={social.label}
+                    >
+                      <Icon className="w-5 h-5 transition-transform duration-300" />
+                    </a>
+                  );
+                })}
               </div>
             </div>
 

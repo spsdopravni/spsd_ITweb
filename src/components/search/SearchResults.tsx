@@ -9,6 +9,7 @@ import { useSpring, animated } from '@react-spring/web';
 
 const categoryIcons: Record<SearchCategory, React.ElementType> = {
   all: FileText,
+  page: FileText,
   projects: Folder,
   events: Calendar,
   resources: BookOpen,
@@ -18,6 +19,7 @@ const categoryIcons: Record<SearchCategory, React.ElementType> = {
 
 const categoryColors: Record<SearchCategory, string> = {
   all: 'from-gray-500 to-gray-600',
+  page: 'from-blue-400 to-blue-500',
   projects: 'from-purple-500 to-purple-600',
   events: 'from-blue-500 to-blue-600',
   resources: 'from-green-500 to-green-600',
