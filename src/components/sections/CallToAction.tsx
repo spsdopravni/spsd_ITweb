@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSpring, animated, useInView } from '@react-spring/web';
-import { 
+import {
   Send, MapPin, Phone, Mail,
-  CheckCircle, ArrowRight, Play, Download
+  CheckCircle
 } from 'lucide-react';
 
 export const CallToAction: React.FC = () => {
@@ -60,23 +60,6 @@ export const CallToAction: React.FC = () => {
       label: t('contact.email') || 'Email',
       value: t('contact.realEmail') || 'studijnioddeleni@sps-dopravni.cz',
     },
-  ];
-
-  const quickActions = [
-    {
-      icon: Play,
-      title: t('cta.virtualTour') || 'Virtuální prohlídka',
-      description: 'Prohlédněte si školu z pohodlí domova',
-      buttonText: 'Spustit',
-      color: 'from-red-500 to-orange-500'
-    },
-    {
-      icon: Download,
-      title: t('cta.brochure') || 'Stáhnout prospekt',
-      description: 'Kompletní informace o studijním programu',
-      buttonText: 'Stáhnout PDF',
-      color: 'from-green-500 to-emerald-500'
-    }
   ];
 
   return (

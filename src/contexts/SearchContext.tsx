@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { SearchState, SearchResult, SearchFilters, SearchCategory } from '@/types/search';
+import { SearchState, SearchFilters } from '@/types/search';
 import { SearchEngine } from '@/lib/search/searchEngine';
 
 interface SearchContextType extends SearchState {
@@ -115,7 +115,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         error: error instanceof Error ? error.message : 'Search failed',
       }));
     }
-  }, [state.filters, state.query, addToRecentSearches]);
+  }, [state.filters, state.query, addToRecentSearches, searchEngine]);
 
   const updateFilters = useCallback((newFilters: Partial<SearchFilters>) => {
     setState(prev => ({

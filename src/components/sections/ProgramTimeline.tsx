@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useSpring, animated, useInView, useTrail } from '@react-spring/web';
-import { 
-  Code2, Database, Palette, 
-  Award, Briefcase, GraduationCap, ChevronRight 
+import {
+  Code2, Database, Palette,
+  Award, Briefcase, GraduationCap, ChevronRight
 } from 'lucide-react';
 
 interface YearData {
@@ -26,7 +26,7 @@ interface YearData {
 
 export const ProgramTimeline: React.FC = () => {
   const { t } = useLanguage();
-  
+
   const tString = (key: string, fallback?: string): string => {
     const result = t(key, fallback);
     return Array.isArray(result) ? result[0] || fallback || key : result;
@@ -120,11 +120,11 @@ export const ProgramTimeline: React.FC = () => {
               {t('timeline.badge') || 'Studijní program'}
             </span>
           </div>
-          
+
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6 px-4">
             {t('timeline.title') || 'Cesta k IT odborníkovi'}
           </h2>
-          
+
           <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto px-4">
             {t('timeline.subtitle') || 'Čtyřletý program, který vás postupně provede od základů až po pokročilé technologie'}
           </p>
@@ -155,15 +155,15 @@ export const ProgramTimeline: React.FC = () => {
                   <div className="absolute left-6 sm:left-8 md:left-1/2 transform -translate-x-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-blue-500 to-blue-400 rounded-full border-2 sm:border-4 border-black z-10" />
 
                   {/* Content card */}
-                  <div 
+                  <div
                     className={`w-full md:w-5/12 ml-12 sm:ml-16 md:ml-0 pr-4 sm:pr-0 ${
                       isEven ? 'md:pr-12' : 'md:pl-12'
                     } cursor-pointer group`}
                     onClick={() => setActiveYear(isActive ? null : yearData.year)}
                   >
                     <div className={`glass rounded-xl sm:rounded-2xl p-4 sm:p-6 border transition-all duration-300 ${
-                      isActive 
-                        ? 'border-blue-400/50 md:scale-105' 
+                      isActive
+                        ? 'border-blue-400/50 md:scale-105'
                         : 'border-white/10 hover:border-blue-400/30 md:hover:scale-102'
                     }`}>
                       {/* Year badge */}
@@ -178,7 +178,7 @@ export const ProgramTimeline: React.FC = () => {
                       <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
                         {yearData.title}
                       </h3>
-                      
+
                       <p className="text-white/70 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed">
                         {yearData.description}
                       </p>
@@ -216,7 +216,7 @@ export const ProgramTimeline: React.FC = () => {
                                 ))}
                               </ul>
                             </div>
-                            
+
                             <div>
                               <h5 className="text-xs sm:text-sm font-semibold text-white/90 mb-1.5 sm:mb-2">🛠️ {t('timeline.detailHeaders.projects') || 'Praktické projekty'}:</h5>
                               <ul className="space-y-1">
@@ -228,7 +228,7 @@ export const ProgramTimeline: React.FC = () => {
                                 ))}
                               </ul>
                             </div>
-                            
+
                             <div>
                               <h5 className="text-xs sm:text-sm font-semibold text-white/90 mb-1.5 sm:mb-2">📜 {t('timeline.detailHeaders.certifications') || 'Certifikace'}:</h5>
                               <ul className="space-y-1">
@@ -240,7 +240,7 @@ export const ProgramTimeline: React.FC = () => {
                                 ))}
                               </ul>
                             </div>
-                            
+
                             <div>
                               <h5 className="text-xs sm:text-sm font-semibold text-white/90 mb-1.5 sm:mb-2">💡 {t('timeline.detailHeaders.skills') || 'Získané dovednosti'}:</h5>
                               <ul className="space-y-1">
@@ -262,10 +262,10 @@ export const ProgramTimeline: React.FC = () => {
                           <span className="text-xs text-white/50">
                             {isActive ? t('timeline.hideDetails') || 'Skrýt detaily' : t('timeline.showMore') || 'Klikněte pro více'}
                           </span>
-                          <ChevronRight 
+                          <ChevronRight
                             className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 transition-transform duration-300 ${
                               isActive ? 'rotate-90' : 'group-hover:translate-x-1'
-                            }`} 
+                            }`}
                           />
                         </div>
                       </div>
@@ -289,11 +289,11 @@ export const ProgramTimeline: React.FC = () => {
                 {t('timeline.outcomes') || 'Kariérní možnosti'}
               </h3>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6">
               {(Array.isArray(t('timeline.careers')) ? t('timeline.careers') as string[] : [
                 'Programátor',
-                'Správce sítí a OS', 
+                'Správce sítí a OS',
                 'Vývojář webových řešení',
                 'Databázový specialista'
               ]).map((career, idx) => (

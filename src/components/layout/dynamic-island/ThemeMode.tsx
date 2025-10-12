@@ -5,7 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Palette, Check, ChevronRight, ChevronDown } from 'lucide-react';
 import { THEME_CONFIGS } from '@/lib/theme/ThemeConfig';
 import { useTheme } from '@/lib/theme/useTheme';
-import type { ThemeType, ClassicModeType } from '@/lib/theme/ThemeConfig';
+import type { ThemeType } from '@/lib/theme/ThemeConfig';
 
 interface ThemeModeProps {
   onClose: () => void;

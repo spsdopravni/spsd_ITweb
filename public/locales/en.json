@@ -4,7 +4,8 @@
     "about": "About the Program",
     "curriculum": "Curriculum",
     "projects": "Projects",
-    "selectLanguage": "Select Language"
+    "selectLanguage": "Select Language",
+    "login": "Log in"
   },
   "search": {
     "placeholder": "Search for information about the program, projects...",
@@ -468,6 +469,183 @@
       "general": "General Subjects",
       "it": "IT Professional Subjects",
       "practice": "Practice"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "subtitle": "Bakaláři, Moodle and schedule in one place",
+    "studentPortal": "Student Portal",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Enter username",
+    "passwordPlaceholder": "Enter password",
+    "submit": "Log in",
+    "loggingIn": "Logging in...",
+    "microsoftLogin": "Sign in with Microsoft",
+    "or": "or",
+    "fillAllFields": "Fill in all fields",
+    "invalidCredentials": "Invalid credentials",
+    "error": "Login error",
+    "demoHint": "Demo account: admin / admin",
+    "bakalariHint": "Use your Bakaláři login credentials",
+    "backToHome": "← Back to homepage"
+  },
+  "passwordPopup": {
+    "title": "Your New Password",
+    "subtitle": "Save your password in a safe place",
+    "username": "Username",
+    "password": "Password",
+    "warningTitle": "Important!",
+    "warningText": "This password will be shown only once. Write it down or save it in a password manager.",
+    "understood": "I understand, close"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "subtitle": "Choose a password recovery method",
+    "microsoft": "Sign in with Microsoft",
+    "microsoftDesc": "Recommended - we'll generate a new password",
+    "recommended": "Recommended",
+    "email": "Send email",
+    "emailDesc": "Coming soon...",
+    "soon": "Soon",
+    "info": "After successful Microsoft sign-in, we'll generate a new password which will be displayed in a popup.",
+    "cancel": "Cancel"
+  },
+  "dashboard": {
+    "title": "Student Portal",
+    "welcome": "Welcome",
+    "subtitle": "Everything you need for studying in one place",
+    "logout": "Log out",
+    "quickActions": "Quick Actions",
+    "recentActivity": "Recent Activity",
+    "comingSoon": "Coming Soon",
+    "comingSoonFeatures": "What to expect:",
+    "comingSoonMessage": "We are working on integrating these features. We will notify you when they are available.",
+    "mockData": "* Mock data - preparing integration with Bakaláři",
+    "sidebar": {
+      "overview": "Overview",
+      "bakalari": "Bakaláři",
+      "grades": "Grades",
+      "schedule": "Schedule",
+      "moodle": "Moodle",
+      "communication": "Communication",
+      "profile": "Profile",
+      "soon": "Soon"
+    },
+    "stats": {
+      "average": "Grade Average",
+      "attendance": "Attendance",
+      "notifications": "New Messages"
+    },
+    "activity": {
+      "newGrade": "New grade in Programming",
+      "scheduleChange": "Schedule change - 3rd period cancelled",
+      "newAssignment": "New assignment in Moodle - Databases"
+    },
+    "bakalari": {
+      "title": "Bakaláři",
+      "description": "Grades, absences and school information",
+      "viewMore": "Open Bakaláři",
+      "comingSoonDescription": "Integration with Bakaláři system coming soon",
+      "feature1": "Overview of grades and assessments",
+      "feature2": "Attendance records and excuses",
+      "feature3": "Class schedule and changes",
+      "feature4": "Communication with teachers",
+      "feature5": "Access to school documents"
+    },
+    "grades": {
+      "description": "Overview of grades and assessments",
+      "comingSoonDescription": "Detailed grade overview coming soon",
+      "feature1": "Grades by subject",
+      "feature2": "Weights and grade averages",
+      "feature3": "Graphical progress display",
+      "feature4": "Comparison with class average",
+      "feature5": "Export grades to PDF"
+    },
+    "schedule": {
+      "title": "Class Schedule",
+      "description": "Current schedule and class changes",
+      "viewMore": "View schedule",
+      "comingSoonDescription": "Interactive schedule with real-time changes coming soon",
+      "feature1": "Current class schedule",
+      "feature2": "Real-time schedule changes",
+      "feature3": "Substitute schedule",
+      "feature4": "Class reminders",
+      "feature5": "Export schedule to calendar"
+    },
+    "moodle": {
+      "title": "Moodle",
+      "description": "Learning materials and assignments",
+      "viewMore": "Open Moodle",
+      "comingSoonDescription": "Moodle integration for accessing learning materials coming soon",
+      "feature1": "Access to courses and materials",
+      "feature2": "Assignment submissions",
+      "feature3": "Grading and feedback",
+      "feature4": "Discussion forums",
+      "feature5": "Calendar with deadlines"
+    },
+    "communication": {
+      "description": "Messages and notifications",
+      "comingSoonDescription": "School communication system coming soon",
+      "feature1": "Messages from teachers and school",
+      "feature2": "Event and change notifications",
+      "feature3": "Online excuses and requests",
+      "feature4": "Communication with class teacher",
+      "feature5": "Communication history"
+    }
+  },
+  "profile": {
+    "title": "Profile and Settings",
+    "subtitle": "Manage your account and settings",
+    "tabs": {
+      "info": "Account Information",
+      "password": "Change Password",
+      "settings": "Settings"
+    },
+    "info": {
+      "title": "Account Information",
+      "username": "Username",
+      "email": "Email",
+      "role": "Role",
+      "created": "Account Created"
+    },
+    "role": {
+      "admin": "Administrator",
+      "teacher": "Teacher",
+      "student": "Student"
+    },
+    "security": {
+      "title": "Account Security",
+      "message": "Your account is protected with a secure password. We recommend changing your password regularly."
+    },
+    "password": {
+      "title": "Change Password",
+      "subtitle": "Password must be at least 8 characters",
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "currentPlaceholder": "Enter current password",
+      "newPlaceholder": "Enter new password",
+      "confirmPlaceholder": "Enter password again",
+      "submit": "Change Password",
+      "changing": "Changing password...",
+      "success": "Password changed successfully"
+    },
+    "error": {
+      "fillAll": "Fill in all fields",
+      "passwordLength": "Password must be at least 8 characters",
+      "passwordMismatch": "Passwords do not match",
+      "generic": "Password change error"
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Customize the application according to your preferences",
+      "language": "Language",
+      "theme": "Theme",
+      "modernDesc": "Futuristic design with animations",
+      "classicDesc": "Traditional clean design",
+      "light": "Light mode",
+      "dark": "Dark mode"
     }
   }
 }

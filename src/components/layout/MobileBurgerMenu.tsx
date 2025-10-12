@@ -2,20 +2,24 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { 
-  X, 
-  Home, 
-  Info, 
-  BookOpen, 
-  FolderOpen, 
+import {
+  X,
+  Home,
+  Info,
+  BookOpen,
+  FolderOpen,
   Search,
   Globe,
   ChevronRight,
   Sparkles,
-  Layers
+  Layers,
+  LogIn,
+  User,
+  LogOut
 } from 'lucide-react';
 import { useLanguage, getLanguageFlag, getLanguageName, type SupportedLanguage } from '@/contexts/LanguageContext';
 import { usePreferences } from '@/contexts/PreferencesContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useSpring, animated } from '@react-spring/web';
 
 interface NavItem {
@@ -33,6 +37,7 @@ export const MobileBurgerMenu: React.FC = () => {
   const router = useRouter();
   const { t, currentLanguage, changeLanguage } = useLanguage();
   const { theme, setTheme } = usePreferences();
+  const { user, isAuthenticated, logout } = useAuth();
   const languages: SupportedLanguage[] = ['cs', 'en', 'sk', 'uk', 'ru'];
 
   const tString = (key: string, fallback?: string): string => {
@@ -171,6 +176,45 @@ export const MobileBurgerMenu: React.FC = () => {
             {/* Show main buttons when no submenu is active */}
             {!showLanguages && !showThemes && (
               <>
+                {/* Login/User Button */}
+                {isAuthenticated ? (
+                  <>
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                        router.push('/dashboard');
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 hover:from-blue-500/30 hover:to-blue-600/30 transition-all"
+                    >
+                      <User className="w-5 h-5 text-blue-400" />
+                      <span className="text-sm text-white/90 font-medium">{user?.username}</span>
+                      <ChevronRight className="w-4 h-4 text-blue-400 ml-auto" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsOpen(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10 transition-all"
+                    >
+                      <LogOut className="w-5 h-5 text-white/70" />
+                      <span className="text-sm text-white/80">{tString('dashboard.logout', 'Odhlásit se')}</span>
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setIsOpen(false);
+                      router.push('/login');
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30 hover:from-blue-500/30 hover:to-blue-600/30 transition-all"
+                  >
+                    <LogIn className="w-5 h-5 text-blue-400" />
+                    <span className="text-sm text-white/90 font-medium">{tString('nav.login', 'Přihlásit se')}</span>
+                    <ChevronRight className="w-4 h-4 text-blue-400 ml-auto" />
+                  </button>
+                )}
+
                 {/* Language Button */}
                 <button
                   onClick={() => setShowLanguages(true)}

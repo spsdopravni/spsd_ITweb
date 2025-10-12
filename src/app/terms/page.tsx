@@ -2,17 +2,10 @@
 
 import React from 'react';
 import { FileText, CheckCircle, AlertTriangle, Scale, Users, Zap } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
 
 export default function TermsPage() {
-  const { t } = useLanguage();
   const { theme, classicMode } = useTheme();
-
-  const tString = (key: string, fallback?: string): string => {
-    const result = t(key, fallback);
-    return Array.isArray(result) ? result[0] || fallback || key : result;
-  };
 
   const isDark = theme === 'modern' || (theme === 'classic' && classicMode === 'dark');
 

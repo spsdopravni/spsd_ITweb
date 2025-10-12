@@ -4,7 +4,8 @@
     "about": "O oboru",
     "curriculum": "Učební plán",
     "projects": "Projekty",
-    "selectLanguage": "Vyberte jazyk"
+    "selectLanguage": "Vyberte jazyk",
+    "login": "Přihlásit se"
   },
   "search": {
     "placeholder": "Hledat informace o oboru, projekty...",
@@ -468,6 +469,183 @@
       "general": "Všeobecné předměty",
       "it": "IT odborné předměty",
       "practice": "Praxe"
+    }
+  },
+  "login": {
+    "title": "Přihlášení",
+    "subtitle": "Bakaláři, Moodle a rozvrh na jednom místě",
+    "studentPortal": "Studentský portál",
+    "username": "Uživatelské jméno",
+    "password": "Heslo",
+    "usernamePlaceholder": "Zadejte uživatelské jméno",
+    "passwordPlaceholder": "Zadejte heslo",
+    "submit": "Přihlásit se",
+    "loggingIn": "Přihlašování...",
+    "microsoftLogin": "Přihlásit se přes Microsoft",
+    "or": "nebo",
+    "fillAllFields": "Vyplňte všechna pole",
+    "invalidCredentials": "Nesprávné přihlašovací údaje",
+    "error": "Chyba při přihlašování",
+    "demoHint": "Demo účet: admin / admin",
+    "bakalariHint": "Použijte své přihlašovací údaje z Bakalářů",
+    "backToHome": "← Zpět na hlavní stránku"
+  },
+  "passwordPopup": {
+    "title": "Vaše nové heslo",
+    "subtitle": "Uložte si heslo na bezpečné místo",
+    "username": "Uživatelské jméno",
+    "password": "Heslo",
+    "warningTitle": "Důležité!",
+    "warningText": "Toto heslo se zobrazí pouze jednou. Zapište si ho nebo uložte do správce hesel.",
+    "understood": "Rozumím, zavřít"
+  },
+  "forgotPassword": {
+    "title": "Zapomenuté heslo",
+    "subtitle": "Zvolte způsob obnovení hesla",
+    "microsoft": "Přihlásit přes Microsoft",
+    "microsoftDesc": "Doporučeno - vygenerujeme nové heslo",
+    "recommended": "Doporučeno",
+    "email": "Zaslat email",
+    "emailDesc": "Připravujeme...",
+    "soon": "Brzy",
+    "info": "Po úspěšném přihlášení přes Microsoft vám vygenerujeme nové heslo, které se zobrazí v popup okně.",
+    "cancel": "Zrušit"
+  },
+  "dashboard": {
+    "title": "Studentský portál",
+    "welcome": "Vítejte",
+    "subtitle": "Vše, co potřebujete pro studium, na jednom místě",
+    "logout": "Odhlásit se",
+    "quickActions": "Rychlé akce",
+    "recentActivity": "Poslední aktivita",
+    "comingSoon": "Připravujeme pro vás",
+    "comingSoonFeatures": "Co můžete očekávat:",
+    "comingSoonMessage": "Pracujeme na integraci těchto funkcí. Budeme vás informovat, až budou dostupné.",
+    "mockData": "* Ukázková data - připravujeme integraci s Bakaláři",
+    "sidebar": {
+      "overview": "Přehled",
+      "bakalari": "Bakaláři",
+      "grades": "Známky",
+      "schedule": "Rozvrh",
+      "moodle": "Moodle",
+      "communication": "Komunikace",
+      "profile": "Profil",
+      "soon": "Brzy"
+    },
+    "stats": {
+      "average": "Průměr známek",
+      "attendance": "Docházka",
+      "notifications": "Nové zprávy"
+    },
+    "activity": {
+      "newGrade": "Nová známka z Programování",
+      "scheduleChange": "Změna rozvrhu - zrušena 3. hodina",
+      "newAssignment": "Nový úkol v Moodle - Databáze"
+    },
+    "bakalari": {
+      "title": "Bakaláři",
+      "description": "Známky, absence a školní informace",
+      "viewMore": "Otevřít Bakaláře",
+      "comingSoonDescription": "Integrace s Bakaláři systémem bude brzy k dispozici",
+      "feature1": "Přehled známek a hodnocení",
+      "feature2": "Evidence absence a omluvenky",
+      "feature3": "Rozvrh hodin a změny",
+      "feature4": "Komunikace s učiteli",
+      "feature5": "Přístup ke školním dokumentům"
+    },
+    "grades": {
+      "description": "Přehled známek a hodnocení",
+      "comingSoonDescription": "Detailní přehled známek bude brzy k dispozici",
+      "feature1": "Přehled známek podle předmětů",
+      "feature2": "Váhy a průměry známek",
+      "feature3": "Grafické zobrazení vývoje",
+      "feature4": "Srovnání s celkovým průměrem třídy",
+      "feature5": "Export známek do PDF"
+    },
+    "schedule": {
+      "title": "Rozvrh hodin",
+      "description": "Aktuální rozvrh a změny hodin",
+      "viewMore": "Zobrazit rozvrh",
+      "comingSoonDescription": "Interaktivní rozvrh s aktuálními změnami bude brzy k dispozici",
+      "feature1": "Aktuální rozvrh hodin",
+      "feature2": "Změny v rozvrhu v reálném čase",
+      "feature3": "Suplovací rozvrh",
+      "feature4": "Připomínky před hodinou",
+      "feature5": "Export rozvrhu do kalendáře"
+    },
+    "moodle": {
+      "title": "Moodle",
+      "description": "Výukové materiály a úkoly",
+      "viewMore": "Otevřít Moodle",
+      "comingSoonDescription": "Integrace s Moodle pro přístup k výukovým materiálům bude brzy k dispozici",
+      "feature1": "Přístup ke kurzům a materiálům",
+      "feature2": "Odevzdávání úkolů",
+      "feature3": "Hodnocení a zpětná vazba",
+      "feature4": "Diskusní fóra",
+      "feature5": "Kalendář s termíny odevzdání"
+    },
+    "communication": {
+      "description": "Zprávy a oznámení",
+      "comingSoonDescription": "Systém pro komunikaci se školou bude brzy k dispozici",
+      "feature1": "Zprávy od učitelů a školy",
+      "feature2": "Oznámení o akcích a změnách",
+      "feature3": "Omluvenky a žádosti online",
+      "feature4": "Komunikace s třídním učitelem",
+      "feature5": "Historie komunikace"
+    }
+  },
+  "profile": {
+    "title": "Profil a nastavení",
+    "subtitle": "Spravujte svůj účet a nastavení",
+    "tabs": {
+      "info": "Informace o účtu",
+      "password": "Změna hesla",
+      "settings": "Nastavení"
+    },
+    "info": {
+      "title": "Informace o účtu",
+      "username": "Uživatelské jméno",
+      "email": "Email",
+      "role": "Role",
+      "created": "Účet vytvořen"
+    },
+    "role": {
+      "admin": "Administrátor",
+      "teacher": "Učitel",
+      "student": "Student"
+    },
+    "security": {
+      "title": "Bezpečnost účtu",
+      "message": "Váš účet je chráněn bezpečným heslem. Doporučujeme pravidelnou změnu hesla."
+    },
+    "password": {
+      "title": "Změna hesla",
+      "subtitle": "Heslo musí mít alespoň 8 znaků",
+      "current": "Současné heslo",
+      "new": "Nové heslo",
+      "confirm": "Potvrďte nové heslo",
+      "currentPlaceholder": "Zadejte současné heslo",
+      "newPlaceholder": "Zadejte nové heslo",
+      "confirmPlaceholder": "Zadejte heslo znovu",
+      "submit": "Změnit heslo",
+      "changing": "Změna hesla...",
+      "success": "Heslo bylo úspěšně změněno"
+    },
+    "error": {
+      "fillAll": "Vyplňte všechna pole",
+      "passwordLength": "Heslo musí mít alespoň 8 znaků",
+      "passwordMismatch": "Hesla se neshodují",
+      "generic": "Chyba při změně hesla"
+    },
+    "settings": {
+      "title": "Nastavení",
+      "subtitle": "Přizpůsobte si aplikaci podle svých preferencí",
+      "language": "Jazyk",
+      "theme": "Téma",
+      "modernDesc": "Futuristický design s animacemi",
+      "classicDesc": "Tradiční čistý design",
+      "light": "Světlý režim",
+      "dark": "Tmavý režim"
     }
   }
 }

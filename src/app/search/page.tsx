@@ -18,7 +18,7 @@ function SearchPageContent() {
     if (queryParam) {
       performSearch(queryParam);
     }
-  }, [queryParam]);
+  }, [queryParam, performSearch]);
 
   const headerAnimation = useSpring({
     from: { opacity: 0, transform: 'translateY(-20px)' },

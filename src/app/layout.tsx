@@ -4,6 +4,7 @@ import { SearchProvider } from "@/contexts/SearchContext";
 import { CommandPaletteProvider } from "@/contexts/CommandPaletteContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { PreferencesProvider } from "@/contexts/PreferencesContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { ClientLayout } from "@/components/layout/ClientLayout";
 
 
@@ -22,13 +23,15 @@ export default function RootLayout({
       <body className="min-h-screen bg-black">
         <PreferencesProvider>
           <LanguageProvider>
-            <SearchProvider>
-              <CommandPaletteProvider>
-                <ClientLayout>
-                  {children}
-                </ClientLayout>
-              </CommandPaletteProvider>
-            </SearchProvider>
+            <AuthProvider>
+              <SearchProvider>
+                <CommandPaletteProvider>
+                  <ClientLayout>
+                    {children}
+                  </ClientLayout>
+                </CommandPaletteProvider>
+              </SearchProvider>
+            </AuthProvider>
           </LanguageProvider>
         </PreferencesProvider>
       </body>

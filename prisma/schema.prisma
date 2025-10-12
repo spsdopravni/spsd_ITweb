@@ -1,0 +1,198 @@
+// Prisma Schema for SPŠD IT Web
+// Database: PostgreSQL
+// Authentication: Microsoft OAuth + Password
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// USER MODEL
+// ============================================================================
+
+model User {
+  id String @id @default(cuid())
+
+  // Microsoft OAuth data
+  microsoftId String  @unique // Microsoft user ID from OAuth
+  email       String  @unique // Full email (e.g., Barat70671@sps-mot.dopravni.cz)
+  username    String  @unique // Username part (e.g., Barat70671)
+  displayName String? // Display name from Microsoft
+
+  // Password (generated after first Microsoft login)
+  passwordHash String // Bcrypt hashed password
+  passwordGeneratedAt DateTime @default(now()) // When password was generated
+  passwordChangedAt   DateTime? // When user changed their password
+  mustChangePassword  Boolean  @default(false) // Force password change
+
+  // User details
+  firstName String?
+  lastName  String?
+  role      UserRole @default(STUDENT)
+
+  // Security & Account status
+  isActive           Boolean   @default(true)
+  isVerified         Boolean   @default(true) // Microsoft OAuth users are auto-verified
+  failedLoginAttempts Int      @default(0)
+  lockedUntil        DateTime?
+  lastLogin          DateTime?
+  lastPasswordReset  DateTime?
+
+  // Two-factor authentication (future)
+  twoFactorEnabled Boolean @default(false)
+  twoFactorSecret  String?
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  sessions  Session[]
+  auditLogs AuditLog[]
+
+  @@index([email])
+  @@index([username])
+  @@index([microsoftId])
+  @@map("users")
+}
+
+enum UserRole {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+// ============================================================================
+// SESSION MODEL
+// ============================================================================
+
+model Session {
+  id String @id @default(cuid())
+
+  // User reference
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Token data
+  accessToken  String   @unique @db.Text
+  refreshToken String   @unique @db.Text
+  expiresAt    DateTime
+
+  // Session metadata
+  ipAddress String?
+  userAgent String? @db.Text
+  deviceInfo String? @db.Text
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastUsedAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([accessToken])
+  @@index([refreshToken])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+// ============================================================================
+// AUDIT LOG MODEL
+// ============================================================================
+
+model AuditLog {
+  id String @id @default(cuid())
+
+  // User reference (nullable for anonymous actions)
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Action details
+  action      AuditAction
+  resource    String? // What was accessed (e.g., "login", "dashboard", "bakalari")
+  description String?     @db.Text
+
+  // Request metadata
+  ipAddress  String?
+  userAgent  String? @db.Text
+  method     String? // HTTP method (GET, POST, etc.)
+  path       String? // Request path
+  statusCode Int? // Response status code
+
+  // Additional data (JSON)
+  metadata Json?
+
+  // Success/Failure
+  success Boolean @default(true)
+  error   String? @db.Text
+
+  // Timestamp
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@index([success])
+  @@map("audit_logs")
+}
+
+enum AuditAction {
+  // Authentication
+  LOGIN_SUCCESS
+  LOGIN_FAILED
+  LOGOUT
+  PASSWORD_RESET
+  PASSWORD_CHANGED
+  MICROSOFT_AUTH_SUCCESS
+  MICROSOFT_AUTH_FAILED
+
+  // Account
+  ACCOUNT_CREATED
+  ACCOUNT_UPDATED
+  ACCOUNT_LOCKED
+  ACCOUNT_UNLOCKED
+  ACCOUNT_DELETED
+
+  // Data Access
+  DATA_READ
+  DATA_CREATED
+  DATA_UPDATED
+  DATA_DELETED
+
+  // Security
+  SUSPICIOUS_ACTIVITY
+  RATE_LIMIT_EXCEEDED
+  UNAUTHORIZED_ACCESS
+}
+
+// ============================================================================
+// PASSWORD RESET TOKEN MODEL (for email-based resets - future)
+// ============================================================================
+
+model PasswordResetToken {
+  id String @id @default(cuid())
+
+  // User reference
+  userId String
+  email  String
+
+  // Token data
+  token     String   @unique
+  expiresAt DateTime
+
+  // Status
+  used   Boolean   @default(false)
+  usedAt DateTime?
+
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("password_reset_tokens")
+}

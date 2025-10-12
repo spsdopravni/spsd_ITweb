@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Github, Sparkles, Heart } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Github, Sparkles } from 'lucide-react';
 
 export const ClassicFooter: React.FC = () => {
   const { t } = useLanguage();

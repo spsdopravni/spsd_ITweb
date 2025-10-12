@@ -94,7 +94,7 @@ export const CompactMode: React.FC<CompactModeProps> = ({
             <Search className={`w-4 h-4 ${colors.actionIcon} ${colors.hover}`} />
           </button>
         )}
-        
+
         <button
           onClick={() => onModeChange('expanded')}
           className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-all duration-200`}

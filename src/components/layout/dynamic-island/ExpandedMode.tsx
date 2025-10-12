@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Globe, Palette } from 'lucide-react';
+import { Search, Globe, Palette, UserCog } from 'lucide-react';
 import { useTheme } from '@/lib/theme/useTheme';
+import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface NavItem {
   id: string;
@@ -26,7 +28,14 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
   onLanguageModeChange
 }) => {
   const router = useRouter();
+  const { t } = useLanguage();
+
+  const tString = (key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  };
   const { theme, classicMode } = useTheme();
+  const { isAuthenticated, user } = useAuth();
 
   // Theme-aware colors
   const getTextColors = () => {
@@ -131,19 +140,22 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
         >
           <Globe className={`w-3.5 md:w-4 h-3.5 md:h-4 ${colors.actionIcon} ${colors.actionHover}`} />
         </button>
-        
-        {/* Notifications - Commented out for now */}
-        {/* <button className="p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110 relative">
-          <Bell className="w-3.5 md:w-4 h-3.5 md:h-4 text-white/70 hover:text-white" />
-          <div className="absolute -top-0.5 -right-0.5 w-2.5 md:w-3 h-2.5 md:h-3 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-pulse">
-            <span className="text-[8px] md:text-[9px] text-white font-bold">3</span>
-          </div>
-        </button> */}
-        
-        {/* Profile - Commented out for now */}
-        {/* <button className="p-1.5 sm:p-2 rounded-full hover:bg-white/10 transition-all duration-200 hover:scale-110">
-          <User className="w-3.5 md:w-4 h-3.5 md:h-4 text-white/70 hover:text-white" />
-        </button> */}
+
+        {/* Login/Profile Button */}
+        <button
+          onClick={() => {
+            if (isAuthenticated) {
+              router.push('/dashboard');
+            } else {
+              router.push('/login');
+            }
+            setTimeout(() => onModeChange('compact'), 100);
+          }}
+          className={`p-1.5 sm:p-2 rounded-full ${colors.hoverBg} transition-all duration-200 hover:scale-110`}
+          title={isAuthenticated ? user?.username : tString('nav.login', 'Přihlásit se')}
+        >
+          <UserCog className={`w-3.5 md:w-4 h-3.5 md:h-4 ${colors.actionIcon} ${colors.actionHover}`} />
+        </button>
       </div>
     </div>
   );

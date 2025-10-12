@@ -3,7 +3,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { usePreferences } from '@/contexts/PreferencesContext';
 import { useTheme } from '@/lib/theme/useTheme';
-import { BookOpen, Clock, GraduationCap, Laptop } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 interface SubjectRow {
   key: string;
@@ -110,7 +110,7 @@ export default function Curriculum() {
                 </tr>
               </thead>
               <tbody>
-                {subjectData.map((subject, index) => (
+                {subjectData.map((subject) => (
                   <tr
                     key={subject.key}
                     className={`border-b border-white/5 hover:bg-white/5 transition-colors ${

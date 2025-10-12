@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Home, BookOpen, FolderOpen, AlertCircle, ArrowRight } from 'lucide-react';
+import { Home, BookOpen, FolderOpen, AlertCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
 
@@ -67,7 +67,7 @@ export const Classic404: React.FC = () => {
             </p>
             
             <div className="grid gap-4 md:grid-cols-3">
-              {actions.map((action, index) => {
+              {actions.map((action) => {
                 const Icon = action.icon;
                 return (
                   <Link

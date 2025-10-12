@@ -1,6 +1,6 @@
 import { usePreferences } from '@/contexts/PreferencesContext';
 import { getThemeConfig, getThemeVariant, getDefaultVariant, THEME_CLASSES, ThemeClassName } from './ThemeConfig';
-import type { ThemeType, ClassicModeType, ThemeVariant } from './ThemeConfig';
+import type { ThemeType, ClassicModeType } from './ThemeConfig';
 
 export const useTheme = () => {
   const { theme, classicMode, setTheme, setClassicMode } = usePreferences();

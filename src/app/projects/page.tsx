@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { usePreferences } from '@/contexts/PreferencesContext';
 import { useTheme } from '@/lib/theme/useTheme';
@@ -8,8 +8,7 @@ import {
   Users, GraduationCap, Calendar, Code2,
   BookOpen, Trophy, MessageSquare, Video,
   Monitor, Cpu, FileText, BarChart, Gamepad2,
-  Award, Bot, HelpCircle, Server, Presentation,
-  Shield
+  Award, Bot, HelpCircle, Server, Presentation
 } from 'lucide-react';
 
 interface Project {
@@ -24,7 +23,6 @@ export default function ProjectsPage() {
   const { t } = useLanguage();
   const { theme } = usePreferences();
   const { classicMode } = useTheme();
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'inProgress' | 'planned' | 'completed'>('all');
 
   const isModern = theme === 'modern';
 

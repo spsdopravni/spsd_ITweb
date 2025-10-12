@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ModernFooter } from "@/components/layout/ModernFooter";
 import { ClassicFooter } from "@/components/layout/ClassicFooter";
 import { DynamicIsland } from "@/components/layout/DynamicIsland";
@@ -19,7 +20,13 @@ interface ClientLayoutProps {
 export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   const { hasSeenWelcome, savePreferences, theme, classicMode } = usePreferences();
   const { getBackgroundClass } = useTheme();
+  const pathname = usePathname();
   const [showWelcome, setShowWelcome] = useState(false);
+
+  // Check if we're on a dashboard page (no footer/dynamic island/burger menu)
+  const isDashboard = pathname?.startsWith('/dashboard');
+  // Check if we're on dashboard or login page (no footer only)
+  const isDashboardOrLogin = isDashboard || pathname === '/login';
 
   useEffect(() => {
     setShowWelcome(!hasSeenWelcome);
@@ -39,25 +46,29 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
         <ThemeTransition>
           {theme === 'modern' ? (
             <UnifiedBackground>
-              <div className="hidden min-[1024px]:block">
-                <DynamicIsland />
-              </div>
-              <MobileBurgerMenu />
+              {!isDashboard && (
+                <div className="hidden min-[1024px]:block">
+                  <DynamicIsland />
+                </div>
+              )}
+              {!isDashboard && <MobileBurgerMenu />}
               <main>
                 {children}
               </main>
-              <ModernFooter />
+              {!isDashboardOrLogin && <ModernFooter />}
             </UnifiedBackground>
           ) : (
             <div className={`min-h-screen ${getBackgroundClass()}`}>
-              <div className="hidden min-[1024px]:block">
-                <DynamicIsland />
-              </div>
-              <MobileBurgerMenu />
+              {!isDashboard && (
+                <div className="hidden min-[1024px]:block">
+                  <DynamicIsland />
+                </div>
+              )}
+              {!isDashboard && <MobileBurgerMenu />}
               <main className={`classic-theme ${classicMode === 'dark' ? 'dark' : ''}`}>
                 {children}
               </main>
-              <ClassicFooter />
+              {!isDashboardOrLogin && <ClassicFooter />}
             </div>
           )}
         </ThemeTransition>

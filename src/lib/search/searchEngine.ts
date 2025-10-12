@@ -1,4 +1,4 @@
-import { SearchResult, SearchCategory, SearchFilters } from '@/types/search';
+import { SearchResult, SearchFilters } from '@/types/search';
 
 // Real content from the application pages
 const siteContent: SearchResult[] = [

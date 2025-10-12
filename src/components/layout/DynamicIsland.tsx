@@ -9,7 +9,6 @@ import {
   BookOpen,
   FolderOpen,
   FileText,
-  Briefcase,
   Clock,
   TrendingUp
 } from 'lucide-react';
@@ -180,7 +179,7 @@ export const DynamicIsland: React.FC = () => {
   });
   
   // Theme options spring animation
-  const themeSpring = useSpring({
+  const _themeSpring = useSpring({
     opacity: mode === 'theme' && !isAnimating ? 1 : 0,
     transform: mode === 'theme' && !isAnimating ? 'translateY(0px)' : 'translateY(-10px)',
     config: { tension: 350, friction: 30 }

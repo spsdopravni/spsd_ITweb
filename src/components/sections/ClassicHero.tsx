@@ -40,7 +40,7 @@ export const ClassicHero: React.FC = () => {
             {t('hero.subtitle', 'Kvalitní technické vzdělání pro budoucnost')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link 
+            <Link
               href="/about"
               className="group relative overflow-hidden bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-red-light)] text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3"
             >
@@ -49,7 +49,7 @@ export const ClassicHero: React.FC = () => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
-            <Link 
+            <Link
               href="/projects"
               className={`group relative overflow-hidden px-8 py-4 rounded-xl font-semibold transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3 ${
                 classicMode === 'light'

@@ -100,8 +100,8 @@ export const ModernHero: React.FC = () => {
 
           {/* CTA buttons */}
           <animated.div style={ctaSpring} className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className="group relative inline-flex items-center gap-2 px-8 py-4 gradient-accent rounded-full text-white font-semibold hover:gradient-warm transition-all duration-300 hover:scale-105 glow-spsd-hover"
             >
               <span>{t('home.aboutBtn') || 'Více o oboru'}</span>

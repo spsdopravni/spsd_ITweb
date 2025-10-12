@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
-import { ArrowRight, Phone, Mail, MapPin, Sparkles } from 'lucide-react';
+import { ArrowRight, Phone, Mail, MapPin } from 'lucide-react';
 
 export const ClassicCallToAction: React.FC = () => {
   const { t } = useLanguage();
@@ -58,7 +58,7 @@ export const ClassicCallToAction: React.FC = () => {
                 classicMode === 'light'
                   ? 'text-[var(--spsd-navy)]/70'
                   : 'text-white/90'
-              }`}>+420 123 456 789</p>
+              }`}>{t('contact.realPhone', '+420 725 044 828')}</p>
             </div>
             <div className={`rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg ${
               classicMode === 'light'
@@ -79,7 +79,7 @@ export const ClassicCallToAction: React.FC = () => {
                 classicMode === 'light'
                   ? 'text-[var(--spsd-navy)]/70'
                   : 'text-white/90'
-              }`}>info@spsd.cz</p>
+              }`}>{t('contact.realEmail', 'studijnioddeleni@sps-dopravni.cz')}</p>
             </div>
             <div className={`rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg ${
               classicMode === 'light'
@@ -100,7 +100,7 @@ export const ClassicCallToAction: React.FC = () => {
                 classicMode === 'light'
                   ? 'text-[var(--spsd-navy)]/70'
                   : 'text-white/90'
-              }`}>Plzeň, Česká republika</p>
+              }`}>{t('contact.realAddress', 'Plzeňská 298/217a, 150 00 Praha 5 - Motol')}</p>
             </div>
           </div>
 

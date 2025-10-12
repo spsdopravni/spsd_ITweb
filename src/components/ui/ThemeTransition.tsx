@@ -10,7 +10,7 @@ interface ThemeTransitionProps {
 
 export const ThemeTransition: React.FC<ThemeTransitionProps> = ({ children }) => {
   const { theme, classicMode } = useTheme();
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [_isTransitioning, setIsTransitioning] = useState(false);
   const [transitionKey, setTransitionKey] = useState(`${theme}-${classicMode}`);
 
   useEffect(() => {
