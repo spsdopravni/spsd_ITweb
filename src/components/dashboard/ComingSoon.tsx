@@ -12,6 +12,12 @@ interface ComingSoonProps {
   description?: string;
   icon?: React.ComponentType<{ className?: string }>;
   features?: string[];
+  technicalDetails?: {
+    status: string;
+    apiEndpoint: string;
+    dataSource: string;
+    estimatedCompletion: string;
+  };
 }
 
 export const ComingSoon: React.FC<ComingSoonProps> = ({

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Home,
@@ -12,6 +12,15 @@ import {
   LogOut,
   GraduationCap,
   Sparkles,
+  ChevronDown,
+  ChevronRight,
+  ClipboardList,
+  Users,
+  CreditCard,
+  FileText,
+  Video,
+  FolderOpen,
+  Bell,
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { usePreferences } from '@/contexts/PreferencesContext';
@@ -24,6 +33,7 @@ interface NavItem {
   icon: React.ComponentType<{ className?: string }>;
   href: string;
   comingSoon?: boolean;
+  children?: NavItem[];
 }
 
 export const DashboardSidebar: React.FC = () => {
@@ -35,6 +45,12 @@ export const DashboardSidebar: React.FC = () => {
   const router = useRouter();
 
   const isModern = theme === 'modern';
+
+  // Track expanded sections
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    bakalari: true, // Default open
+    moodle: false,
+  });
 
   // Helper to ensure string return from t()
   const tString = (key: string, fallback: string): string => {
@@ -54,37 +70,102 @@ export const DashboardSidebar: React.FC = () => {
       label: tString('dashboard.sidebar.bakalari', 'Bakaláři'),
       icon: BookOpen,
       href: '/dashboard/bakalari',
-      comingSoon: true,
-    },
-    {
-      id: 'grades',
-      label: tString('dashboard.sidebar.grades', 'Známky'),
-      icon: Award,
-      href: '/dashboard/grades',
-      comingSoon: true,
-    },
-    {
-      id: 'schedule',
-      label: tString('dashboard.sidebar.schedule', 'Rozvrh'),
-      icon: Calendar,
-      href: '/dashboard/schedule',
-      comingSoon: true,
+      children: [
+        {
+          id: 'bakalari-grades',
+          label: tString('dashboard.sidebar.grades', 'Známky'),
+          icon: Award,
+          href: '/dashboard/bakalari/grades',
+          comingSoon: true,
+        },
+        {
+          id: 'bakalari-schedule',
+          label: tString('dashboard.sidebar.schedule', 'Rozvrh'),
+          icon: Calendar,
+          href: '/dashboard/bakalari/schedule',
+          comingSoon: true,
+        },
+        {
+          id: 'bakalari-tasks',
+          label: tString('dashboard.sidebar.tasks', 'Úkoly'),
+          icon: ClipboardList,
+          href: '/dashboard/bakalari/tasks',
+          comingSoon: true,
+        },
+        {
+          id: 'bakalari-communication',
+          label: tString('dashboard.sidebar.communication', 'Komunikace'),
+          icon: MessageSquare,
+          href: '/dashboard/bakalari/communication',
+          comingSoon: true,
+        },
+        {
+          id: 'bakalari-attendance',
+          label: tString('dashboard.sidebar.attendance', 'Docházka'),
+          icon: Users,
+          href: '/dashboard/bakalari/attendance',
+          comingSoon: true,
+        },
+        {
+          id: 'bakalari-payments',
+          label: tString('dashboard.sidebar.payments', 'Platby'),
+          icon: CreditCard,
+          href: '/dashboard/bakalari/payments',
+          comingSoon: true,
+        },
+      ],
     },
     {
       id: 'moodle',
       label: tString('dashboard.sidebar.moodle', 'Moodle'),
       icon: GraduationCap,
       href: '/dashboard/moodle',
-      comingSoon: true,
-    },
-    {
-      id: 'communication',
-      label: tString('dashboard.sidebar.communication', 'Komunikace'),
-      icon: MessageSquare,
-      href: '/dashboard/communication',
-      comingSoon: true,
+      children: [
+        {
+          id: 'moodle-courses',
+          label: tString('dashboard.sidebar.courses', 'Kurzy'),
+          icon: FolderOpen,
+          href: '/dashboard/moodle/courses',
+          comingSoon: true,
+        },
+        {
+          id: 'moodle-assignments',
+          label: tString('dashboard.sidebar.assignments', 'Úkoly'),
+          icon: FileText,
+          href: '/dashboard/moodle/assignments',
+          comingSoon: true,
+        },
+        {
+          id: 'moodle-calendar',
+          label: tString('dashboard.sidebar.calendar', 'Kalendář'),
+          icon: Calendar,
+          href: '/dashboard/moodle/calendar',
+          comingSoon: true,
+        },
+        {
+          id: 'moodle-messages',
+          label: tString('dashboard.sidebar.messages', 'Zprávy'),
+          icon: MessageSquare,
+          href: '/dashboard/moodle/messages',
+          comingSoon: true,
+        },
+        {
+          id: 'moodle-notifications',
+          label: tString('dashboard.sidebar.notifications', 'Notifikace'),
+          icon: Bell,
+          href: '/dashboard/moodle/notifications',
+          comingSoon: true,
+        },
+      ],
     },
   ];
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [sectionId]: !prev[sectionId],
+    }));
+  };
 
   const handleNavClick = (href: string) => {
     router.push(href);
@@ -93,6 +174,125 @@ export const DashboardSidebar: React.FC = () => {
   const handleLogout = () => {
     logout();
     router.push('/login');
+  };
+
+  const renderNavItem = (item: NavItem, depth: number = 0) => {
+    const Icon = item.icon;
+    const isActive = pathname === item.href;
+    const hasChildren = item.children && item.children.length > 0;
+    const isExpanded = expandedSections[item.id];
+    const isParent = hasChildren;
+
+    return (
+      <div key={item.id}>
+        <button
+          onClick={() => {
+            if (hasChildren) {
+              toggleSection(item.id);
+            } else {
+              handleNavClick(item.href);
+            }
+          }}
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative ${
+            depth > 0 ? 'ml-4' : ''
+          } ${
+            isActive
+              ? isModern
+                ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30'
+                : classicMode === 'light'
+                ? 'bg-gradient-to-r from-[var(--spsd-red)]/10 to-[var(--spsd-orange)]/10 border border-[var(--spsd-red)]/20'
+                : 'bg-white/10 border border-white/20'
+              : isModern
+              ? 'hover:bg-white/5 border border-transparent'
+              : classicMode === 'light'
+              ? 'hover:bg-gray-50 border border-transparent'
+              : 'hover:bg-white/5 border border-transparent'
+          }`}
+        >
+          <Icon
+            className={`w-5 h-5 flex-shrink-0 ${
+              isActive
+                ? isModern
+                  ? 'text-blue-400'
+                  : classicMode === 'light'
+                  ? 'text-[var(--spsd-red)]'
+                  : 'text-white'
+                : isModern
+                ? 'text-white/70 group-hover:text-white'
+                : classicMode === 'light'
+                ? 'text-gray-600 group-hover:text-[var(--spsd-navy)]'
+                : 'text-white/70 group-hover:text-white'
+            }`}
+          />
+          <span
+            className={`text-sm font-medium flex-1 text-left ${
+              isActive
+                ? isModern
+                  ? 'text-white'
+                  : classicMode === 'light'
+                  ? 'text-[var(--spsd-navy)]'
+                  : 'text-white'
+                : isModern
+                ? 'text-white/80 group-hover:text-white'
+                : classicMode === 'light'
+                ? 'text-gray-700 group-hover:text-[var(--spsd-navy)]'
+                : 'text-white/80 group-hover:text-white'
+            }`}
+          >
+            {item.label}
+          </span>
+          {item.comingSoon && !isParent && (
+            <span
+              className={`text-xs px-2 py-0.5 rounded-full ${
+                isModern
+                  ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                  : classicMode === 'light'
+                  ? 'bg-yellow-100 text-yellow-700 border border-yellow-200'
+                  : 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30'
+              }`}
+            >
+              {tString('dashboard.sidebar.soon', 'Brzy')}
+            </span>
+          )}
+          {hasChildren && (
+            <div
+              className={`transition-transform duration-200 ${
+                isExpanded ? 'rotate-180' : ''
+              }`}
+            >
+              {isExpanded ? (
+                <ChevronDown
+                  className={`w-4 h-4 ${
+                    isModern
+                      ? 'text-white/70'
+                      : classicMode === 'light'
+                      ? 'text-gray-600'
+                      : 'text-white/70'
+                  }`}
+                />
+              ) : (
+                <ChevronRight
+                  className={`w-4 h-4 ${
+                    isModern
+                      ? 'text-white/70'
+                      : classicMode === 'light'
+                      ? 'text-gray-600'
+                      : 'text-white/70'
+                  }`}
+                />
+              )}
+            </div>
+          )}
+        </button>
+
+        {/* Render children if expanded */}
+        {hasChildren && isExpanded && (
+          <div className="mt-1 space-y-1">
+            {item.children!.map((child) => renderNavItem(child, depth + 1))}
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -147,76 +347,7 @@ export const DashboardSidebar: React.FC = () => {
 
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.href;
-
-          return (
-            <button
-              key={item.id}
-              onClick={() => handleNavClick(item.href)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative ${
-                isActive
-                  ? isModern
-                    ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/30'
-                    : classicMode === 'light'
-                    ? 'bg-gradient-to-r from-[var(--spsd-red)]/10 to-[var(--spsd-orange)]/10 border border-[var(--spsd-red)]/20'
-                    : 'bg-white/10 border border-white/20'
-                  : isModern
-                  ? 'hover:bg-white/5 border border-transparent'
-                  : classicMode === 'light'
-                  ? 'hover:bg-gray-50 border border-transparent'
-                  : 'hover:bg-white/5 border border-transparent'
-              }`}
-            >
-              <Icon
-                className={`w-5 h-5 flex-shrink-0 ${
-                  isActive
-                    ? isModern
-                      ? 'text-blue-400'
-                      : classicMode === 'light'
-                      ? 'text-[var(--spsd-red)]'
-                      : 'text-white'
-                    : isModern
-                    ? 'text-white/70 group-hover:text-white'
-                    : classicMode === 'light'
-                    ? 'text-gray-600 group-hover:text-[var(--spsd-navy)]'
-                    : 'text-white/70 group-hover:text-white'
-                }`}
-              />
-              <span
-                className={`text-sm font-medium ${
-                  isActive
-                    ? isModern
-                      ? 'text-white'
-                      : classicMode === 'light'
-                      ? 'text-[var(--spsd-navy)]'
-                      : 'text-white'
-                    : isModern
-                    ? 'text-white/80 group-hover:text-white'
-                    : classicMode === 'light'
-                    ? 'text-gray-700 group-hover:text-[var(--spsd-navy)]'
-                    : 'text-white/80 group-hover:text-white'
-                }`}
-              >
-                {item.label}
-              </span>
-              {item.comingSoon && (
-                <span
-                  className={`ml-auto text-xs px-2 py-0.5 rounded-full ${
-                    isModern
-                      ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                      : classicMode === 'light'
-                      ? 'bg-yellow-100 text-yellow-700 border border-yellow-200'
-                      : 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30'
-                  }`}
-                >
-                  {tString('dashboard.sidebar.soon', 'Brzy')}
-                </span>
-              )}
-            </button>
-          );
-        })}
+        {navItems.map((item) => renderNavItem(item))}
       </nav>
 
       {/* Bottom Section */}
