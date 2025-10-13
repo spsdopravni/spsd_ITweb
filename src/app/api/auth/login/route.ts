@@ -11,9 +11,9 @@ import { generateTokenPair } from '@/lib/auth/jwt';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 
-// Validation schema
+// Validation schema - accepts username or email
 const loginSchema = z.object({
-  username: z.string().min(1, 'Username is required').toLowerCase(),
+  username: z.string().min(1, 'Username or email is required'),
   password: z.string().min(1, 'Password is required'),
 });
 
@@ -62,9 +62,14 @@ export async function POST(request: NextRequest) {
 
     const { username, password } = validation.data;
 
-    // Find user
-    const user = await prisma.user.findUnique({
-      where: { username },
+    // Find user by username or email
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { username: username.toLowerCase() },
+          { email: username.toLowerCase() },
+        ],
+      },
     });
 
     if (!user) {

@@ -61,26 +61,38 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(true);
 
     try {
-      // TODO: Replace with actual API call
-      // For now, hardcoded admin/admin
-      if (username === 'admin' && password === 'admin') {
-        const userData: User = {
-          username: 'admin',
-          role: 'administrator',
-          email: 'admin@spsd.cz',
-        };
+      // Call real login API
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: 'include', // Important: includes cookies
+      });
 
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
-        setIsLoading(false);
-        return true;
-      } else {
-        setError('Nesprávné přihlašovací údaje');
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Nesprávné přihlašovací údaje');
         setIsLoading(false);
         return false;
       }
-    } catch (_err) {
-      setError('Chyba při přihlašování');
+
+      // Login successful
+      const userData: User = {
+        username: data.user.username,
+        role: data.user.role,
+        email: data.user.email,
+      };
+
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      setIsLoading(false);
+      return true;
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('Chyba při přihlašování. Zkuste to prosím později.');
       setIsLoading(false);
       return false;
     }

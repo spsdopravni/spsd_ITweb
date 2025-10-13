@@ -33,7 +33,34 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // 3. TODO: Get Bakaláři credentials from user record or session
+    // 3. Admin-only access check (Testing Interface)
+    if (user.role !== 'ADMIN') {
+      // Log unauthorized access attempt
+      await prisma.auditLog.create({
+        data: {
+          userId: user.id,
+          action: 'UNAUTHORIZED_ACCESS',
+          resource: 'bakalari_grades',
+          description: `Non-admin user (${user.role}) attempted to access Bakaláři testing interface`,
+          success: false,
+          ipAddress: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown',
+          userAgent: request.headers.get('user-agent') || undefined,
+          method: 'GET',
+          path: '/api/bakalari/grades',
+          statusCode: 403,
+        },
+      });
+
+      return NextResponse.json(
+        {
+          error: 'Forbidden',
+          message: 'This is a testing interface. Admin access required.',
+        },
+        { status: 403 }
+      );
+    }
+
+    // 4. TODO: Get Bakaláři credentials from user record or session
     // For now, return placeholder response
     // In production, you'll need to:
     // - Store Bakaláři credentials securely (encrypted)
@@ -63,7 +90,7 @@ export async function GET(request: NextRequest) {
      * return NextResponse.json({ success: true, data: grades });
      */
 
-    // 4. Return mock response for now
+    // 5. Return mock response for now (Testing Interface)
     return NextResponse.json({
       success: true,
       message: 'Bakaláři integration pending',
