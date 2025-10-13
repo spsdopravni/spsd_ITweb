@@ -202,6 +202,8 @@ export async function POST(request: NextRequest) {
         username: user.username,
         email: user.email,
         displayName: user.displayName,
+        firstName: user.firstName,
+        lastName: user.lastName,
         role: user.role,
       },
     });
@@ -209,16 +211,16 @@ export async function POST(request: NextRequest) {
     // Set auth cookies
     response.cookies.set('accessToken', tokens.accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: false, // Always false in dev to support HTTP connections
+      sameSite: 'lax',
       maxAge: 15 * 60, // 15 minutes
       path: '/',
     });
 
     response.cookies.set('refreshToken', tokens.refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: false, // Always false in dev to support HTTP connections
+      sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60, // 7 days
       path: '/',
     });

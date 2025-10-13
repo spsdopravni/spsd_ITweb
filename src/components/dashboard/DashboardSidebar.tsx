@@ -352,7 +352,7 @@ export const DashboardSidebar: React.FC = () => {
 
       {/* Bottom Section */}
       <div className="p-4 border-t border-white/10 space-y-2">
-        {/* Profile Settings */}
+        {/* User Info */}
         <button
           onClick={() => handleNavClick('/dashboard/profile')}
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
@@ -384,23 +384,40 @@ export const DashboardSidebar: React.FC = () => {
                 : 'text-white/70'
             }`}
           />
-          <span
-            className={`text-sm font-medium ${
-              pathname === '/dashboard/profile'
-                ? isModern
-                  ? 'text-white'
+          <div className="flex flex-col items-start flex-1 min-w-0">
+            <span
+              className={`text-sm font-medium truncate w-full ${
+                pathname === '/dashboard/profile'
+                  ? isModern
+                    ? 'text-white'
+                    : classicMode === 'light'
+                    ? 'text-[var(--spsd-navy)]'
+                    : 'text-white'
+                  : isModern
+                  ? 'text-white/80'
                   : classicMode === 'light'
-                  ? 'text-[var(--spsd-navy)]'
-                  : 'text-white'
-                : isModern
-                ? 'text-white/80'
-                : classicMode === 'light'
-                ? 'text-gray-700'
-                : 'text-white/80'
-            }`}
-          >
-            {tString('dashboard.sidebar.profile', 'Profil')}
-          </span>
+                  ? 'text-gray-700'
+                  : 'text-white/80'
+              }`}
+            >
+              {user?.firstName && user?.lastName
+                ? `${user.firstName} ${user.lastName}`
+                : user?.displayName || user?.username || tString('dashboard.sidebar.profile', 'Profil')}
+            </span>
+            {user?.email && (
+              <span
+                className={`text-xs truncate w-full ${
+                  isModern
+                    ? 'text-white/50'
+                    : classicMode === 'light'
+                    ? 'text-gray-500'
+                    : 'text-white/50'
+                }`}
+              >
+                {user.email}
+              </span>
+            )}
+          </div>
         </button>
 
         {/* Logout */}

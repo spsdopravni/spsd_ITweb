@@ -47,6 +47,14 @@ model User {
   twoFactorEnabled Boolean @default(false)
   twoFactorSecret  String?
 
+  // Bakaláři integration
+  bakalariConnected      Boolean @default(false)
+  bakalariUsername       String?
+  bakalariPasswordEnc    String? @db.Text // Encrypted password
+  bakalariAccessToken    String? @db.Text
+  bakalariRefreshToken   String? @db.Text
+  bakalariLastSync       DateTime?
+
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

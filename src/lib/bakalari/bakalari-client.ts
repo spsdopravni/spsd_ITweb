@@ -1,89 +1,171 @@
 /**
- * Bakaláři API Client
+ * Bakaláři API v3 Client
  *
- * Client for interacting with the Bakaláři school system API.
- * Handles authentication, request/response processing, and error handling.
+ * Real implementation for mot-spsd.bakalari.cz
+ * Based on official Bakaláři API v3 documentation
  *
  * @see https://github.com/bakalari-api/bakalari-api-v3
  */
 
-import type {
-  BakalariAuthToken,
-  Grade,
-  WeekSchedule,
-  Assignment,
-  Message,
-  Absence,
-  Payment,
-  StudentInfo,
-  GradeSemesterSummary,
-  AbsenceSummary,
-  PaymentSummary,
-} from '@/types/bakalari';
+export interface BakalariAuthResponse {
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+  expires_in: number;
+  scope?: string;
+  'bak:ApiVersion'?: string;
+  'bak:AppVersion'?: string;
+  'bak:UserId'?: string;
+}
 
-// Bakaláři API configuration
-const BAKALARI_BASE_URL = process.env.BAKALARI_API_URL || 'https://bakalari.spsmot.cz/api/v3';
-const BAKALARI_APP_VERSION = '1.0.0';
+export interface BakalariClientConfig {
+  baseUrl: string;
+  accessToken?: string;
+  refreshToken?: string;
+}
 
-/**
- * Bakaláři API Client
- */
 export class BakalariClient {
   private baseUrl: string;
   private accessToken?: string;
   private refreshToken?: string;
+  private tokenExpiresAt?: Date;
 
-  constructor(accessToken?: string, refreshToken?: string) {
-    this.baseUrl = BAKALARI_BASE_URL;
-    this.accessToken = accessToken;
-    this.refreshToken = refreshToken;
+  constructor(config: BakalariClientConfig) {
+    // Ensure baseUrl doesn't end with slash
+    this.baseUrl = config.baseUrl.replace(/\/$/, '');
+    this.accessToken = config.accessToken;
+    this.refreshToken = config.refreshToken;
   }
 
   /**
-   * Authenticate with Bakaláři system
-   * @param username Student username
-   * @param password Student password
+   * Authenticate with username and password
    */
-  async authenticate(username: string, password: string): Promise<BakalariAuthToken> {
-    const response = await this.request<BakalariAuthToken>('/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        client_id: 'SPSD_IT_Portal',
-        grant_type: 'password',
-        username,
-        password,
-      }),
-      skipAuth: true,
+  async authenticate(username: string, password: string): Promise<BakalariAuthResponse> {
+    const params = new URLSearchParams({
+      client_id: 'ANDR',
+      grant_type: 'password',
+      username: username,
+      password: password,
     });
 
-    this.accessToken = response.accessToken;
-    this.refreshToken = response.refreshToken;
+    const response = await fetch(`${this.baseUrl}/api/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params.toString(),
+    });
 
-    return response;
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Authentication failed: ${error}`);
+    }
+
+    const data: BakalariAuthResponse = await response.json();
+
+    this.accessToken = data.access_token;
+    this.refreshToken = data.refresh_token;
+    this.tokenExpiresAt = new Date(Date.now() + (data.expires_in * 1000));
+
+    return data;
   }
 
   /**
-   * Refresh authentication token
+   * Refresh access token using refresh token
    */
-  async refreshAuth(): Promise<BakalariAuthToken> {
+  async refreshAuth(): Promise<BakalariAuthResponse> {
     if (!this.refreshToken) {
       throw new Error('No refresh token available');
     }
 
-    const response = await this.request<BakalariAuthToken>('/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        client_id: 'SPSD_IT_Portal',
-        grant_type: 'refresh_token',
-        refresh_token: this.refreshToken,
-      }),
-      skipAuth: true,
+    const params = new URLSearchParams({
+      client_id: 'ANDR',
+      grant_type: 'refresh_token',
+      refresh_token: this.refreshToken,
     });
 
-    this.accessToken = response.accessToken;
-    this.refreshToken = response.refreshToken;
+    const response = await fetch(`${this.baseUrl}/api/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params.toString(),
+    });
 
-    return response;
+    if (!response.ok) {
+      throw new Error('Token refresh failed');
+    }
+
+    const data: BakalariAuthResponse = await response.json();
+
+    this.accessToken = data.access_token;
+    this.refreshToken = data.refresh_token;
+    this.tokenExpiresAt = new Date(Date.now() + (data.expires_in * 1000));
+
+    return data;
+  }
+
+  /**
+   * Make authenticated API request
+   */
+  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+    if (!this.accessToken) {
+      throw new Error('Not authenticated. Please call authenticate() first.');
+    }
+
+    // Check if token needs refresh (refresh 5 min before expiry)
+    if (this.tokenExpiresAt && this.tokenExpiresAt.getTime() - Date.now() < 5 * 60 * 1000) {
+      await this.refreshAuth();
+    }
+
+    const url = `${this.baseUrl}${endpoint}`;
+
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        'Authorization': `Bearer ${this.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Handle 401 - try to refresh token once
+    if (response.status === 401 && this.refreshToken) {
+      await this.refreshAuth();
+
+      // Retry request with new token
+      const retryResponse = await fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          'Authorization': `Bearer ${this.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!retryResponse.ok) {
+        throw new Error(`API request failed: ${retryResponse.status}`);
+      }
+
+      return retryResponse.json();
+    }
+
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status}`);
+    }
+
+    return response.json();
+  }
+
+  // ============================================================================
+  // USER & STUDENT INFO
+  // ============================================================================
+
+  /**
+   * Get current user information
+   */
+  async getUserInfo(): Promise<unknown> {
+    return this.request('/api/3/user');
   }
 
   // ============================================================================
@@ -91,155 +173,128 @@ export class BakalariClient {
   // ============================================================================
 
   /**
-   * Get all grades for current user
+   * Get all grades
    */
-  async getGrades(): Promise<Grade[]> {
-    return this.request<Grade[]>('/marks');
+  async getGrades(): Promise<unknown> {
+    return this.request('/api/3/marks');
   }
 
   /**
-   * Get grades summary by semester
+   * Get final grades
    */
-  async getGradesSummary(semester: 1 | 2): Promise<GradeSemesterSummary> {
-    return this.request<GradeSemesterSummary>(`/marks/summary?semester=${semester}`);
+  async getFinalGrades(): Promise<unknown> {
+    return this.request('/api/3/marks/final');
   }
 
   /**
-   * Get grades for specific subject
+   * Get subjects
    */
-  async getGradesBySubject(subjectId: string): Promise<Grade[]> {
-    return this.request<Grade[]>(`/marks?subjectId=${subjectId}`);
+  async getSubjects(): Promise<unknown> {
+    return this.request('/api/3/subjects');
   }
 
   // ============================================================================
-  // SCHEDULE (Rozvrh)
+  // TIMETABLE (Rozvrh)
   // ============================================================================
 
   /**
-   * Get permanent schedule (regular timetable)
+   * Get permanent timetable
    */
-  async getPermanentSchedule(): Promise<WeekSchedule> {
-    return this.request<WeekSchedule>('/timetable/permanent');
+  async getPermanentTimetable(): Promise<unknown> {
+    return this.request('/api/3/timetable/permanent');
   }
 
   /**
-   * Get actual schedule (with substitutions for specific date)
+   * Get actual timetable for a specific date
+   * @param date Format: YYYY-MM-DD
    */
-  async getActualSchedule(date: string): Promise<WeekSchedule> {
-    return this.request<WeekSchedule>(`/timetable/actual?date=${date}`);
+  async getActualTimetable(date: string): Promise<unknown> {
+    return this.request(`/api/3/timetable/actual?date=${date}`);
   }
 
   /**
-   * Get current week schedule
+   * Get substitutions
    */
-  async getCurrentWeekSchedule(): Promise<WeekSchedule> {
-    const today = new Date().toISOString().split('T')[0];
-    return this.getActualSchedule(today);
+  async getSubstitutions(): Promise<unknown> {
+    return this.request('/api/3/substitutions');
   }
 
   // ============================================================================
-  // ASSIGNMENTS (Úkoly)
+  // ABSENCES (Docházka)
   // ============================================================================
 
   /**
-   * Get all assignments
+   * Get student absences
    */
-  async getAssignments(): Promise<Assignment[]> {
-    return this.request<Assignment[]>('/homeworks');
-  }
-
-  /**
-   * Get assignment by ID
-   */
-  async getAssignment(id: string): Promise<Assignment> {
-    return this.request<Assignment>(`/homeworks/${id}`);
-  }
-
-  /**
-   * Get assignments due in next N days
-   */
-  async getUpcomingAssignments(days: number = 7): Promise<Assignment[]> {
-    const assignments = await this.getAssignments();
-    const today = new Date();
-    const futureDate = new Date(today.getTime() + days * 24 * 60 * 60 * 1000);
-
-    return assignments.filter((assignment) => {
-      const dueDate = new Date(assignment.dueDate);
-      return dueDate >= today && dueDate <= futureDate;
-    });
+  async getAbsences(): Promise<unknown> {
+    return this.request('/api/3/absence/student');
   }
 
   // ============================================================================
-  // MESSAGES (Komunikace)
+  // HOMEWORK (Úkoly)
+  // ============================================================================
+
+  /**
+   * Get homework assignments
+   * @param from Optional start date (YYYY-MM-DD)
+   */
+  async getHomework(from?: string): Promise<unknown> {
+    const params = from ? `?from=${from}` : '';
+    return this.request(`/api/3/homeworks${params}`);
+  }
+
+  // ============================================================================
+  // MESSAGES (Komunikace) - READ ONLY
   // ============================================================================
 
   /**
    * Get received messages
    */
-  async getReceivedMessages(): Promise<Message[]> {
-    return this.request<Message[]>('/komens/received');
+  async getReceivedMessages(): Promise<unknown> {
+    return this.request('/api/3/komens/messages/received');
   }
 
   /**
    * Get sent messages
    */
-  async getSentMessages(): Promise<Message[]> {
-    return this.request<Message[]>('/komens/sent');
+  async getSentMessages(): Promise<unknown> {
+    return this.request('/api/3/komens/messages/sent');
   }
 
   /**
-   * Get message by ID
+   * Get specific message
+   * @param messageId Message ID
    */
-  async getMessage(id: string): Promise<Message> {
-    return this.request<Message>(`/komens/${id}`);
+  async getMessage(messageId: string): Promise<unknown> {
+    return this.request(`/api/3/komens/message/${messageId}`);
   }
 
-  /**
-   * Send a message
-   */
-  async sendMessage(recipientId: string, subject: string, content: string): Promise<void> {
-    await this.request('/komens/send', {
-      method: 'POST',
-      body: JSON.stringify({
-        recipientId,
-        subject,
-        content,
-      }),
-    });
-  }
-
-  /**
-   * Mark message as read
-   */
-  async markMessageAsRead(id: string): Promise<void> {
-    await this.request(`/komens/${id}/read`, {
-      method: 'PUT',
-    });
-  }
+  // NOTE: Message sending is intentionally NOT implemented
+  // As per requirements, sending messages is disabled
 
   // ============================================================================
-  // ATTENDANCE (Docházka)
+  // EVENTS (Akce)
   // ============================================================================
 
   /**
-   * Get absence records
+   * Get all events
    */
-  async getAbsences(): Promise<Absence[]> {
-    return this.request<Absence[]>('/absence/student');
+  async getEvents(): Promise<unknown> {
+    return this.request('/api/3/events');
   }
 
   /**
-   * Get absence summary
+   * Get user's events
    */
-  async getAbsenceSummary(): Promise<AbsenceSummary> {
-    return this.request<AbsenceSummary>('/absence/student/summary');
+  async getMyEvents(): Promise<unknown> {
+    return this.request('/api/3/events/my');
   }
 
   /**
-   * Get absences for specific date range
+   * Get public events
    */
-  async getAbsencesByDateRange(from: string, to: string): Promise<Absence[]> {
-    return this.request<Absence[]>(`/absence/student?from=${from}&to=${to}`);
+  async getPublicEvents(): Promise<unknown> {
+    return this.request('/api/3/events/public');
   }
 
   // ============================================================================
@@ -247,108 +302,105 @@ export class BakalariClient {
   // ============================================================================
 
   /**
-   * Get payment records
+   * Get class fund payments
    */
-  async getPayments(): Promise<Payment[]> {
-    return this.request<Payment[]>('/payments');
-  }
-
-  /**
-   * Get payment summary
-   */
-  async getPaymentSummary(): Promise<PaymentSummary> {
-    return this.request<PaymentSummary>('/payments/summary');
-  }
-
-  /**
-   * Get payment by ID
-   */
-  async getPayment(id: string): Promise<Payment> {
-    return this.request<Payment>(`/payments/${id}`);
+  async getClassFundPayments(): Promise<unknown> {
+    return this.request('/api/3/payments/classfund');
   }
 
   // ============================================================================
-  // STUDENT INFO
+  // BULK DATA FETCH
   // ============================================================================
 
   /**
-   * Get current user info
+   * Fetch all available data from Bakaláři
+   * Returns all data in one object
    */
-  async getUserInfo(): Promise<StudentInfo> {
-    return this.request<StudentInfo>('/user');
-  }
-
-  // ============================================================================
-  // INTERNAL REQUEST HANDLER
-  // ============================================================================
-
-  /**
-   * Make a request to the Bakaláři API
-   */
-  private async request<T>(
-    endpoint: string,
-    options: {
-      method?: string;
-      body?: string;
-      skipAuth?: boolean;
-    } = {}
-  ): Promise<T> {
-    const { method = 'GET', body, skipAuth = false } = options;
-
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      'X-App-Version': BAKALARI_APP_VERSION,
-    };
-
-    if (!skipAuth && this.accessToken) {
-      headers['Authorization'] = `Bearer ${this.accessToken}`;
-    }
-
+  async fetchAllData(): Promise<{
+    user: unknown;
+    grades: unknown;
+    finalGrades: unknown;
+    subjects: unknown;
+    permanentTimetable: unknown;
+    actualTimetable: unknown;
+    substitutions: unknown;
+    absences: unknown;
+    homework: unknown;
+    receivedMessages: unknown;
+    sentMessages: unknown;
+    events: unknown;
+    myEvents: unknown;
+    publicEvents: unknown;
+    classFundPayments: unknown;
+  }> {
     try {
-      const response = await fetch(`${this.baseUrl}${endpoint}`, {
-        method,
-        headers,
-        body,
-      });
+      const today = new Date().toISOString().split('T')[0];
 
-      if (!response.ok) {
-        // Try to refresh token if unauthorized
-        if (response.status === 401 && !skipAuth && this.refreshToken) {
-          await this.refreshAuth();
-          // Retry the request with new token
-          return this.request<T>(endpoint, options);
-        }
+      const [
+        user,
+        grades,
+        finalGrades,
+        subjects,
+        permanentTimetable,
+        actualTimetable,
+        substitutions,
+        absences,
+        homework,
+        receivedMessages,
+        sentMessages,
+        events,
+        myEvents,
+        publicEvents,
+        classFundPayments,
+      ] = await Promise.allSettled([
+        this.getUserInfo(),
+        this.getGrades(),
+        this.getFinalGrades(),
+        this.getSubjects(),
+        this.getPermanentTimetable(),
+        this.getActualTimetable(today),
+        this.getSubstitutions(),
+        this.getAbsences(),
+        this.getHomework(),
+        this.getReceivedMessages(),
+        this.getSentMessages(),
+        this.getEvents(),
+        this.getMyEvents(),
+        this.getPublicEvents(),
+        this.getClassFundPayments(),
+      ]);
 
-        const error = await response.json().catch(() => ({}));
-        throw new Error(error.message || `Bakaláři API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data as T;
+      return {
+        user: user.status === 'fulfilled' ? user.value : null,
+        grades: grades.status === 'fulfilled' ? grades.value : null,
+        finalGrades: finalGrades.status === 'fulfilled' ? finalGrades.value : null,
+        subjects: subjects.status === 'fulfilled' ? subjects.value : null,
+        permanentTimetable: permanentTimetable.status === 'fulfilled' ? permanentTimetable.value : null,
+        actualTimetable: actualTimetable.status === 'fulfilled' ? actualTimetable.value : null,
+        substitutions: substitutions.status === 'fulfilled' ? substitutions.value : null,
+        absences: absences.status === 'fulfilled' ? absences.value : null,
+        homework: homework.status === 'fulfilled' ? homework.value : null,
+        receivedMessages: receivedMessages.status === 'fulfilled' ? receivedMessages.value : null,
+        sentMessages: sentMessages.status === 'fulfilled' ? sentMessages.value : null,
+        events: events.status === 'fulfilled' ? events.value : null,
+        myEvents: myEvents.status === 'fulfilled' ? myEvents.value : null,
+        publicEvents: publicEvents.status === 'fulfilled' ? publicEvents.value : null,
+        classFundPayments: classFundPayments.status === 'fulfilled' ? classFundPayments.value : null,
+      };
     } catch (error) {
-      console.error('Bakaláři API request failed:', error);
+      console.error('Error fetching all data:', error);
       throw error;
     }
   }
 }
 
 /**
- * Create a Bakaláři client instance
+ * Create a Bakaláři client for mot-spsd.bakalari.cz
  */
 export function createBakalariClient(accessToken?: string, refreshToken?: string): BakalariClient {
-  return new BakalariClient(accessToken, refreshToken);
-}
-
-/**
- * Bakaláři API Error
- */
-export class BakalariApiError extends Error {
-  constructor(
-    message: string,
-    public statusCode: number,
-    public errorCode?: string
-  ) {
-    super(message);
-    this.name = 'BakalariApiError';
-  }
+  return new BakalariClient({
+    baseUrl: 'https://mot-spsd.bakalari.cz',
+    accessToken,
+    refreshToken,
+  });
 }

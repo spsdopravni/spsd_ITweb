@@ -1301,6 +1301,40 @@ spsd_ITweb/
 
 ## Recent Changes
 
+### Dashboard Sidebar - User Name Display (2025-10-13)
+
+**Title**: Show Student Name Instead of "Profile" in Sidebar
+
+**Changes**:
+- **Updated Sidebar User Section**:
+  - Changed from generic "Profil" text to display actual user name
+  - Shows "Jméno Příjmení" (firstName + lastName)
+  - Falls back to displayName if firstName/lastName not available
+  - Shows email below name in smaller text
+  - Better visual hierarchy with two-line layout
+- **Updated Data Flow**:
+  - Added firstName, lastName, displayName to User interface in AuthContext
+  - Updated login API to return firstName and lastName from database
+  - AuthContext now stores complete user info in state and localStorage
+- **UI Improvements**:
+  - User info section now more personal and informative
+  - Truncates long names with ellipsis
+  - Email shown in subdued color
+
+**Files Modified**:
+- `src/contexts/AuthContext.tsx` - Added firstName, lastName, displayName to User interface
+- `src/app/api/auth/login/route.ts` - Return firstName and lastName in response
+- `src/components/dashboard/DashboardSidebar.tsx` - Display user name instead of "Profil"
+
+**Visual Result**:
+```
+Before: [User Icon] Profil
+After:  [User Icon] Jan Novák
+                    student@spsd.cz
+```
+
+---
+
 ### Documentation Cleanup & .gitignore Update (2025-10-13)
 
 **Title**: Cleaned Up Redundant Documentation and Updated .gitignore
