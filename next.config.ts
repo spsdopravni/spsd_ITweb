@@ -16,7 +16,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  // Prisma client generation
+  // Turbopack config (Next.js 16 default)
+  turbopack: {
+    // Empty config - Prisma works fine with Turbopack defaults
+  },
+  // Webpack config (fallback for webpack builds)
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.externals.push('@prisma/client');
