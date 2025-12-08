@@ -16,9 +16,7 @@ interface LanguageModeProps {
 }
 
 export const LanguageMode: React.FC<LanguageModeProps> = ({
-  languageSpring: _languageSpring,
   onModeChange,
-  onEscape: _onEscape
 }) => {
   const { currentLanguage, changeLanguage, t } = useLanguage();
   const { theme, classicMode } = useTheme();

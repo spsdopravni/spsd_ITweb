@@ -177,13 +177,6 @@ export const DynamicIsland: React.FC = () => {
     transform: mode === 'language' && !isAnimating ? 'translateY(0px)' : 'translateY(-10px)',
     config: { tension: 350, friction: 30 }
   });
-  
-  // Theme options spring animation
-  const _themeSpring = useSpring({
-    opacity: mode === 'theme' && !isAnimating ? 1 : 0,
-    transform: mode === 'theme' && !isAnimating ? 'translateY(0px)' : 'translateY(-10px)',
-    config: { tension: 350, friction: 30 }
-  });
 
   // Search input animation
   const searchInputSpring = useSpring({

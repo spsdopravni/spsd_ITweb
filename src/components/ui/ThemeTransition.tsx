@@ -10,18 +10,14 @@ interface ThemeTransitionProps {
 
 export const ThemeTransition: React.FC<ThemeTransitionProps> = ({ children }) => {
   const { theme, classicMode } = useTheme();
-  const [_isTransitioning, setIsTransitioning] = useState(false);
   const [transitionKey, setTransitionKey] = useState(`${theme}-${classicMode}`);
 
   useEffect(() => {
     const newKey = `${theme}-${classicMode}`;
     if (newKey !== transitionKey) {
-      setIsTransitioning(true);
-      
       // Start transition after a short delay to ensure state is updated
       const timer = setTimeout(() => {
         setTransitionKey(newKey);
-        setIsTransitioning(false);
       }, 50);
 
       return () => clearTimeout(timer);

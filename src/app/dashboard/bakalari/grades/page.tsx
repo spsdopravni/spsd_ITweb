@@ -8,14 +8,11 @@ import { useAuth } from '@/contexts/AuthContext';
 import {
   Award,
   TrendingUp,
-  TrendingDown,
   Calendar,
   Filter,
-  BarChart3,
   Download,
   Eye,
   EyeOff,
-  Info,
   Shield,
   AlertTriangle,
   Lock
@@ -42,7 +39,7 @@ export default function BakalariGradesPage() {
   const isModern = theme === 'modern';
 
   const [selectedSemester, setSelectedSemester] = useState<1 | 2>(1);
-  const [selectedSubject, setSelectedSubject] = useState<string>('all');
+  const [selectedSubject] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'cards' | 'detailed'>('cards');
   const [showOnlyRecent, setShowOnlyRecent] = useState(false);
 
@@ -98,29 +95,6 @@ export default function BakalariGradesPage() {
 
     fetchGrades();
   }, [selectedSemester, isAdmin]);
-
-  // Get grade color based on value
-  const getGradeColor = (grade: string) => {
-    const numGrade = parseInt(grade);
-    if (isNaN(numGrade)) return 'bg-gray-500';
-
-    if (numGrade === 1) return 'bg-green-500';
-    if (numGrade === 2) return 'bg-blue-500';
-    if (numGrade === 3) return 'bg-yellow-500';
-    if (numGrade === 4) return 'bg-orange-500';
-    return 'bg-red-500';
-  };
-
-  const getGradeTextColor = (grade: string) => {
-    const numGrade = parseInt(grade);
-    if (isNaN(numGrade)) return 'text-gray-700';
-
-    if (numGrade === 1) return 'text-green-600';
-    if (numGrade === 2) return 'text-blue-600';
-    if (numGrade === 3) return 'text-yellow-600';
-    if (numGrade === 4) return 'text-orange-600';
-    return 'text-red-600';
-  };
 
   // Calculate statistics
   const calculateStats = () => {
@@ -766,7 +740,7 @@ function DetailedGradesView({ subjects, isModern, classicMode }: DetailedGradesV
             </tr>
           </thead>
           <tbody>
-            {subjects.map((subject: SubjectGradeSummary, index: number) => (
+            {subjects.map((subject: SubjectGradeSummary) => (
               <tr
                 key={subject.subjectId}
                 className={`border-b ${

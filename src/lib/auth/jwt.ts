@@ -107,7 +107,7 @@ export async function verifyAccessToken(token: string): Promise<TokenPayload> {
       email: payload.email as string,
       role: payload.role as string,
     };
-  } catch (_error) {
+  } catch {
     throw new Error('Invalid or expired access token');
   }
 }
@@ -131,7 +131,7 @@ export async function verifyRefreshToken(token: string): Promise<TokenPayload> {
       username: payload.username as string,
       email: '', // Refresh token doesn't contain email
     };
-  } catch (_error) {
+  } catch {
     throw new Error('Invalid or expired refresh token');
   }
 }

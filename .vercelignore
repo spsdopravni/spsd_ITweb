@@ -1,0 +1,43 @@
+# Local development files
+.env
+.env.local
+*.local
+
+# Build artifacts
+.next/
+node_modules/
+dist/
+out/
+
+# Database
+*.sqlite
+*.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+coverage/
+.nyc_output/
+
+# Backend folder (if not needed)
+backend/
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+!README.md

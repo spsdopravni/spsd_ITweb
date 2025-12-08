@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePreferences } from '@/contexts/PreferencesContext';
 import { useTheme } from '@/lib/theme/useTheme';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { Lock, User, Loader2, CheckCircle2, XCircle, Database, Download } from 'lucide-react';
 
 /**
@@ -15,7 +14,6 @@ import { Lock, User, Loader2, CheckCircle2, XCircle, Database, Download } from '
 export default function BakalariConnectPage() {
   const { theme } = usePreferences();
   const { classicMode } = useTheme();
-  const { t } = useLanguage();
   const router = useRouter();
   const isModern = theme === 'modern';
 

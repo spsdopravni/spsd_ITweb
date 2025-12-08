@@ -18,7 +18,6 @@ import {
   Users,
   CreditCard,
   FileText,
-  Video,
   FolderOpen,
   Bell,
 } from 'lucide-react';

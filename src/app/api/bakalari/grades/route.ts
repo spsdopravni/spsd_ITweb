@@ -7,7 +7,6 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createBakalariClient } from '@/lib/bakalari/bakalari-client';
 import { verifyAccessToken } from '@/lib/auth/jwt';
 import { prisma } from '@/lib/db/prisma';
 

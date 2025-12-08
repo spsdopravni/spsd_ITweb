@@ -5,11 +5,11 @@
  * Redirects user to Microsoft login page
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { generateAuthorizationUrl, generateState } from '@/lib/auth/microsoft-oauth';
 import { cookies } from 'next/headers';
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   try {
     // Generate CSRF state token
     const state = generateState();

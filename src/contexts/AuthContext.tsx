@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (storedUser) {
         try {
           setUser(JSON.parse(storedUser));
-        } catch (_e) {
+        } catch {
           localStorage.removeItem('user');
         }
       }
@@ -113,7 +113,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Placeholder for future API integration
       alert('Microsoft přihlášení bude implementováno s API klíčem');
       setIsLoading(false);
-    } catch (_err) {
+    } catch {
       setError('Chyba při přihlašování přes Microsoft');
       setIsLoading(false);
     }
