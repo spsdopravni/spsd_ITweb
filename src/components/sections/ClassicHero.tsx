@@ -1,149 +1,523 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
-import { BookOpen, Users, Trophy, ArrowRight, FolderOpen, School } from 'lucide-react';
+import {
+  ArrowRight,
+  FolderOpen,
+  School,
+  GraduationCap,
+  Cpu,
+  Award,
+  LucideIcon,
+} from 'lucide-react';
+
+const COLOR = {
+  navy: '#002b4e',
+  navyLight: '#133f64',
+  red: '#c81e1c',
+  redLight: '#dc3530',
+  orange: '#e95d41',
+  white: '#ffffff',
+  paper: '#fafaf7',
+};
+
+type Feature = { Icon: LucideIcon; title: string; desc: string };
 
 export const ClassicHero: React.FC = () => {
   const { t } = useLanguage();
   const { classicMode } = useTheme();
+  const isLight = classicMode === 'light';
+
+  // Viewport detection via matchMedia — bulletproof, no Tailwind responsive
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const tStr = (key: string, fallback: string): string => {
+    const r = t(key, fallback);
+    return Array.isArray(r) ? r[0] || fallback : (r as string);
+  };
+
+  const features: Feature[] = [
+    {
+      Icon: Cpu,
+      title: tStr('hero.feature1Title', 'Moderní technologie'),
+      desc: tStr(
+        'hero.feature1Desc',
+        'Python, TypeScript, sítě, Linux, Docker, databáze.'
+      ),
+    },
+    {
+      Icon: School,
+      title: tStr('hero.feature2Title', 'Praxe ve firmách'),
+      desc: tStr(
+        'hero.feature2Desc',
+        'Odborné stáže a spolupráce s partnery oboru.'
+      ),
+    },
+    {
+      Icon: Award,
+      title: tStr('hero.feature3Title', 'Soutěže a projekty'),
+      desc: tStr(
+        'hero.feature3Desc',
+        'Hackathony, maturitní projekty, reálná zadání.'
+      ),
+    },
+  ];
+
+  const stats = [
+    { value: '4', label: tStr('hero.stat1', 'Roky studia') },
+    { value: '15+', label: tStr('hero.stat2', 'IT předmětů') },
+    { value: '100%', label: tStr('hero.stat3', 'Maturita z IT') },
+  ];
+
+  const [primaryHover, setPrimaryHover] = useState(false);
+  const [secondaryHover, setSecondaryHover] = useState(false);
+
+  // Theme-derived colors
+  const textStrong = isLight ? COLOR.navy : COLOR.white;
+  const textMuted = isLight ? 'rgba(0,43,78,0.72)' : 'rgba(255,255,255,0.72)';
+  const textSubtle = isLight ? 'rgba(0,43,78,0.55)' : 'rgba(255,255,255,0.55)';
+  const textMeta = isLight ? 'rgba(0,43,78,0.55)' : 'rgba(255,255,255,0.55)';
+  const divider = isLight ? 'rgba(0,43,78,0.12)' : 'rgba(255,255,255,0.12)';
+  const dividerSoft = isLight ? 'rgba(0,43,78,0.08)' : 'rgba(255,255,255,0.08)';
 
   return (
-    <section className={`py-16 md:py-24 transition-colors duration-300 ${
-      classicMode === 'light'
-        ? 'bg-white'
-        : 'bg-gradient-to-r from-[var(--spsd-navy)] to-[var(--spsd-navy-light)]'
-    }`}>
-      <div className="container mx-auto px-4">
-        {/* Accent bar */}
-        <div className={`w-24 h-1 mx-auto mb-12 rounded-full ${
-          classicMode === 'light'
-            ? 'bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-orange)]'
-            : 'bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-orange)]'
-        }`}></div>
-        
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
-            classicMode === 'light'
-              ? 'text-[var(--spsd-navy)]'
-              : 'text-white'
-          }`}>
-            {t('hero.title', 'IT Obor SPŠD')}
-          </h1>
-          <p className={`text-lg md:text-xl mb-12 leading-relaxed max-w-2xl mx-auto ${
-            classicMode === 'light'
-              ? 'text-[var(--spsd-navy)]/80'
-              : 'text-white/90'
-          }`}>
-            {t('hero.subtitle', 'Kvalitní technické vzdělání pro budoucnost')}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link
-              href="/about"
-              className="group relative overflow-hidden bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-red-light)] text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3"
-            >
-              <School className="w-5 h-5" />
-              <span>{t('hero.aboutButton', 'O škole')}</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-            <Link
-              href="/projects"
-              className={`group relative overflow-hidden px-8 py-4 rounded-xl font-semibold transform hover:-translate-y-1 transition-all duration-300 inline-flex items-center justify-center gap-3 ${
-                classicMode === 'light'
-                  ? 'bg-white border-2 border-[var(--spsd-navy)] text-[var(--spsd-navy)] hover:bg-[var(--spsd-navy)] hover:text-white shadow-lg hover:shadow-xl'
-                  : 'bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white hover:bg-white/20 hover:border-white/30 shadow-xl hover:shadow-2xl'
-              }`}
-            >
-              <FolderOpen className="w-5 h-5" />
-              <span>{t('hero.projectsButton', 'Projekty')}</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                classicMode === 'light'
-                  ? 'bg-gradient-to-r from-[var(--spsd-navy)]/10 to-transparent'
-                  : 'bg-gradient-to-r from-white/10 to-transparent'
-              }`}></div>
-            </Link>
-          </div>
-        </div>
+    <section
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        background: isLight
+          ? COLOR.paper
+          : `linear-gradient(135deg, ${COLOR.navy} 0%, #0f1a3a 50%, ${COLOR.navyLight} 100%)`,
+      }}
+    >
+      {/* Top accent bar */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '3px',
+          background: `linear-gradient(90deg, ${COLOR.navy} 0%, ${COLOR.red} 50%, ${COLOR.orange} 100%)`,
+          zIndex: 5,
+        }}
+      />
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className={`text-center p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-            classicMode === 'light'
-              ? 'bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-[var(--spsd-red)]/30 shadow-md'
-              : 'bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20'
-          }`}>
-            <BookOpen className={`w-12 h-12 mx-auto mb-4 ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-red)]'
-                : 'text-white'
-            }`} />
-            <h3 className={`text-lg font-semibold mb-2 ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-navy)]'
-                : 'text-white'
-            }`}>
-              {t('hero.feature1Title', 'Kvalitní výuka')}
-            </h3>
-            <p className={`text-sm ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-navy)]/70'
-                : 'text-white/80'
-            }`}>
-              {t('hero.feature1Desc', 'Moderní učebny a zkušení pedagogové')}
+      {/* Red corner wedge — top right */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: isDesktop ? '460px' : '220px',
+          height: isDesktop ? '460px' : '220px',
+          pointerEvents: 'none',
+          background: `linear-gradient(225deg, ${COLOR.red} 0%, ${COLOR.orange} 55%, transparent 82%)`,
+          clipPath: 'polygon(100% 0, 100% 55%, 28% 0)',
+          opacity: isLight ? 0.2 : 0.35,
+        }}
+      />
+
+      {/* Container */}
+      <div
+        style={{
+          position: 'relative',
+          maxWidth: '1280px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          paddingLeft: isDesktop ? '3rem' : '1.5rem',
+          paddingRight: isDesktop ? '3rem' : '1.5rem',
+          paddingTop: isDesktop ? '8rem' : '5.5rem',
+          paddingBottom: isDesktop ? '8rem' : '5rem',
+          zIndex: 2,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: isDesktop ? 'row' : 'column',
+            alignItems: 'flex-start',
+            gap: isDesktop ? '4.5rem' : '3.5rem',
+            width: '100%',
+          }}
+        >
+          {/* ============ LEFT COLUMN ============ */}
+          <div
+            style={{
+              flex: isDesktop ? '1 1 0%' : '0 0 auto',
+              minWidth: 0,
+              width: isDesktop ? 'auto' : '100%',
+            }}
+          >
+            {/* Eyebrow */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                marginBottom: '2rem',
+              }}
+            >
+              <span
+                aria-hidden
+                style={{
+                  display: 'inline-block',
+                  width: '56px',
+                  height: '2px',
+                  background: COLOR.red,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.22em',
+                  color: isLight ? COLOR.red : COLOR.orange,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {tStr('hero.eyebrow', 'SPŠD Praha Motol · Obor IT')}
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1
+              style={{
+                fontSize: isDesktop
+                  ? 'clamp(3rem, 5.2vw, 5rem)'
+                  : 'clamp(2.25rem, 9vw, 3.5rem)',
+                lineHeight: 1.02,
+                fontWeight: 800,
+                letterSpacing: '-0.025em',
+                marginTop: 0,
+                marginBottom: '2rem',
+                color: textStrong,
+              }}
+            >
+              <span style={{ display: 'block' }}>
+                {tStr('hero.title', 'Technika, která tě')}
+              </span>
+              <span
+                style={{
+                  display: 'block',
+                  color: COLOR.red,
+                  marginTop: '0.1em',
+                }}
+              >
+                {tStr('hero.titleHighlight', 'posune dál.')}
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p
+              style={{
+                fontSize: isDesktop ? '1.15rem' : '1.0625rem',
+                lineHeight: 1.7,
+                color: textMuted,
+                maxWidth: '38rem',
+                marginTop: 0,
+                marginBottom: '2.75rem',
+                fontWeight: 400,
+              }}
+            >
+              {tStr(
+                'hero.subtitle',
+                'Čtyřletý maturitní obor Informační technologie zaměřený na programování, počítačové sítě, kyberbezpečnost a moderní webové technologie. Učíme praktické věci, se kterými se reálně pracuje.'
+              )}
             </p>
+
+            {/* CTA row */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: isDesktop ? 'row' : 'column',
+                gap: '0.875rem',
+                marginBottom: '3.5rem',
+                alignItems: isDesktop ? 'center' : 'stretch',
+              }}
+            >
+              {/* Primary CTA */}
+              <Link
+                href="/about"
+                onMouseEnter={() => setPrimaryHover(true)}
+                onMouseLeave={() => setPrimaryHover(false)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.625rem',
+                  padding: '1rem 1.875rem',
+                  borderRadius: '8px',
+                  background: primaryHover ? COLOR.redLight : COLOR.red,
+                  color: COLOR.white,
+                  fontWeight: 600,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  boxShadow: primaryHover
+                    ? '0 18px 38px -10px rgba(200, 30, 28, 0.55)'
+                    : '0 12px 28px -10px rgba(200, 30, 28, 0.4)',
+                  transform: primaryHover ? 'translateY(-2px)' : 'translateY(0)',
+                  transition:
+                    'transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease',
+                }}
+              >
+                <School style={{ width: 20, height: 20, color: COLOR.white }} />
+                <span style={{ color: COLOR.white }}>
+                  {tStr('hero.aboutButton', 'O oboru')}
+                </span>
+                <ArrowRight
+                  style={{
+                    width: 16,
+                    height: 16,
+                    color: COLOR.white,
+                    transition: 'transform 0.3s ease',
+                    transform: primaryHover ? 'translateX(4px)' : 'translateX(0)',
+                  }}
+                />
+              </Link>
+
+              {/* Secondary CTA */}
+              <Link
+                href="/projects"
+                onMouseEnter={() => setSecondaryHover(true)}
+                onMouseLeave={() => setSecondaryHover(false)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.625rem',
+                  padding: '1rem 1.875rem',
+                  borderRadius: '8px',
+                  background: isLight
+                    ? secondaryHover
+                      ? COLOR.navy
+                      : COLOR.white
+                    : secondaryHover
+                    ? 'rgba(255,255,255,0.12)'
+                    : 'rgba(255,255,255,0.05)',
+                  color: isLight
+                    ? secondaryHover
+                      ? COLOR.white
+                      : COLOR.navy
+                    : COLOR.white,
+                  fontWeight: 600,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  border: isLight
+                    ? `2px solid ${secondaryHover ? COLOR.navy : 'rgba(0,43,78,0.2)'}`
+                    : `2px solid ${
+                        secondaryHover
+                          ? 'rgba(255,255,255,0.5)'
+                          : 'rgba(255,255,255,0.22)'
+                      }`,
+                  boxShadow: isLight ? '0 6px 18px rgba(0, 43, 78, 0.08)' : 'none',
+                  transform: secondaryHover ? 'translateY(-2px)' : 'translateY(0)',
+                  transition:
+                    'transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, color 0.3s ease',
+                }}
+              >
+                <FolderOpen
+                  style={{
+                    width: 20,
+                    height: 20,
+                    color: isLight
+                      ? secondaryHover
+                        ? COLOR.white
+                        : COLOR.navy
+                      : COLOR.white,
+                  }}
+                />
+                <span>{tStr('hero.projectsButton', 'Projekty studentů')}</span>
+              </Link>
+            </div>
+
+            {/* Stats */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: '2.5rem',
+                paddingTop: '2.5rem',
+                borderTop: `1px solid ${divider}`,
+              }}
+            >
+              {stats.map((s, i) => (
+                <React.Fragment key={i}>
+                  <div>
+                    <div
+                      style={{
+                        fontSize: '2.25rem',
+                        fontWeight: 800,
+                        lineHeight: 1,
+                        color: textStrong,
+                      }}
+                    >
+                      {s.value}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: '0.72rem',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.16em',
+                        marginTop: '0.55rem',
+                        color: textMeta,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {s.label}
+                    </div>
+                  </div>
+                  {i < stats.length - 1 && (
+                    <div
+                      aria-hidden
+                      style={{
+                        width: '1px',
+                        height: '2.75rem',
+                        background: divider,
+                      }}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
-          <div className={`text-center p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-            classicMode === 'light'
-              ? 'bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-[var(--spsd-red)]/30 shadow-md'
-              : 'bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20'
-          }`}>
-            <Users className={`w-12 h-12 mx-auto mb-4 ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-red)]'
-                : 'text-white'
-            }`} />
-            <h3 className={`text-lg font-semibold mb-2 ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-navy)]'
-                : 'text-white'
-            }`}>
-              {t('hero.feature2Title', 'Praxe ve firmách')}
-            </h3>
-            <p className={`text-sm ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-navy)]/70'
-                : 'text-white/80'
-            }`}>
-              {t('hero.feature2Desc', 'Spolupráce s předními IT společnostmi')}
-            </p>
-          </div>
-          <div className={`text-center p-8 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-            classicMode === 'light'
-              ? 'bg-gradient-to-br from-white to-gray-50 border border-gray-200 hover:border-[var(--spsd-red)]/30 shadow-md'
-              : 'bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20'
-          }`}>
-            <Trophy className={`w-12 h-12 mx-auto mb-4 ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-red)]'
-                : 'text-white'
-            }`} />
-            <h3 className={`text-lg font-semibold mb-2 ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-navy)]'
-                : 'text-white'
-            }`}>
-              {t('hero.feature3Title', 'Úspěchy studentů')}
-            </h3>
-            <p className={`text-sm ${
-              classicMode === 'light'
-                ? 'text-[var(--spsd-navy)]/70'
-                : 'text-white/80'
-            }`}>
-              {t('hero.feature3Desc', 'Vítězství v soutěžích a hackathonech')}
-            </p>
+
+          {/* ============ RIGHT COLUMN — Feature Card ============ */}
+          <div
+            style={{
+              flex: isDesktop ? '0 0 420px' : '0 0 auto',
+              width: isDesktop ? '420px' : '100%',
+              position: 'relative',
+            }}
+          >
+            {/* Card */}
+            <div
+              style={{
+                position: 'relative',
+                borderRadius: '14px',
+                overflow: 'hidden',
+                background: isLight ? COLOR.white : 'rgba(10, 21, 48, 0.88)',
+                border: isLight
+                  ? '1px solid rgba(0, 43, 78, 0.12)'
+                  : '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: isLight
+                  ? '0 32px 64px -20px rgba(0, 43, 78, 0.25)'
+                  : '0 32px 64px -20px rgba(0, 0, 0, 0.55)',
+                backdropFilter: isLight ? 'none' : 'blur(8px)',
+              }}
+            >
+              {/* Header band */}
+              <div
+                style={{
+                  padding: '1.35rem 1.75rem',
+                  background: `linear-gradient(135deg, ${COLOR.navy} 0%, ${COLOR.navyLight} 100%)`,
+                  borderBottom: `3px solid ${COLOR.red}`,
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                  }}
+                >
+                  <GraduationCap
+                    style={{
+                      width: 20,
+                      height: 20,
+                      color: COLOR.orange,
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.18em',
+                      color: 'rgba(255, 255, 255, 0.95)',
+                    }}
+                  >
+                    {tStr('hero.cardLabel', 'Co tě čeká')}
+                  </span>
+                </div>
+              </div>
+
+              {/* Feature items */}
+              <div>
+                {features.map(({ Icon, title, desc }, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '1rem',
+                      padding: '1.4rem 1.75rem',
+                      borderBottom:
+                        i < features.length - 1
+                          ? `1px solid ${dividerSoft}`
+                          : 'none',
+                    }}
+                  >
+                    <div
+                      style={{
+                        flexShrink: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '44px',
+                        height: '44px',
+                        borderRadius: '9px',
+                        background: isLight
+                          ? 'rgba(200, 30, 28, 0.1)'
+                          : 'rgba(200, 30, 28, 0.18)',
+                        color: isLight ? COLOR.red : COLOR.orange,
+                      }}
+                    >
+                      <Icon style={{ width: 22, height: 22 }} />
+                    </div>
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                      <div
+                        style={{
+                          fontSize: '1rem',
+                          fontWeight: 700,
+                          marginBottom: '0.4rem',
+                          color: textStrong,
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {title}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '0.875rem',
+                          lineHeight: 1.6,
+                          color: textSubtle,
+                        }}
+                      >
+                        {desc}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
