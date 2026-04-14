@@ -24,9 +24,10 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   const [showWelcome, setShowWelcome] = useState(false);
 
   // Check if we're on a dashboard page (no footer/dynamic island/burger menu)
-  const isDashboard = pathname?.startsWith('/dashboard');
+  const isDashboard = pathname?.startsWith('/dashboard') ?? false;
+  const isLogin = pathname?.startsWith('/login') ?? false;
   // Check if we're on dashboard or login page (no footer only)
-  const isDashboardOrLogin = isDashboard || pathname === '/login';
+  const isDashboardOrLogin = isDashboard || isLogin;
 
   useEffect(() => {
     setShowWelcome(!hasSeenWelcome);

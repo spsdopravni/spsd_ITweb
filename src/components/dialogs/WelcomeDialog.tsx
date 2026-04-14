@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage, SupportedLanguage, getLanguageName, getLanguageFlag } from '@/contexts/LanguageContext';
-import { Check, Globe, BookOpen, Zap, ArrowRight, Loader2, Sun, Moon } from 'lucide-react';
+import { Check, Globe, BookOpen, Zap, ArrowRight, Sun, Moon } from 'lucide-react';
 
 interface WelcomeDialogProps {
   onComplete: (preferences: { theme: 'modern' | 'classic'; language: SupportedLanguage; classicMode?: 'light' | 'dark' }) => void;
@@ -14,7 +14,6 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
   const [selectedTheme, setSelectedTheme] = useState<'modern' | 'classic' | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage | null>(null);
   const [step, setStep] = useState<'language' | 'theme'>('language');
-  const [isThemeLoading, setIsThemeLoading] = useState(false);
   const [previewTheme, setPreviewTheme] = useState<'modern' | 'classic' | null>(null);
   const [classicMode, setClassicMode] = useState<'light' | 'dark'>('light');
 
@@ -35,14 +34,8 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
 
   const handleThemeSelect = (theme: 'modern' | 'classic') => {
     if (selectedTheme !== theme) {
-      setIsThemeLoading(true);
       setSelectedTheme(theme);
       setPreviewTheme(theme);
-      
-      // Simulate loading time for theme preview
-      setTimeout(() => {
-        setIsThemeLoading(false);
-      }, 800);
     }
   };
 
@@ -53,7 +46,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
   };
 
   const handleThemeContinue = () => {
-    if (selectedTheme && selectedLanguage && !isThemeLoading) {
+    if (selectedTheme && selectedLanguage) {
       onComplete({ 
         theme: selectedTheme, 
         language: selectedLanguage, 
@@ -87,18 +80,25 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
         {step === 'language' && (
           <motion.div
             key="language"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="w-full max-w-lg p-8 bg-white rounded-lg shadow-2xl border border-gray-200"
           >
             <div className="text-center mb-8">
-              <div className="w-16 h-16 mx-auto mb-4 bg-[var(--spsd-navy)] rounded-full flex items-center justify-center">
-                <Globe className="w-8 h-8 text-white" />
+              <div className="flex justify-center mb-5">
+                <div
+                  className="bg-[var(--spsd-navy)] rounded-2xl flex items-center justify-center shadow-lg shadow-[var(--spsd-navy)]/20"
+                  style={{ width: '3.5rem', height: '3.5rem' }}
+                >
+                  <Globe className="w-7 h-7 text-white" />
+                </div>
               </div>
-              <h2 className="text-3xl font-bold text-[var(--spsd-navy)] mb-2">Vítejte! / Welcome!</h2>
-              <p className="text-gray-600">{t('welcome.selectLanguage', 'Vyberte jazyk / Choose language')}</p>
+              <h2 className="text-2xl font-bold text-[var(--spsd-navy)] mb-1.5 tracking-tight">
+                {t('welcome.selectLanguage', 'Vyberte jazyk')}
+              </h2>
+              <p className="text-sm text-gray-500">Select your language</p>
             </div>
 
             <div className="space-y-2 mb-6">
@@ -143,11 +143,11 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
         {step === 'theme' && (
           <motion.div
             key="theme"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className={`w-full max-w-lg p-8 rounded-lg transition-all duration-500 relative ${
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className={`w-full max-w-lg p-8 rounded-lg transition-colors duration-500 relative ${
               previewTheme === 'modern' 
                 ? 'bg-gradient-to-br from-gray-900 to-black border-2 border-purple-500/30 shadow-[0_0_40px_rgba(139,92,246,0.3)]'
                 : previewTheme === 'classic' && classicMode === 'dark'
@@ -155,35 +155,24 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
                 : 'bg-white shadow-2xl border border-gray-200'
             }`}
           >
-            {/* Loading overlay */}
-            <AnimatePresence>
-              {isThemeLoading && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-lg flex items-center justify-center z-10"
-                >
-                  <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4">
-                    <Loader2 className="w-8 h-8 text-white animate-spin" />
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
             <div className="text-center mb-8 relative">
-              <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center transition-all duration-500 ${
-                previewTheme === 'modern'
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500'
-                  : classicMode === 'dark'
-                  ? 'bg-gradient-to-r from-[var(--spsd-navy)] to-[var(--spsd-navy-light)]'
-                  : 'bg-[var(--spsd-navy)]'
-              }`}>
-                {previewTheme === 'modern' ? (
-                  <Zap className="w-8 h-8 text-white" />
-                ) : (
-                  <BookOpen className="w-8 h-8 text-white" />
-                )}
+              <div className="flex justify-center mb-4">
+                <div
+                  className={`rounded-2xl flex items-center justify-center shadow-lg transition-colors duration-500 ${
+                    previewTheme === 'modern'
+                      ? 'bg-gradient-to-br from-purple-500 to-pink-500 shadow-purple-500/30'
+                      : classicMode === 'dark'
+                      ? 'bg-gradient-to-br from-[var(--spsd-navy)] to-[var(--spsd-navy-light)] shadow-[var(--spsd-navy)]/30'
+                      : 'bg-[var(--spsd-navy)] shadow-[var(--spsd-navy)]/20'
+                  }`}
+                  style={{ width: '3.5rem', height: '3.5rem' }}
+                >
+                  {previewTheme === 'modern' ? (
+                    <Zap className="w-7 h-7 text-white" />
+                  ) : (
+                    <BookOpen className="w-7 h-7 text-white" />
+                  )}
+                </div>
               </div>
               <h2 className={`text-3xl font-bold mb-2 transition-colors duration-500 ${
                 previewTheme === 'modern' 
@@ -206,7 +195,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
             </div>
 
             {/* Dark/Light mode toggle for Classic theme */}
-            {selectedTheme === 'classic' && !isThemeLoading && (
+            {selectedTheme === 'classic' && (
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -246,7 +235,6 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
             <div className="space-y-3 mb-6 relative">
               <button
                 onClick={() => handleThemeSelect('classic')}
-                disabled={isThemeLoading}
                 className={`w-full p-5 rounded-lg border-2 transition-all ${
                   previewTheme === 'modern'
                     ? selectedTheme === 'classic'
@@ -259,7 +247,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
                     : selectedTheme === 'classic'
                       ? 'border-[var(--spsd-red)] bg-red-50'
                       : 'border-gray-200 hover:border-[var(--spsd-navy)] hover:bg-gray-50'
-                } ${isThemeLoading ? 'opacity-50 cursor-wait' : ''}`}
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
@@ -292,7 +280,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
                       </div>
                     </div>
                   </div>
-                  {selectedTheme === 'classic' && !isThemeLoading && (
+                  {selectedTheme === 'classic' && (
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
@@ -308,7 +296,6 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
 
               <button
                 onClick={() => handleThemeSelect('modern')}
-                disabled={isThemeLoading}
                 className={`w-full p-5 rounded-lg border-2 transition-all ${
                   previewTheme === 'modern'
                     ? selectedTheme === 'modern'
@@ -321,7 +308,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
                     : selectedTheme === 'modern'
                       ? 'border-[var(--spsd-red)] bg-red-50'
                       : 'border-gray-200 hover:border-[var(--spsd-navy)] hover:bg-gray-50'
-                } ${isThemeLoading ? 'opacity-50 cursor-wait' : ''}`}
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
@@ -354,7 +341,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
                       </div>
                     </div>
                   </div>
-                  {selectedTheme === 'modern' && !isThemeLoading && (
+                  {selectedTheme === 'modern' && (
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
@@ -371,32 +358,23 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
 
             <button
               onClick={handleThemeContinue}
-              disabled={!selectedTheme || isThemeLoading}
+              disabled={!selectedTheme}
               className={`w-full py-3 px-6 rounded-lg font-medium transition-all flex items-center justify-center gap-2 relative ${
                 previewTheme === 'modern'
-                  ? selectedTheme && !isThemeLoading
+                  ? selectedTheme
                     ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 shadow-lg shadow-purple-500/30'
                     : 'bg-white/10 text-gray-400 cursor-not-allowed border border-white/20'
                   : previewTheme === 'classic' && classicMode === 'dark'
-                  ? selectedTheme && !isThemeLoading
+                  ? selectedTheme
                     ? 'bg-gradient-to-r from-[var(--spsd-navy)] to-[var(--spsd-navy-light)] text-white hover:from-[var(--spsd-navy-light)] hover:to-[var(--spsd-red)]'
                     : 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                  : selectedTheme && !isThemeLoading
+                  : selectedTheme
                     ? 'bg-[var(--spsd-navy)] text-white hover:bg-[var(--spsd-navy-light)]'
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              {isThemeLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  {t('common.loading', 'Načítání...')}
-                </>
-              ) : (
-                <>
-                  {t('welcome.continue', 'Pokračovat')}
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
+              {t('welcome.continue', 'Pokračovat')}
+              <ArrowRight className="w-4 h-4" />
             </button>
           </motion.div>
         )}

@@ -76,10 +76,7 @@ export const ModernFooter: React.FC = () => {
                 {t('footer.title') || 'StudentHub'}
               </span>
             </div>
-            <p className="text-gray-400 text-xs lg:text-sm mb-4 lg:mb-6">
-              {t('footer.description') || 'Empowering students to achieve excellence through innovative digital solutions.'}
-            </p>
-            <div className="flex gap-2 lg:gap-3">
+            <div className="flex gap-2 lg:gap-3 mt-4">
               {socialLinks.map((social, index) => {
                 const Icon = social.icon;
                 return (
@@ -88,10 +85,14 @@ export const ModernFooter: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-8 h-8 lg:w-10 lg:h-10 glass rounded-lg flex items-center justify-center
-                             text-gray-400 hover:text-red-400 transition-colors"
+                    className="group relative w-10 h-10 lg:w-11 lg:h-11 rounded-xl flex items-center justify-center
+                             bg-white/[0.04] border border-white/10 text-white/60
+                             transition-all duration-300 ease-out overflow-hidden
+                             hover:text-white hover:border-transparent hover:-translate-y-0.5
+                             hover:shadow-[0_12px_28px_-10px_rgba(239,68,68,0.55)]"
                   >
-                    <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                    <span className="absolute inset-0 bg-gradient-to-br from-red-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <Icon className="relative w-[18px] h-[18px] transition-transform duration-300 group-hover:scale-110" />
                   </a>
                 );
               })}
@@ -134,7 +135,7 @@ export const ModernFooter: React.FC = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              {t('footer.copyright') || '© 2025 StudentHub. All rights reserved.'}
+              {t('footer.copyright') || '© 2026 StudentHub. All rights reserved.'}
             </p>
             <p className="text-gray-400 text-sm flex items-center gap-1">
               {t('footer.madeWith') || 'Made with'} <Heart className="w-4 h-4 text-red-500 fill-current" /> {t('footer.byStudents') || 'by students, for students'}

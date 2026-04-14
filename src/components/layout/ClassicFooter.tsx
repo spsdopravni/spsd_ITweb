@@ -76,17 +76,12 @@ export const ClassicFooter: React.FC = () => {
                   }`}>
                     IT Obor SPŠD
                   </h3>
-                  <p className={`text-xs ${
-                    classicMode === 'light' ? 'text-[var(--spsd-navy)]/70' : 'text-white/70'
-                  }`}>
-                    Excellence in IT Education
-                  </p>
                 </div>
               </div>
               <p className={`text-sm leading-relaxed ${
                 classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/80'
               }`}>
-                {t('footer.description', 'Střední průmyslová škola dopravní, Praha 5 - Motol')}
+                {t('footer.schoolName', 'Střední průmyslová škola dopravní, Praha 5 - Motol')}
               </p>
             </div>
 
@@ -192,7 +187,7 @@ export const ClassicFooter: React.FC = () => {
               <p className={`text-sm font-medium ${
                 classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
               }`}>
-                © 2025 IT Obor SPŠD. {t('footer.rights', 'Všechna práva vyhrazena.')}.
+                © 2026 IT Obor SPŠD. {t('footer.rights', 'Všechna práva vyhrazena.')}.
               </p>
             </div>
 
@@ -207,14 +202,17 @@ export const ClassicFooter: React.FC = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`group p-3 rounded-xl transition-all duration-300 hover:bg-gradient-to-br hover:from-[var(--spsd-red)] hover:to-[var(--spsd-red-light)] hover:scale-95 hover:-translate-y-1 shadow-lg hover:shadow-xl ${
+                      className={`group relative p-3 rounded-xl border transition-all duration-300 ease-out
+                        hover:-translate-y-0.5 hover:border-[var(--spsd-red)]
+                        hover:bg-gradient-to-br hover:from-[var(--spsd-red)] hover:to-[var(--spsd-red-light)]
+                        hover:text-white hover:shadow-[0_10px_28px_-10px_var(--spsd-red)] ${
                         classicMode === 'light'
-                          ? 'bg-[var(--spsd-navy)]/10 text-[var(--spsd-navy)]/80 hover:text-white'
-                          : 'bg-white/10 text-white/80 hover:text-white'
+                          ? 'bg-[var(--spsd-navy)]/5 border-[var(--spsd-navy)]/10 text-[var(--spsd-navy)]/80'
+                          : 'bg-white/5 border-white/10 text-white/80'
                       }`}
                       aria-label={social.label}
                     >
-                      <Icon className="w-5 h-5 transition-transform duration-300" />
+                      <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
                     </a>
                   );
                 })}
