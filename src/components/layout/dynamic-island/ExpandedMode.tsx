@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Globe, Palette, UserCog } from 'lucide-react';
+import { Search, Globe, UserCog } from 'lucide-react';
 import { useTheme } from '@/lib/theme/useTheme';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -17,7 +17,7 @@ interface NavItem {
 interface ExpandedModeProps {
   navItems: NavItem[];
   pathname: string;
-  onModeChange: (mode: 'search' | 'theme' | 'compact') => void;
+  onModeChange: (mode: 'search' | 'compact') => void;
   onLanguageModeChange: () => void;
 }
 
@@ -124,14 +124,6 @@ export const ExpandedMode: React.FC<ExpandedModeProps> = ({
             <Search className={`w-3.5 md:w-4 h-3.5 md:h-4 ${colors.actionIcon} ${colors.actionHover}`} />
           </button>
         )}
-        
-        <button
-          onClick={() => onModeChange('theme')}
-          className={`p-1.5 sm:p-2 rounded-full ${colors.hoverBg} transition-all duration-200 hover:scale-110`}
-          title="Change Theme"
-        >
-          <Palette className={`w-3.5 md:w-4 h-3.5 md:h-4 ${colors.actionIcon} ${colors.actionHover}`} />
-        </button>
         
         <button
           onClick={onLanguageModeChange}

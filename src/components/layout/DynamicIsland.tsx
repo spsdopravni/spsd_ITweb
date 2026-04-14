@@ -13,12 +13,11 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useTheme } from '@/lib/theme/useTheme';
-import { CompactMode, SearchMode, ExpandedMode, LanguageMode, ThemeMode } from './dynamic-island';
+import { CompactMode, SearchMode, ExpandedMode, LanguageMode } from './dynamic-island';
 import { SearchEngine } from '@/lib/search/searchEngine';
 import type { SearchResult } from '@/types/search';
 
-type IslandMode = 'compact' | 'expanded' | 'search' | 'language' | 'theme';
+type IslandMode = 'compact' | 'expanded' | 'search' | 'language';
 
 interface NavItem {
   id: string;
@@ -85,7 +84,6 @@ export const DynamicIsland: React.FC = () => {
 
   const pathname = usePathname();
   const { t } = useLanguage();
-  const { theme, classicMode } = useTheme();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const islandRef = useRef<HTMLDivElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
@@ -156,8 +154,8 @@ export const DynamicIsland: React.FC = () => {
 
   // Island container animation - height and border radius only
   const islandSpring = useSpring({
-    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : (searchQuery.trim() ? 180 : (isMobile ? 240 : 280))) : mode === 'language' ? (isMobile ? 180 : 200) : mode === 'theme' ? (isMobile ? 140 : 215) : (isMobile ? 'auto' : 64),
-    borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : mode === 'theme' ? 24 : (isMobile ? 24 : 32),
+    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : (searchQuery.trim() ? 180 : (isMobile ? 240 : 280))) : mode === 'language' ? (isMobile ? 180 : 200) : (isMobile ? 'auto' : 64),
+    borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : (isMobile ? 24 : 32),
     config: { 
       tension: 0,
       friction: 10,
@@ -216,8 +214,8 @@ export const DynamicIsland: React.FC = () => {
   // Click away handler for search, expanded, and language modes
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if ((mode === 'search' || mode === 'expanded' || mode === 'language' || mode === 'theme') && islandRef.current && !islandRef.current.contains(event.target as Node)) {
-        if (mode === 'search' || mode === 'language' || mode === 'theme') {
+      if ((mode === 'search' || mode === 'expanded' || mode === 'language') && islandRef.current && !islandRef.current.contains(event.target as Node)) {
+        if (mode === 'search' || mode === 'language') {
           setMode('expanded');
         } else {
           setMode('compact');
@@ -228,7 +226,7 @@ export const DynamicIsland: React.FC = () => {
       }
     };
 
-    if (mode === 'search' || mode === 'expanded' || mode === 'language' || mode === 'theme') {
+    if (mode === 'search' || mode === 'expanded' || mode === 'language') {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
@@ -250,7 +248,7 @@ export const DynamicIsland: React.FC = () => {
 
   const handleEscape = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
-      if (mode === 'search' || mode === 'language' || mode === 'theme') {
+      if (mode === 'search' || mode === 'language') {
         setMode('expanded');
       } else {
         setMode('compact');
@@ -269,37 +267,22 @@ export const DynamicIsland: React.FC = () => {
           height: isMobile && mode === 'expanded' ? 'auto' : islandSpring.height.to(h => typeof h === 'string' ? h : `${h}px`),
           borderRadius: islandSpring.borderRadius.to(r => `${r}px`)
         }}
-        // Dynamic theme-aware styling
         className={`glass backdrop-blur-xl relative overflow-hidden mx-auto transition-all duration-300
-          ${theme === 'classic' && classicMode === 'light' 
-            ? 'bg-white/98 border-2 border-[var(--spsd-navy)]/20 shadow-2xl shadow-[var(--spsd-navy)]/10 text-gray-900 ring-1 ring-[var(--spsd-navy)]/5' 
-            : theme === 'classic' && classicMode === 'dark'
-            ? 'bg-slate-800/95 border-2 border-slate-500 shadow-2xl text-slate-100'
-            : 'bg-black/60 border border-white/20 shadow-2xl text-white'
-          }
+          bg-white/98 border-2 border-[var(--spsd-navy)]/20 shadow-2xl shadow-[var(--spsd-navy)]/10 text-gray-900 ring-1 ring-[var(--spsd-navy)]/5
           ${mode === 'compact' ? 'w-fit min-w-[160px] max-w-full' : ''}
           ${mode === 'expanded' ? 'w-full max-w-full' : ''}
           ${mode === 'search' ? 'w-full max-w-full' : ''}
-          ${mode === 'language' ? 'w-full max-w-[400px]' : ''}
-          ${mode === 'theme' ? 'w-full max-w-[400px]' : ''}`}
+          ${mode === 'language' ? 'w-full max-w-[400px]' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Animated background gradient - theme aware */}
+        {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-40 pointer-events-none">
-          <div className={`absolute inset-0 animate-pulse ${
-            theme === 'classic' && classicMode === 'light'
-              ? 'bg-gradient-to-br from-[var(--spsd-navy)]/15 via-[var(--spsd-red)]/5 to-[var(--spsd-navy)]/15'
-              : theme === 'classic' && classicMode === 'dark'
-              ? 'bg-gradient-to-br from-blue-400/20 via-transparent to-slate-400/20'
-              : 'bg-gradient-to-br from-blue-600/20 via-transparent to-blue-400/20'
-          }`} />
+          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[var(--spsd-navy)]/15 via-[var(--spsd-red)]/5 to-[var(--spsd-navy)]/15" />
         </div>
 
-        {/* Additional outline for light mode visibility */}
-        {theme === 'classic' && classicMode === 'light' && (
-          <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-r from-[var(--spsd-navy)]/5 to-[var(--spsd-red)]/5 pointer-events-none" />
-        )}
+        {/* Subtle outline tint */}
+        <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-r from-[var(--spsd-navy)]/5 to-[var(--spsd-red)]/5 pointer-events-none" />
 
         {/* Compact Mode */}
         {mode === 'compact' && (
@@ -334,15 +317,6 @@ export const DynamicIsland: React.FC = () => {
               languageSpring={languageSpring}
               onModeChange={setMode}
               onEscape={handleEscape}
-            />
-          </div>
-        )}
-        
-        {/* Theme Mode */}
-        {mode === 'theme' && (
-          <div className="w-full h-full">
-            <ThemeMode
-              onClose={() => setMode('expanded')}
             />
           </div>
         )}

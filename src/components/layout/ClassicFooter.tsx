@@ -1,247 +1,396 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Github, Sparkles } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Github, LucideIcon } from 'lucide-react';
+
+const COLOR = {
+  navy: '#002b4e',
+  navyLight: '#133f64',
+  red: '#c81e1c',
+  redLight: '#dc3530',
+  orange: '#e95d41',
+  white: '#ffffff',
+  paper: '#fafaf7',
+};
+
+type NavColumn = {
+  title: string;
+  links: { label: string; href: string }[];
+};
+
+type Social = { Icon: LucideIcon; href: string; label: string };
 
 export const ClassicFooter: React.FC = () => {
   const { t } = useLanguage();
   const { classicMode } = useTheme();
+  const isLight = classicMode === 'light';
 
-  const footerLinks = [
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const tStr = (key: string, fallback: string): string => {
+    const r = t(key, fallback);
+    return Array.isArray(r) ? r[0] || fallback : (r as string);
+  };
+
+  const columns: NavColumn[] = [
     {
-      title: t('footer.about', 'O škole'),
+      title: tStr('footer.about', 'O škole'),
       links: [
-        { label: t('footer.history', 'Historie'), href: '/history' },
-        { label: t('footer.teachers', 'Pedagogové'), href: '/teachers' },
-        { label: t('footer.facilities', 'Vybavení'), href: '/facilities' }
-      ]
+        { label: tStr('footer.history', 'Historie'), href: '/about' },
+        { label: tStr('footer.teachers', 'Pedagogové'), href: '/about' },
+        { label: tStr('footer.facilities', 'Vybavení'), href: '/about' },
+      ],
     },
     {
-      title: t('footer.education', 'Vzdělávání'),
+      title: tStr('footer.education', 'Studium'),
       links: [
-        { label: t('footer.curriculum', 'Učební plán'), href: '/curriculum' },
-        { label: t('footer.projects', 'Projekty'), href: '/projects' },
-        { label: t('footer.events', 'Akce'), href: '/events' }
-      ]
+        { label: tStr('footer.curriculum', 'Učební plán'), href: '/curriculum' },
+        { label: tStr('footer.projects', 'Projekty'), href: '/projects' },
+        {
+          label: tStr('footer.admission', 'Přijímací řízení'),
+          href: '/about',
+        },
+      ],
     },
     {
-      title: t('footer.students', 'Pro studenty'),
+      title: tStr('footer.legal', 'Dokumenty'),
       links: [
-        { label: t('footer.admission', 'Přijímací řízení'), href: '/admission' },
-        { label: t('footer.resources', 'Zdroje'), href: '/resources' },
-        { label: t('footer.career', 'Kariéra'), href: '/career' }
-      ]
-    }
+        { label: tStr('footer.privacy', 'Ochrana údajů'), href: '/privacy' },
+        { label: tStr('footer.terms', 'Podmínky použití'), href: '/terms' },
+      ],
+    },
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: 'https://www.facebook.com/spsdopravni', label: 'Facebook' },
-    { icon: Instagram, href: 'https://www.instagram.com/spsdopravni/', label: 'Instagram' },
-    { icon: Youtube, href: 'https://www.youtube.com/@stredniprumyslovaskoladopr4784', label: 'YouTube' },
-    { icon: Github, href: 'https://github.com/spsdopravni', label: 'GitHub' }
+  const socials: Social[] = [
+    {
+      Icon: Facebook,
+      href: 'https://www.facebook.com/spsdopravni',
+      label: 'Facebook',
+    },
+    {
+      Icon: Instagram,
+      href: 'https://www.instagram.com/spsdopravni/',
+      label: 'Instagram',
+    },
+    {
+      Icon: Youtube,
+      href: 'https://www.youtube.com/@stredniprumyslovaskoladopr4784',
+      label: 'YouTube',
+    },
+    {
+      Icon: Github,
+      href: 'https://github.com/spsdopravni',
+      label: 'GitHub',
+    },
   ];
+
+  // Theme-derived colors
+  const textStrong = isLight ? COLOR.navy : COLOR.white;
+  const textMuted = isLight ? 'rgba(0,43,78,0.68)' : 'rgba(255,255,255,0.7)';
+  const textSubtle = isLight ? 'rgba(0,43,78,0.5)' : 'rgba(255,255,255,0.5)';
+  const divider = isLight ? 'rgba(0,43,78,0.1)' : 'rgba(255,255,255,0.1)';
+
+  // Social hover state (index of hovered icon)
+  const [hoveredSocial, setHoveredSocial] = useState<number | null>(null);
 
   return (
-    <footer className={`relative transition-colors duration-300 overflow-hidden ${
-      classicMode === 'light'
-        ? 'bg-white text-[var(--spsd-navy)]'
-        : 'bg-gradient-to-br from-[var(--spsd-navy)] via-[var(--spsd-navy-light)] to-[var(--spsd-navy)] text-white'
-    }`}>
-      {/* Animated background elements */}
-      <div className={`absolute inset-0 ${classicMode === 'light' ? 'opacity-2' : 'opacity-5'}`}>
-        <div className={`absolute top-0 left-0 w-96 h-96 bg-[var(--spsd-red)] rounded-full blur-3xl animate-pulse ${
-          classicMode === 'light' ? 'opacity-30' : ''
-        }`}></div>
-        <div className={`absolute bottom-0 right-0 w-72 h-72 rounded-full blur-3xl animate-pulse delay-1000 ${
-          classicMode === 'light' ? 'bg-[var(--spsd-navy)] opacity-20' : 'bg-white'
-        }`}></div>
-      </div>
-      
-      {/* Main footer content */}
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {/* School info */}
-          <div className="col-span-2 lg:col-span-1">
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="bg-gradient-to-br from-[var(--spsd-red)] to-[var(--spsd-red-light)] w-12 h-12 rounded-xl flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className={`text-lg font-bold ${
-                    classicMode === 'light' ? 'text-[var(--spsd-navy)]' : 'text-white'
-                  }`}>
-                    IT Obor SPŠD
-                  </h3>
-                </div>
-              </div>
-              <p className={`text-sm leading-relaxed ${
-                classicMode === 'light' ? 'text-[var(--spsd-navy)]/80' : 'text-white/80'
-              }`}>
-                {t('footer.schoolName', 'Střední průmyslová škola dopravní, Praha 5 - Motol')}
-              </p>
+    <footer
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        background: isLight
+          ? COLOR.paper
+          : `linear-gradient(135deg, ${COLOR.navy} 0%, #0f1a3a 50%, ${COLOR.navyLight} 100%)`,
+        borderTop: isLight
+          ? '1px solid rgba(0,43,78,0.1)'
+          : '1px solid rgba(255,255,255,0.08)',
+      }}
+    >
+      {/* Container */}
+      <div
+        style={{
+          position: 'relative',
+          maxWidth: '1280px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          paddingLeft: isDesktop ? '3rem' : '1.5rem',
+          paddingRight: isDesktop ? '3rem' : '1.5rem',
+          paddingTop: isDesktop ? '4.5rem' : '3.5rem',
+          paddingBottom: isDesktop ? '2.5rem' : '2rem',
+        }}
+      >
+        {/* Top area — brand + nav columns */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: isDesktop ? 'row' : 'column',
+            gap: isDesktop ? '5rem' : '3rem',
+            alignItems: 'flex-start',
+            marginBottom: isDesktop ? '4rem' : '3rem',
+          }}
+        >
+          {/* Brand block */}
+          <div
+            style={{
+              flex: isDesktop ? '0 0 auto' : '0 0 auto',
+              maxWidth: isDesktop ? '340px' : '100%',
+              width: isDesktop ? 'auto' : '100%',
+            }}
+          >
+            {/* Eyebrow line */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                marginBottom: '1.5rem',
+              }}
+            >
+              <span
+                aria-hidden
+                style={{
+                  display: 'inline-block',
+                  width: '48px',
+                  height: '2px',
+                  background: COLOR.red,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.22em',
+                  color: isLight ? COLOR.red : COLOR.orange,
+                }}
+              >
+                {tStr('footer.eyebrow', 'Obor IT')}
+              </span>
             </div>
 
-            {/* Contact info */}
-            <div className="space-y-1">
-              <div className={`flex items-center space-x-3 group p-2 rounded-lg transition-colors duration-200 ${
-                classicMode === 'light' ? 'hover:bg-[var(--spsd-navy)]/5' : 'hover:bg-white/5'
-              }`}>
-                <div className={`p-2 rounded-lg transition-colors duration-200 ${
-                  classicMode === 'light'
-                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20'
-                    : 'bg-white/10 group-hover:bg-white/20'
-                }`}>
-                  <MapPin className={`w-4 h-4 ${
-                    classicMode === 'light' ? 'text-[var(--spsd-navy)]' : 'text-white'
-                  }`} />
-                </div>
-                <span className={`text-sm font-medium ${
-                  classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
-                }`}>
-                  {t('contact.realAddress', 'Plzeňská 298/217a, 150 00 Praha 5 - Motol')}
-                </span>
-              </div>
-              <div className={`flex items-center space-x-3 group p-2 rounded-lg transition-colors duration-200 ${
-                classicMode === 'light' ? 'hover:bg-[var(--spsd-navy)]/5' : 'hover:bg-white/5'
-              }`}>
-                <div className={`p-2 rounded-lg transition-colors duration-200 ${
-                  classicMode === 'light'
-                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20'
-                    : 'bg-white/10 group-hover:bg-white/20'
-                }`}>
-                  <Phone className={`w-4 h-4 ${
-                    classicMode === 'light' ? 'text-[var(--spsd-navy)]' : 'text-white'
-                  }`} />
-                </div>
-                <span className={`text-sm font-medium ${
-                  classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
-                }`}>
-                  {t('contact.realPhone', '+420 725 044 828')}
-                </span>
-              </div>
-              <div className={`flex items-center space-x-3 group p-2 rounded-lg transition-colors duration-200 ${
-                classicMode === 'light' ? 'hover:bg-[var(--spsd-navy)]/5' : 'hover:bg-white/5'
-              }`}>
-                <div className={`p-2 rounded-lg transition-colors duration-200 ${
-                  classicMode === 'light'
-                    ? 'bg-[var(--spsd-navy)]/10 group-hover:bg-[var(--spsd-navy)]/20'
-                    : 'bg-white/10 group-hover:bg-white/20'
-                }`}>
-                  <Mail className={`w-4 h-4 ${
-                    classicMode === 'light' ? 'text-[var(--spsd-navy)]' : 'text-white'
-                  }`} />
-                </div>
-                <span className={`text-sm font-medium ${
-                  classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
-                }`}>
-                  {t('contact.realEmail', 'studijnioddeleni@sps-dopravni.cz')}
-                </span>
-              </div>
+            {/* School name */}
+            <div
+              style={{
+                fontSize: '1.35rem',
+                fontWeight: 800,
+                letterSpacing: '-0.015em',
+                lineHeight: 1.2,
+                color: textStrong,
+                marginBottom: '0.35rem',
+              }}
+            >
+              {tStr('footer.schoolName', 'SPŠ dopravní')}
             </div>
-          </div>
-
-          {/* Footer links */}
-          {footerLinks.map((section, index) => (
-            <div key={index} className="space-y-4">
-              <h4 className={`text-lg font-bold pb-2 border-b ${
-                classicMode === 'light' 
-                  ? 'text-[var(--spsd-navy)] border-[var(--spsd-navy)]/20' 
-                  : 'text-white border-white/20'
-              }`}>
-                {section.title}
-              </h4>
-              <ul className="space-y-3">
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <Link 
-                      href={link.href}
-                      className={`group text-sm transition-all duration-200 flex items-center gap-2 p-1 rounded ${
-                        classicMode === 'light'
-                          ? 'text-[var(--spsd-navy)]/80 hover:text-[var(--spsd-navy)] hover:bg-[var(--spsd-navy)]/5'
-                          : 'text-white/80 hover:text-white hover:bg-white/5'
-                      }`}
-                    >
-                      <div className="w-1 h-1 bg-[var(--spsd-red)] rounded-full group-hover:scale-150 transition-transform duration-200"></div>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Bottom section */}
-      <div className={`py-6 relative z-10 border-t ${
-        classicMode === 'light' ? 'border-[var(--spsd-navy)]/10' : 'border-white/10'
-      }`}>
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            {/* Copyright */}
-            <div className="flex items-center gap-2 text-center lg:text-left">
-              <p className={`text-sm font-medium ${
-                classicMode === 'light' ? 'text-[var(--spsd-navy)]/90' : 'text-white/90'
-              }`}>
-                © 2026 IT Obor SPŠD. {t('footer.rights', 'Všechna práva vyhrazena.')}.
-              </p>
+            <div
+              style={{
+                fontSize: '0.95rem',
+                fontWeight: 500,
+                color: textMuted,
+                marginBottom: '1.25rem',
+              }}
+            >
+              {tStr('footer.schoolLocation', 'Praha 5 – Motol')}
             </div>
 
             {/* Social links */}
-            <div className="flex items-center gap-2">
-              <div className="flex space-x-2">
-                {socialLinks.map((social, index) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`group relative p-3 rounded-xl border transition-all duration-300 ease-out
-                        hover:-translate-y-0.5 hover:border-[var(--spsd-red)]
-                        hover:bg-gradient-to-br hover:from-[var(--spsd-red)] hover:to-[var(--spsd-red-light)]
-                        hover:text-white hover:shadow-[0_10px_28px_-10px_var(--spsd-red)] ${
-                        classicMode === 'light'
-                          ? 'bg-[var(--spsd-navy)]/5 border-[var(--spsd-navy)]/10 text-[var(--spsd-navy)]/80'
-                          : 'bg-white/5 border-white/10 text-white/80'
-                      }`}
-                      aria-label={social.label}
-                    >
-                      <Icon className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-                    </a>
-                  );
-                })}
-              </div>
+            <div
+              style={{
+                display: 'flex',
+                gap: '0.625rem',
+              }}
+            >
+              {socials.map(({ Icon, href, label }, i) => {
+                const isHover = hoveredSocial === i;
+                return (
+                  <a
+                    key={i}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    onMouseEnter={() => setHoveredSocial(i)}
+                    onMouseLeave={() => setHoveredSocial(null)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '9px',
+                      background: isHover
+                        ? COLOR.red
+                        : isLight
+                        ? 'rgba(0,43,78,0.05)'
+                        : 'rgba(255,255,255,0.05)',
+                      border: `1px solid ${
+                        isHover
+                          ? COLOR.red
+                          : isLight
+                          ? 'rgba(0,43,78,0.1)'
+                          : 'rgba(255,255,255,0.12)'
+                      }`,
+                      color: isHover
+                        ? COLOR.white
+                        : isLight
+                        ? 'rgba(0,43,78,0.7)'
+                        : 'rgba(255,255,255,0.75)',
+                      textDecoration: 'none',
+                      transition:
+                        'transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease',
+                      transform: isHover
+                        ? 'translateY(-2px)'
+                        : 'translateY(0)',
+                      boxShadow: isHover
+                        ? '0 10px 24px -10px rgba(200, 30, 28, 0.55)'
+                        : 'none',
+                    }}
+                  >
+                    <Icon style={{ width: 17, height: 17 }} />
+                  </a>
+                );
+              })}
             </div>
+          </div>
 
-            {/* Legal links */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 text-center">
-              <Link 
-                href="/privacy"
-                className={`text-sm transition-colors hover:underline ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]/70 hover:text-[var(--spsd-navy)]'
-                    : 'text-white/70 hover:text-white'
-                }`}
+          {/* Nav columns */}
+          <div
+            style={{
+              flex: '1 1 0%',
+              display: 'flex',
+              flexDirection: isDesktop ? 'row' : 'column',
+              gap: isDesktop ? '3rem' : '2.25rem',
+              width: '100%',
+              minWidth: 0,
+              justifyContent: isDesktop ? 'flex-end' : 'flex-start',
+            }}
+          >
+            {columns.map((col, i) => (
+              <div
+                key={i}
+                style={{
+                  flex: isDesktop ? '0 0 auto' : '0 0 auto',
+                  minWidth: isDesktop ? '160px' : 'auto',
+                }}
               >
-                {t('footer.privacy', 'Ochrana osobních údajů')}
-              </Link>
-              <Link 
-                href="/terms"
-                className={`text-sm transition-colors hover:underline ${
-                  classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]/70 hover:text-[var(--spsd-navy)]'
-                    : 'text-white/70 hover:text-white'
-                }`}
-              >
-                {t('footer.terms', 'Podmínky použití')}
-              </Link>
-            </div>
+                <div
+                  style={{
+                    fontSize: '0.7rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.18em',
+                    color: isLight ? COLOR.red : COLOR.orange,
+                    marginBottom: '1.1rem',
+                    paddingBottom: '0.7rem',
+                    borderBottom: `1px solid ${divider}`,
+                  }}
+                >
+                  {col.title}
+                </div>
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    margin: 0,
+                    padding: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.65rem',
+                  }}
+                >
+                  {col.links.map((l, j) => (
+                    <li key={j}>
+                      <Link
+                        href={l.href}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.55rem',
+                          fontSize: '0.92rem',
+                          fontWeight: 500,
+                          color: textMuted,
+                          textDecoration: 'none',
+                          transition: 'color 0.2s ease, transform 0.2s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = isLight
+                            ? COLOR.navy
+                            : COLOR.white;
+                          e.currentTarget.style.transform =
+                            'translateX(3px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = textMuted;
+                          e.currentTarget.style.transform = 'translateX(0)';
+                        }}
+                      >
+                        <span
+                          aria-hidden
+                          style={{
+                            display: 'inline-block',
+                            width: '8px',
+                            height: '1px',
+                            background: COLOR.red,
+                            flexShrink: 0,
+                          }}
+                        />
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div
+          aria-hidden
+          style={{
+            height: '1px',
+            background: divider,
+            marginBottom: '1.75rem',
+          }}
+        />
+
+        {/* Bottom row — copyright + address */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: isDesktop ? 'row' : 'column',
+            justifyContent: 'space-between',
+            alignItems: isDesktop ? 'center' : 'flex-start',
+            gap: '1rem',
+          }}
+        >
+          <div
+            style={{
+              fontSize: '0.825rem',
+              color: textSubtle,
+              fontWeight: 500,
+            }}
+          >
+            © 2026 SPŠ dopravní, Praha – Motol.{' '}
+            {tStr('footer.rights', 'Všechna práva vyhrazena.')}
+          </div>
+          <div
+            style={{
+              fontSize: '0.825rem',
+              color: textSubtle,
+              fontWeight: 500,
+            }}
+          >
+            Plzeňská 298/217a, 150 00 Praha 5
           </div>
         </div>
       </div>

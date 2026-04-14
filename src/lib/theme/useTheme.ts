@@ -1,66 +1,57 @@
-import { usePreferences } from '@/contexts/PreferencesContext';
-import { getThemeConfig, getThemeVariant, getDefaultVariant, THEME_CLASSES, ThemeClassName } from './ThemeConfig';
-import type { ThemeType, ClassicModeType } from './ThemeConfig';
+// Theme system has been removed — site uses a single classic-light theme.
+// This hook is kept for backward compatibility with existing components.
 
-export const useTheme = () => {
-  const { theme, classicMode, setTheme, setClassicMode } = usePreferences();
+type ThemeType = 'modern' | 'classic';
+type ClassicModeType = 'light' | 'dark';
 
-  const currentThemeConfig = getThemeConfig(theme);
-  const currentVariantId = theme === 'classic' ? classicMode : 'default';
-  const currentVariant = getThemeVariant(theme, currentVariantId) || getDefaultVariant(theme);
-
-  const getThemeClasses = () => {
-    const className = currentVariant.cssClass as ThemeClassName;
-    return THEME_CLASSES[className] || THEME_CLASSES['classic-light'];
+interface UseThemeReturnType {
+  theme: ThemeType;
+  classicMode: ClassicModeType;
+  currentThemeConfig: null;
+  currentVariant: null;
+  switchTheme: (newTheme?: ThemeType, variantId?: string) => void;
+  switchClassicMode: (mode?: ClassicModeType) => void;
+  getThemeClasses: () => {
+    background: string;
+    text: string;
+    cardBg: string;
+    border: string;
+    accent: string;
   };
+  isCurrentTheme: (themeType: string, variantId?: string) => boolean;
+  getBackgroundClass: () => string;
+  getTextClass: () => string;
+  getCardClass: () => string;
+  getBorderClass: () => string;
+  getAccentClass: () => string;
+}
 
-  const switchTheme = (newTheme: ThemeType, variantId?: string) => {
-    setTheme(newTheme);
-    
-    if (newTheme === 'classic' && variantId) {
-      setClassicMode(variantId as ClassicModeType);
-    } else if (newTheme === 'classic' && !variantId) {
-      // Keep current classic mode or use default
-      setClassicMode(classicMode || 'light');
-    }
-  };
-
-  const switchClassicMode = (mode: ClassicModeType) => {
-    if (theme === 'classic') {
-      setClassicMode(mode);
-    }
-  };
-
-  const isCurrentTheme = (themeType: ThemeType, variantId?: string) => {
-    if (theme !== themeType) return false;
-    if (themeType === 'classic' && variantId) {
-      return classicMode === variantId;
-    }
-    return true;
-  };
-
+export const useTheme = (): UseThemeReturnType => {
   return {
-    // Current state
-    theme,
-    classicMode,
-    currentThemeConfig,
-    currentVariant,
-    
-    // Actions
-    switchTheme,
-    switchClassicMode,
-    
-    // Utilities
-    getThemeClasses,
-    isCurrentTheme,
-    
-    // CSS helpers
-    getBackgroundClass: () => currentVariant.backgroundGradient || '',
-    getTextClass: () => getThemeClasses().text,
-    getCardClass: () => getThemeClasses().cardBg,
-    getBorderClass: () => getThemeClasses().border,
-    getAccentClass: () => getThemeClasses().accent
+    theme: 'classic',
+    classicMode: 'light',
+    currentThemeConfig: null,
+    currentVariant: null,
+    switchTheme: () => {},
+    switchClassicMode: () => {},
+    getThemeClasses: () => ({
+      background: '',
+      text: '',
+      cardBg: '',
+      border: '',
+      accent: '',
+    }),
+    isCurrentTheme: (themeType: string, variantId?: string) => {
+      if (themeType !== 'classic') return false;
+      if (variantId && variantId !== 'light') return false;
+      return true;
+    },
+    getBackgroundClass: () => '',
+    getTextClass: () => '',
+    getCardClass: () => '',
+    getBorderClass: () => '',
+    getAccentClass: () => '',
   };
 };
 
-export type UseThemeReturn = ReturnType<typeof useTheme>;
+export type UseThemeReturn = UseThemeReturnType;

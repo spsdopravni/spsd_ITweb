@@ -73,12 +73,6 @@ export const ClassicHero: React.FC = () => {
     },
   ];
 
-  const stats = [
-    { value: '4', label: tStr('hero.stat1', 'Roky studia') },
-    { value: '15+', label: tStr('hero.stat2', 'IT předmětů') },
-    { value: '100%', label: tStr('hero.stat3', 'Maturita z IT') },
-  ];
-
   const [primaryHover, setPrimaryHover] = useState(false);
   const [secondaryHover, setSecondaryHover] = useState(false);
 
@@ -86,8 +80,6 @@ export const ClassicHero: React.FC = () => {
   const textStrong = isLight ? COLOR.navy : COLOR.white;
   const textMuted = isLight ? 'rgba(0,43,78,0.72)' : 'rgba(255,255,255,0.72)';
   const textSubtle = isLight ? 'rgba(0,43,78,0.55)' : 'rgba(255,255,255,0.55)';
-  const textMeta = isLight ? 'rgba(0,43,78,0.55)' : 'rgba(255,255,255,0.55)';
-  const divider = isLight ? 'rgba(0,43,78,0.12)' : 'rgba(255,255,255,0.12)';
   const dividerSoft = isLight ? 'rgba(0,43,78,0.08)' : 'rgba(255,255,255,0.08)';
 
   return (
@@ -100,32 +92,18 @@ export const ClassicHero: React.FC = () => {
           : `linear-gradient(135deg, ${COLOR.navy} 0%, #0f1a3a 50%, ${COLOR.navyLight} 100%)`,
       }}
     >
-      {/* Top accent bar */}
+      {/* Red corner wedge — top left */}
       <div
         aria-hidden
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          right: 0,
-          height: '3px',
-          background: `linear-gradient(90deg, ${COLOR.navy} 0%, ${COLOR.red} 50%, ${COLOR.orange} 100%)`,
-          zIndex: 5,
-        }}
-      />
-
-      {/* Red corner wedge — top right */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
           width: isDesktop ? '460px' : '220px',
           height: isDesktop ? '460px' : '220px',
           pointerEvents: 'none',
-          background: `linear-gradient(225deg, ${COLOR.red} 0%, ${COLOR.orange} 55%, transparent 82%)`,
-          clipPath: 'polygon(100% 0, 100% 55%, 28% 0)',
+          background: `linear-gradient(135deg, ${COLOR.red} 0%, ${COLOR.orange} 55%, transparent 82%)`,
+          clipPath: 'polygon(0 0, 72% 0, 0 55%)',
           opacity: isLight ? 0.2 : 0.35,
         }}
       />
@@ -246,7 +224,6 @@ export const ClassicHero: React.FC = () => {
                 display: 'flex',
                 flexDirection: isDesktop ? 'row' : 'column',
                 gap: '0.875rem',
-                marginBottom: '3.5rem',
                 alignItems: isDesktop ? 'center' : 'stretch',
               }}
             >
@@ -343,58 +320,6 @@ export const ClassicHero: React.FC = () => {
                 />
                 <span>{tStr('hero.projectsButton', 'Projekty studentů')}</span>
               </Link>
-            </div>
-
-            {/* Stats */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                gap: '2.5rem',
-                paddingTop: '2.5rem',
-                borderTop: `1px solid ${divider}`,
-              }}
-            >
-              {stats.map((s, i) => (
-                <React.Fragment key={i}>
-                  <div>
-                    <div
-                      style={{
-                        fontSize: '2.25rem',
-                        fontWeight: 800,
-                        lineHeight: 1,
-                        color: textStrong,
-                      }}
-                    >
-                      {s.value}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: '0.72rem',
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.16em',
-                        marginTop: '0.55rem',
-                        color: textMeta,
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      {s.label}
-                    </div>
-                  </div>
-                  {i < stats.length - 1 && (
-                    <div
-                      aria-hidden
-                      style={{
-                        width: '1px',
-                        height: '2.75rem',
-                        background: divider,
-                      }}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
             </div>
           </div>
 
