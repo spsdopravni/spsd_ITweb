@@ -95,7 +95,6 @@ export const ClassicFooter: React.FC = () => {
   ];
 
   // Theme-derived colors
-  const textStrong = isLight ? COLOR.navy : COLOR.white;
   const textMuted = isLight ? 'rgba(0,43,78,0.68)' : 'rgba(255,255,255,0.7)';
   const textSubtle = isLight ? 'rgba(0,43,78,0.5)' : 'rgba(255,255,255,0.5)';
   const divider = isLight ? 'rgba(0,43,78,0.1)' : 'rgba(255,255,255,0.1)';
@@ -129,85 +128,115 @@ export const ClassicFooter: React.FC = () => {
           paddingBottom: isDesktop ? '2.5rem' : '2rem',
         }}
       >
-        {/* Top area — brand + nav columns */}
+        {/* Top area — 4-column grid: 3 nav columns + social */}
         <div
           style={{
-            display: 'flex',
-            flexDirection: isDesktop ? 'row' : 'column',
-            gap: isDesktop ? '5rem' : '3rem',
-            alignItems: 'flex-start',
-            marginBottom: isDesktop ? '4rem' : '3rem',
+            display: 'grid',
+            gridTemplateColumns: isDesktop ? 'repeat(4, 1fr)' : '1fr',
+            gap: isDesktop ? '3rem' : '2.5rem',
+            marginBottom: isDesktop ? '3.5rem' : '2.5rem',
           }}
         >
-          {/* Brand block */}
-          <div
-            style={{
-              flex: isDesktop ? '0 0 auto' : '0 0 auto',
-              maxWidth: isDesktop ? '340px' : '100%',
-              width: isDesktop ? 'auto' : '100%',
-            }}
-          >
-            {/* Eyebrow line */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-                marginBottom: '1.5rem',
-              }}
-            >
-              <span
-                aria-hidden
-                style={{
-                  display: 'inline-block',
-                  width: '48px',
-                  height: '2px',
-                  background: COLOR.red,
-                  flexShrink: 0,
-                }}
-              />
-              <span
+          {columns.map((col, i) => (
+            <div key={i}>
+              <div
                 style={{
                   fontSize: '0.7rem',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  letterSpacing: '0.22em',
+                  letterSpacing: '0.18em',
                   color: isLight ? COLOR.red : COLOR.orange,
+                  marginBottom: '1.1rem',
+                  paddingBottom: '0.7rem',
+                  borderBottom: `1px solid ${divider}`,
                 }}
               >
-                {tStr('footer.eyebrow', 'Obor IT')}
-              </span>
+                {col.title}
+              </div>
+              <ul
+                style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.65rem',
+                }}
+              >
+                {col.links.map((l, j) => (
+                  <li key={j}>
+                    <Link
+                      href={l.href}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.55rem',
+                        fontSize: '0.92rem',
+                        fontWeight: 500,
+                        color: textMuted,
+                        textDecoration: 'none',
+                        transition: 'color 0.2s ease, transform 0.2s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = isLight
+                          ? COLOR.navy
+                          : COLOR.white;
+                        e.currentTarget.style.transform = 'translateX(3px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = textMuted;
+                        e.currentTarget.style.transform = 'translateX(0)';
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        style={{
+                          display: 'inline-block',
+                          width: '8px',
+                          height: '1px',
+                          background: COLOR.red,
+                          flexShrink: 0,
+                        }}
+                      />
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
 
-            {/* School name */}
+          {/* Social column */}
+          <div>
             <div
               style={{
-                fontSize: '1.35rem',
-                fontWeight: 800,
-                letterSpacing: '-0.015em',
-                lineHeight: 1.2,
-                color: textStrong,
-                marginBottom: '0.35rem',
+                fontSize: '0.7rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.18em',
+                color: isLight ? COLOR.red : COLOR.orange,
+                marginBottom: '1.1rem',
+                paddingBottom: '0.7rem',
+                borderBottom: `1px solid ${divider}`,
               }}
             >
-              {tStr('footer.schoolName', 'SPŠ dopravní')}
+              {tStr('footer.followUs', 'Sledujte nás')}
             </div>
-            <div
+            <p
               style={{
-                fontSize: '0.95rem',
-                fontWeight: 500,
+                fontSize: '0.85rem',
+                lineHeight: 1.6,
                 color: textMuted,
-                marginBottom: '1.25rem',
+                margin: '0 0 1rem 0',
               }}
             >
-              {tStr('footer.schoolLocation', 'Praha 5 – Motol')}
-            </div>
-
-            {/* Social links */}
+              {tStr('footer.followUsDesc', 'Aktuality z oboru, projektů a akcí.')}
+            </p>
             <div
               style={{
                 display: 'flex',
                 gap: '0.625rem',
+                flexWrap: 'wrap',
               }}
             >
               {socials.map(({ Icon, href, label }, i) => {
@@ -248,9 +277,7 @@ export const ClassicFooter: React.FC = () => {
                       textDecoration: 'none',
                       transition:
                         'transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease',
-                      transform: isHover
-                        ? 'translateY(-2px)'
-                        : 'translateY(0)',
+                      transform: isHover ? 'translateY(-2px)' : 'translateY(0)',
                       boxShadow: isHover
                         ? '0 10px 24px -10px rgba(200, 30, 28, 0.55)'
                         : 'none',
@@ -261,95 +288,6 @@ export const ClassicFooter: React.FC = () => {
                 );
               })}
             </div>
-          </div>
-
-          {/* Nav columns */}
-          <div
-            style={{
-              flex: '1 1 0%',
-              display: 'flex',
-              flexDirection: isDesktop ? 'row' : 'column',
-              gap: isDesktop ? '3rem' : '2.25rem',
-              width: '100%',
-              minWidth: 0,
-              justifyContent: isDesktop ? 'flex-end' : 'flex-start',
-            }}
-          >
-            {columns.map((col, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: isDesktop ? '0 0 auto' : '0 0 auto',
-                  minWidth: isDesktop ? '160px' : 'auto',
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: '0.7rem',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.18em',
-                    color: isLight ? COLOR.red : COLOR.orange,
-                    marginBottom: '1.1rem',
-                    paddingBottom: '0.7rem',
-                    borderBottom: `1px solid ${divider}`,
-                  }}
-                >
-                  {col.title}
-                </div>
-                <ul
-                  style={{
-                    listStyle: 'none',
-                    margin: 0,
-                    padding: 0,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.65rem',
-                  }}
-                >
-                  {col.links.map((l, j) => (
-                    <li key={j}>
-                      <Link
-                        href={l.href}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.55rem',
-                          fontSize: '0.92rem',
-                          fontWeight: 500,
-                          color: textMuted,
-                          textDecoration: 'none',
-                          transition: 'color 0.2s ease, transform 0.2s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.color = isLight
-                            ? COLOR.navy
-                            : COLOR.white;
-                          e.currentTarget.style.transform =
-                            'translateX(3px)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.color = textMuted;
-                          e.currentTarget.style.transform = 'translateX(0)';
-                        }}
-                      >
-                        <span
-                          aria-hidden
-                          style={{
-                            display: 'inline-block',
-                            width: '8px',
-                            height: '1px',
-                            background: COLOR.red,
-                            flexShrink: 0,
-                          }}
-                        />
-                        {l.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
 

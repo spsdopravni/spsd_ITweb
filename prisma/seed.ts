@@ -23,7 +23,6 @@ async function main() {
     where: { email: 'admin@spsd.cz' },
     update: {},
     create: {
-      microsoftId: 'admin-test-id',
       email: 'admin@spsd.cz',
       username: 'admin',
       displayName: 'Admin Test',
@@ -43,7 +42,6 @@ async function main() {
     where: { email: 'student@spsd.cz' },
     update: {},
     create: {
-      microsoftId: 'student-test-id',
       email: 'student@spsd.cz',
       username: 'student',
       displayName: 'Student Test',
@@ -63,7 +61,6 @@ async function main() {
     where: { email: 'teacher@spsd.cz' },
     update: {},
     create: {
-      microsoftId: 'teacher-test-id',
       email: 'teacher@spsd.cz',
       username: 'teacher',
       displayName: 'Teacher Test',
@@ -97,7 +94,7 @@ async function main() {
 
   console.log('\n🎉 Database seeded successfully!\n');
   console.log('📝 Test Users Created:');
-  console.log('├─ Admin:   admin@spsd.cz   / admin123   [ADMIN role - can access Bakaláři]');
+  console.log('├─ Admin:   admin@spsd.cz   / admin123   [ADMIN role]');
   console.log('├─ Student: student@spsd.cz / admin123   [STUDENT role]');
   console.log('└─ Teacher: teacher@spsd.cz / admin123   [TEACHER role]');
   console.log('\n💡 You can now login with any of these accounts!\n');

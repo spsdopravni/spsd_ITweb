@@ -17,7 +17,6 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (username: string, password: string) => Promise<boolean>;
-  loginWithMicrosoft: () => Promise<void>;
   logout: () => void;
   error: string | null;
 }
@@ -104,21 +103,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const loginWithMicrosoft = async (): Promise<void> => {
-    setError(null);
-    setIsLoading(true);
-
-    try {
-      // TODO: Implement Microsoft OAuth flow
-      // Placeholder for future API integration
-      alert('Microsoft přihlášení bude implementováno s API klíčem');
-      setIsLoading(false);
-    } catch {
-      setError('Chyba při přihlašování přes Microsoft');
-      setIsLoading(false);
-    }
-  };
-
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
@@ -130,7 +114,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isAuthenticated: !!user,
     isLoading,
     login,
-    loginWithMicrosoft,
     logout,
     error,
   };

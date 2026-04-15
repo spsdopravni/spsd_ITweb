@@ -4,7 +4,10 @@
     "about": "O odbore",
     "curriculum": "Učebný plán",
     "projects": "Projekty",
-    "selectLanguage": "Vyberte jazyk"
+    "selectLanguage": "Vyberte jazyk",
+    "ariaMain": "Hlavná navigácia",
+    "openMenu": "Otvoriť menu",
+    "ariaSearch": "Vyhľadávanie"
   },
   "search": {
     "placeholder": "Hľadať informácie o odbore, projekty...",
@@ -14,7 +17,10 @@
     "trending": "Trendy",
     "tips": "Tipy na vyhľadávanie",
     "clear": "Vymazať",
-    "noResults": "Žiadne výsledky"
+    "noResults": "Žiadne výsledky",
+    "defaultTitle": "Rýchle odkazy",
+    "clearRecent": "Vymazať históriu",
+    "resultsLabel": "výsledkov"
   },
   "common": {
     "loading": "Načítavanie...",
@@ -69,46 +75,77 @@
   "about": {
     "title": "O odbore Informačné technológie",
     "subtitle": "Stredná priemyselná škola dopravná - moderné vzdelávanie v oblasti IT",
+    "whatIsEyebrow": "Charakteristika odboru",
     "whatIs": "Čo je odbor IT?",
-    "description1": "Odbor Informačné technológie je štvorročný maturitný odbor, ktorý pripravuje študentov na prácu v dynamicky sa rozvíjajúcej oblasti informačných technológií. Zameriavame sa na praktické zručnosti kombinované s teoretickými základmi.",
-    "description2": "Naši absolventi sú pripravení ako na priamy vstup do praxe, tak na štúdium na vysokých školách technického zamerania.",
+    "description1": "Odbor Informačné technológie je štvorročný maturitný program, ktorý študentov pripravuje na prácu v rýchlo sa rozvíjajúcom svete IT. Štúdium prepája pevné teoretické základy s dôrazom na praktické zručnosti, ktoré študenti reálne využijú.",
+    "description2": "Absolventi sú pripravení ako na priamy vstup do praxe, tak na pokračovanie v štúdiu na vysokých školách technického zamerania.",
+    "infoCardLabel": "Odbor v skratke",
+    "info": {
+      "code": "Kód odboru",
+      "name": "Názov ŠVP",
+      "duration": "Dĺžka štúdia",
+      "form": "Forma štúdia"
+    },
+    "focusEyebrow": "Náplň štúdia",
+    "focusTitle": "Zameranie odboru a ",
+    "focusTitleHighlight": "uplatnenie absolventov",
     "fieldFocus": {
       "title": "Zameranie odboru",
       "items": [
-        "Vývoj webových a mobilných aplikácií",
-        "Programovanie v moderných jazykoch",
-        "Databázové systémy a Big Data",
-        "Počítačové siete a kybernetická bezpečnosť",
-        "Grafický dizajn a UX/UI",
-        "Internet vecí (IoT)"
+        "Programovanie (Python)",
+        "Počítačové siete a technológie (vrátane Cisco)",
+        "Databázové systémy (SQL)",
+        "Webdizajn a grafická tvorba",
+        "CAD systémy a 3D modelovanie",
+        "Hardvér a operačné systémy",
+        "Virtualizácia a cloudové technológie"
       ]
     },
     "graduateEmployment": {
       "title": "Uplatnenie absolventov",
       "items": [
-        "Programátor / Vývojár aplikácií",
-        "Webový developer",
+        "Vývojár softvéru",
+        "Správca IT systémov",
+        "Webový vývojár",
         "Databázový špecialista",
-        "IT technik / Správca sietí",
-        "Grafický dizajnér",
-        "Kybernetický bezpečnostný analytik"
+        "IT konzultant",
+        "Štúdium na vysokej škole"
       ]
     },
+    "whyEyebrow": "Prečo si vybrať náš odbor",
+    "whyTitle": "Čo u nás ",
+    "whyTitleHighlight": "získaš",
+    "whyDesc": "Štúdium u nás je kombináciou moderného vybavenia, reálnej praxe a skúsených pedagógov. Zameriavame sa na to, aby študenti odchádzali pripravení nielen teoreticky, ale hlavne prakticky.",
     "whyChooseUs": {
       "title": "Prečo si vybrať náš odbor?",
       "modernEquipment": {
         "title": "Moderné vybavenie",
-        "description": "Kvalitný hardvér a softvér, profesionálne vývojové nástroje"
+        "description": "Práca s aktuálnym hardvérom, profesionálnymi nástrojmi a technológiami používanými v praxi."
       },
       "companiesPractice": {
         "title": "Prax vo firmách",
-        "description": "Študenti získavajú reálne skúsenosti počas praxí vo firmách ich voľby"
+        "description": "Možnosť získať skúsenosti priamo vo firmách a spoznať reálne pracovné prostredie už počas štúdia."
       },
       "experiencedTeachers": {
         "title": "Skúsení učitelia",
-        "description": "Učitelia s praxou v IT odbore a priebežným vzdelávaním"
+        "description": "Výučba vedená pedagógmi s praxou v IT a aktuálnym prehľadom o odbore."
       }
     }
+  },
+  "hero": {
+    "eyebrow": "SPŠD Praha Motol · Odbor IT",
+    "title": "Technológie, ktoré ťa",
+    "titleHighlight": "pripravia na budúcnosť.",
+    "subtitle": "Odbor Informačné technológie je štvorročný maturitný program zameraný na programovanie, počítačové siete, kybernetickú bezpečnosť a moderné webové technológie. U nás sa neučíš len teóriu — pracuješ s tým, čo sa skutočne používa v praxi.",
+    "aboutButton": "Zistiť viac o odbore",
+    "projectsButton": "Projekty študentov",
+    "cardLabel": "Čo ťa čaká",
+    "feature1Title": "Moderné technológie",
+    "feature1Desc": "Python, TypeScript, siete, Linux, Docker, databázy.",
+    "feature2Title": "Prax vo firmách",
+    "feature2Desc": "Odborné stáže a spolupráca s reálnymi firmami, kde si vyskúšaš skutočné projekty.",
+    "feature3Title": "Súťaže a projekty",
+    "feature3Desc": "Hackathony, maturitné práce a zadania z praxe, ktoré ťa pripravia na reálny svet IT."
   },
   "projects": {
     "title": "Projekty IT odboru",
@@ -274,35 +311,104 @@
     },
     "detailHeaders": {
       "goals": "Ciele ročníka",
-      "projects": "Praktické projekty", 
+      "projects": "Praktické projekty",
       "certifications": "Certifikácie",
       "skills": "Získané zručnosti"
     },
     "year1Details": {
-      "goals": ["Osvojiť si základy práce s počítačom", "Pochopenie hardvérových komponentov", "Základy elektrotechniky"],
-      "projects": ["Zostavenie PC", "Základné elektrotechnické obvody", "Prvé programy v MS Office"],
-      "certifications": ["ECDL Start", "Základy IT"],
-      "skills": ["MS Office", "Základy Windows", "Elektrotechnické merania", "Logické myslenie"]
+      "goals": [
+        "Osvojiť si základy práce s počítačom",
+        "Pochopenie hardvérových komponentov",
+        "Základy elektrotechniky"
+      ],
+      "projects": [
+        "Zostavenie PC",
+        "Základné elektrotechnické obvody",
+        "Prvé programy v MS Office"
+      ],
+      "certifications": [
+        "ECDL Start",
+        "Základy IT"
+      ],
+      "skills": [
+        "MS Office",
+        "Základy Windows",
+        "Elektrotechnické merania",
+        "Logické myslenie"
+      ]
     },
     "year2Details": {
-      "goals": ["Naučiť sa programovať v C++", "Ovládanie operačných systémov", "CAD modelovanie"],
-      "projects": ["Kalkulačka v C++", "Správa Windows/Linux", "3D modely v AutoCAD"],
-      "certifications": ["Microsoft Office Specialist", "AutoCAD User"],
-      "skills": ["C++ programovanie", "Windows/Linux admin", "AutoCAD", "Databázy"]
+      "goals": [
+        "Naučiť sa programovať v C++",
+        "Ovládanie operačných systémov",
+        "CAD modelovanie"
+      ],
+      "projects": [
+        "Kalkulačka v C++",
+        "Správa Windows/Linux",
+        "3D modely v AutoCAD"
+      ],
+      "certifications": [
+        "Microsoft Office Specialist",
+        "AutoCAD User"
+      ],
+      "skills": [
+        "C++ programovanie",
+        "Windows/Linux admin",
+        "AutoCAD",
+        "Databázy"
+      ]
     },
     "year3Details": {
-      "goals": ["Konfigurácia sieťových zariadení", "Pokročilé databázy", "Python scripting"],
-      "projects": ["Konfigurácia VLAN", "Webová aplikácia s databázou", "Automatizačné skripty"],
-      "certifications": ["Cisco CCNA Discovery", "Oracle Database"],
-      "skills": ["Cisco IOS", "SQL/MySQL", "Python", "Sieťová bezpečnosť"]
+      "goals": [
+        "Konfigurácia sieťových zariadení",
+        "Pokročilé databázy",
+        "Python scripting"
+      ],
+      "projects": [
+        "Konfigurácia VLAN",
+        "Webová aplikácia s databázou",
+        "Automatizačné skripty"
+      ],
+      "certifications": [
+        "Cisco CCNA Discovery",
+        "Oracle Database"
+      ],
+      "skills": [
+        "Cisco IOS",
+        "SQL/MySQL",
+        "Python",
+        "Sieťová bezpečnosť"
+      ]
     },
     "year4Details": {
-      "goals": ["Úspešná maturita", "Profesijné certifikácie", "Praktické skúsenosti"],
-      "projects": ["Maturitný projekt", "Stáž v DPP", "Portfólio projektov"],
-      "certifications": ["Maturitné vysvedčenie", "Oracle Database Associate", "Microsoft Certified"],
-      "skills": ["Projektové riadenie", "Profesijná komunikácia", "Komplexné IT riešenia"]
+      "goals": [
+        "Úspešná maturita",
+        "Profesijné certifikácie",
+        "Praktické skúsenosti"
+      ],
+      "projects": [
+        "Maturitný projekt",
+        "Stáž v DPP",
+        "Portfólio projektov"
+      ],
+      "certifications": [
+        "Maturitné vysvedčenie",
+        "Oracle Database Associate",
+        "Microsoft Certified"
+      ],
+      "skills": [
+        "Projektové riadenie",
+        "Profesijná komunikácia",
+        "Komplexné IT riešenia"
+      ]
     },
-    "careers": ["Programátor", "Správca sietí a OS", "Vývojár webových riešení", "Databázový špecialista"]
+    "careers": [
+      "Programátor",
+      "Správca sietí a OS",
+      "Vývojár webových riešení",
+      "Databázový špecialista"
+    ]
   },
   "success": {
     "badge": "Príbehy úspechu",
@@ -352,7 +458,7 @@
   },
   "achievements": {
     "years": "Roky tradície",
-    "students": "Študentov celkom", 
+    "students": "Študentov celkom",
     "partner": "Hlavný partner",
     "faculty": "Fakultná škola"
   },

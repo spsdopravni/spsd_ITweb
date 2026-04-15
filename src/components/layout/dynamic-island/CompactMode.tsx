@@ -28,7 +28,11 @@ export const CompactMode: React.FC<CompactModeProps> = ({
   const { theme, classicMode } = useTheme();
   const { t } = useLanguage();
 
-  // Theme-aware colors
+  const tString = (key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  };
+
   const getTextColors = () => {
     if (theme === 'classic' && classicMode === 'light') {
       return {
@@ -37,7 +41,8 @@ export const CompactMode: React.FC<CompactModeProps> = ({
         hover: 'hover:text-blue-600',
         hoverBg: 'hover:bg-blue-50',
         accent: 'text-[var(--spsd-orange)]',
-        actionIcon: 'text-blue-500'
+        actionIcon: 'text-blue-500',
+        focusRing: 'focus-visible:ring-2 focus-visible:ring-[var(--spsd-orange)] focus-visible:outline-none',
       };
     } else if (theme === 'classic' && classicMode === 'dark') {
       return {
@@ -46,7 +51,8 @@ export const CompactMode: React.FC<CompactModeProps> = ({
         hover: 'hover:text-blue-300',
         hoverBg: 'hover:bg-blue-500/10',
         accent: 'text-[var(--spsd-orange)]',
-        actionIcon: 'text-blue-400'
+        actionIcon: 'text-blue-400',
+        focusRing: 'focus-visible:ring-2 focus-visible:ring-[var(--spsd-orange)] focus-visible:outline-none',
       };
     } else {
       return {
@@ -55,14 +61,14 @@ export const CompactMode: React.FC<CompactModeProps> = ({
         hover: 'hover:text-blue-300',
         hoverBg: 'hover:bg-blue-500/10',
         accent: 'text-[var(--spsd-orange)]',
-        actionIcon: 'text-blue-400'
+        actionIcon: 'text-blue-400',
+        focusRing: 'focus-visible:ring-2 focus-visible:ring-[var(--spsd-orange)] focus-visible:outline-none',
       };
     }
   };
 
   const colors = getTextColors();
 
-  // Normalize pathname for comparison
   const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
 
   return (
@@ -70,17 +76,18 @@ export const CompactMode: React.FC<CompactModeProps> = ({
       <div className="flex items-center gap-2 min-w-0 flex-1">
         {currentItem && (
           <>
-            <currentItem.icon className={`w-4 h-4 ${colors.accent} flex-shrink-0`} />
+            <currentItem.icon className={`w-4 h-4 ${colors.accent} flex-shrink-0`} aria-hidden="true" />
             <span className={`text-sm font-medium ${colors.primary} whitespace-nowrap`}>{currentItem.label}</span>
           </>
         )}
         {!currentItem && (
           <button
             onClick={() => router.push('/')}
-            className={`flex items-center gap-2 ${colors.hover} transition-opacity cursor-pointer min-w-0`}
+            aria-label={tString('nav.home', 'Domů')}
+            className={`flex items-center gap-2 ${colors.hover} transition-opacity cursor-pointer min-w-0 rounded-md ${colors.focusRing}`}
           >
-            <Home className={`w-4 h-4 ${colors.secondary} flex-shrink-0`} />
-            <span className={`text-sm font-medium ${colors.secondary} whitespace-nowrap`}>{t('nav.home', 'Domů')}</span>
+            <Home className={`w-4 h-4 ${colors.secondary} flex-shrink-0`} aria-hidden="true" />
+            <span className={`text-sm font-medium ${colors.secondary} whitespace-nowrap`}>{tString('nav.home', 'Domů')}</span>
           </button>
         )}
       </div>
@@ -89,17 +96,21 @@ export const CompactMode: React.FC<CompactModeProps> = ({
         {normalizedPathname !== '/search' && (
           <button
             onClick={() => onModeChange('search')}
-            className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-all duration-200`}
+            aria-label={tString('nav.ariaSearch', 'Vyhledávání')}
+            aria-keyshortcuts="Control+K Meta+K Slash"
+            className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-colors duration-200 ${colors.focusRing}`}
           >
-            <Search className={`w-4 h-4 ${colors.actionIcon} ${colors.hover}`} />
+            <Search className={`w-4 h-4 ${colors.actionIcon} ${colors.hover}`} aria-hidden="true" />
           </button>
         )}
 
         <button
           onClick={() => onModeChange('expanded')}
-          className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-all duration-200`}
+          aria-label={tString('nav.openMenu', 'Otevřít menu')}
+          aria-expanded={false}
+          className={`p-2 rounded-full ${colors.hoverBg} hover:scale-110 transition-colors duration-200 ${colors.focusRing}`}
         >
-          <ChevronDown className={`w-4 h-4 ${colors.actionIcon} ${colors.hover}`} />
+          <ChevronDown className={`w-4 h-4 ${colors.actionIcon} ${colors.hover}`} aria-hidden="true" />
         </button>
       </div>
     </div>

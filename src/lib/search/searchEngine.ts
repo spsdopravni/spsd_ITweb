@@ -364,9 +364,6 @@ export class SearchEngine {
 
   // Main search function
   async search(query: string, filters: SearchFilters): Promise<SearchResult[]> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 200));
-
     if (!query.trim()) {
       return this.applyFilters(this.searchIndex, filters);
     }

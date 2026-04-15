@@ -175,9 +175,9 @@ export const ClassicProgramTimeline: React.FC = () => {
               color: textStrong,
             }}
           >
-            {tStr('timeline.title', 'Čtyři ročníky')}
+            {tStr('timeline.title', '4 roky k ')}
             <span style={{ color: COLOR.red }}>
-              {tStr('timeline.titleHighlight', ', čtyři etapy.')}
+              {tStr('timeline.titleHighlight', 'IT odborníkovi')}
             </span>
           </h2>
 
@@ -192,7 +192,7 @@ export const ClassicProgramTimeline: React.FC = () => {
           >
             {tStr(
               'timeline.description',
-              'Studium začíná u základů hardwaru a programování a postupně se prohlubuje do sítí, databází a pokročilých technologií. Ve čtvrtém ročníku si student vybírá specializaci a připravuje se k maturitě.'
+              'Studium je rozděleno do čtyř etap, které na sebe logicky navazují — od základů až po specializaci.'
             )}
           </p>
         </div>

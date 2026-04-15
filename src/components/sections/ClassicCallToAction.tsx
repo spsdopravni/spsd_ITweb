@@ -168,7 +168,7 @@ export const ClassicCallToAction: React.FC = () => {
               }}
             >
               <span style={{ display: 'block' }}>
-                {tStr('cta.title', 'Stav se')}
+                {tStr('cta.title', 'Začni svoji')}
               </span>
               <span
                 style={{
@@ -177,7 +177,7 @@ export const ClassicCallToAction: React.FC = () => {
                   marginTop: '0.1em',
                 }}
               >
-                {tStr('cta.titleHighlight', 'součástí oboru.')}
+                {tStr('cta.titleHighlight', 'IT cestu už dnes.')}
               </span>
             </h2>
 
@@ -195,7 +195,7 @@ export const ClassicCallToAction: React.FC = () => {
             >
               {tStr(
                 'cta.description',
-                'Přijď se podívat na Den otevřených dveří, nebo nás rovnou kontaktuj. Rádi ti zodpovíme otázky k oboru, přijímacímu řízení i dalšímu studiu.'
+                'Zajímá tě obor IT? Přijď na den otevřených dveří nebo nás rovnou kontaktuj. Rádi ti vysvětlíme vše kolem studia, přijímacího řízení i možností uplatnění.'
               )}
             </p>
 
@@ -322,7 +322,7 @@ export const ClassicCallToAction: React.FC = () => {
               {/* Header band */}
               <div
                 style={{
-                  padding: '1.35rem 1.75rem',
+                  padding: '1.15rem 1.75rem',
                   background: `linear-gradient(135deg, ${COLOR.navy} 0%, ${COLOR.navyLight} 100%)`,
                   borderBottom: `3px solid ${COLOR.red}`,
                 }}
@@ -331,61 +331,28 @@ export const ClassicCallToAction: React.FC = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.75rem',
+                    gap: '1rem',
                   }}
                 >
                   <Building2
                     style={{
-                      width: 20,
-                      height: 20,
+                      width: 32,
+                      height: 32,
                       color: COLOR.orange,
                       flexShrink: 0,
                     }}
                   />
                   <span
                     style={{
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.18em',
-                      color: 'rgba(255, 255, 255, 0.95)',
+                      fontSize: '1.35rem',
+                      fontWeight: 800,
+                      letterSpacing: '-0.015em',
+                      color: 'rgba(255, 255, 255, 0.98)',
+                      lineHeight: 1.15,
                     }}
                   >
                     {tStr('cta.cardLabel', 'Kontakt na školu')}
                   </span>
-                </div>
-              </div>
-
-              {/* School name */}
-              <div
-                style={{
-                  padding: '1.5rem 1.75rem 1.25rem 1.75rem',
-                  borderBottom: `1px solid ${dividerSoft}`,
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: '0.68rem',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.16em',
-                    color: isLight
-                      ? 'rgba(0,43,78,0.5)'
-                      : 'rgba(255,255,255,0.5)',
-                    marginBottom: '0.4rem',
-                  }}
-                >
-                  {tStr('cta.schoolEyebrow', 'Střední průmyslová škola')}
-                </div>
-                <div
-                  style={{
-                    fontSize: '1.15rem',
-                    fontWeight: 700,
-                    color: textStrong,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  {tStr('cta.schoolName', 'SPŠ dopravní, Praha – Motol')}
                 </div>
               </div>
 

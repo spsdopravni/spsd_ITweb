@@ -5,7 +5,10 @@
     "curriculum": "Curriculum",
     "projects": "Projects",
     "selectLanguage": "Select Language",
-    "login": "Log in"
+    "login": "Log in",
+    "ariaMain": "Main navigation",
+    "openMenu": "Open menu",
+    "ariaSearch": "Search"
   },
   "search": {
     "placeholder": "Search for information about the program, projects...",
@@ -15,7 +18,10 @@
     "trending": "Trending",
     "tips": "Search Tips",
     "clear": "Clear",
-    "noResults": "No results"
+    "noResults": "No results",
+    "defaultTitle": "Quick links",
+    "clearRecent": "Clear history",
+    "resultsLabel": "results"
   },
   "common": {
     "loading": "Loading...",
@@ -70,46 +76,77 @@
   "about": {
     "title": "About the Information Technology Program",
     "subtitle": "Secondary Industrial School of Transport - modern education in IT",
-    "whatIs": "What is the IT Program?",
-    "description1": "The Information Technology program is a four-year matriculation program that prepares students for work in the dynamically developing field of information technologies. We focus on practical skills combined with theoretical foundations.",
-    "description2": "Our graduates are prepared for direct entry into practice as well as for study at universities with a technical focus.",
+    "whatIsEyebrow": "About the program",
+    "whatIs": "What is IT?",
+    "description1": "Information Technology is a four-year matriculation program that prepares students for careers in the fast-evolving world of IT. The curriculum combines solid theoretical foundations with a strong emphasis on practical skills students can apply in real projects.",
+    "description2": "Graduates are ready both for direct entry into the workforce and for continued studies at technical universities.",
+    "infoCardLabel": "Program at a glance",
+    "info": {
+      "code": "Program code",
+      "name": "Curriculum name",
+      "duration": "Study length",
+      "form": "Study format"
+    },
+    "focusEyebrow": "Curriculum content",
+    "focusTitle": "Program focus and ",
+    "focusTitleHighlight": "graduate careers",
     "fieldFocus": {
-      "title": "Field Focus",
+      "title": "Program focus",
       "items": [
-        "Web and mobile application development",
-        "Programming in modern languages",
-        "Database systems and Big Data",
-        "Computer networks and cybersecurity",
-        "Graphic design and UX/UI",
-        "Internet of Things (IoT)"
+        "Programming (Python)",
+        "Computer networks and technologies (including Cisco)",
+        "Database systems (SQL)",
+        "Web design and graphic creation",
+        "CAD systems and 3D modeling",
+        "Hardware and operating systems",
+        "Virtualization and cloud technologies"
       ]
     },
     "graduateEmployment": {
-      "title": "Graduate Employment",
+      "title": "Graduate careers",
       "items": [
-        "Programmer / Application Developer",
-        "Web Developer",
-        "Database Specialist",
-        "IT Technician / Network Administrator",
-        "Graphic Designer",
-        "Cybersecurity Analyst"
+        "Software developer",
+        "IT systems administrator",
+        "Web developer",
+        "Database specialist",
+        "IT consultant",
+        "University study"
       ]
     },
+    "whyEyebrow": "Why choose our program",
+    "whyTitle": "What you'll ",
+    "whyTitleHighlight": "gain",
+    "whyDesc": "Our program combines modern equipment, real-world practice, and experienced teachers. We focus on making sure students leave prepared not only in theory, but especially in practice.",
     "whyChooseUs": {
-      "title": "Why Choose Our Program?",
+      "title": "Why choose our program?",
       "modernEquipment": {
-        "title": "Modern Equipment",
-        "description": "Quality hardware and software, professional development tools"
+        "title": "Modern equipment",
+        "description": "Work with current hardware, professional tools, and technologies used in industry."
       },
       "companiesPractice": {
-        "title": "Practice in Companies",
-        "description": "Students gain real experience during internships in companies of their choice"
+        "title": "Practice in companies",
+        "description": "Gain hands-on experience directly in companies and explore the real working environment already during your studies."
       },
       "experiencedTeachers": {
-        "title": "Experienced Teachers",
-        "description": "Teachers with IT industry experience and continuous education"
+        "title": "Experienced teachers",
+        "description": "Classes led by teachers with practical IT experience and up-to-date industry knowledge."
       }
     }
+  },
+  "hero": {
+    "eyebrow": "SPŠD Prague Motol · IT Program",
+    "title": "Technology that will",
+    "titleHighlight": "prepare you for the future.",
+    "subtitle": "The Information Technology program is a four-year matriculation program focused on programming, computer networks, cybersecurity, and modern web technologies. With us, you don't just learn theory — you work with what's actually used in the industry.",
+    "aboutButton": "Learn more about the program",
+    "projectsButton": "Student projects",
+    "cardLabel": "What to expect",
+    "feature1Title": "Modern technology",
+    "feature1Desc": "Python, TypeScript, networks, Linux, Docker, databases.",
+    "feature2Title": "Company internships",
+    "feature2Desc": "Professional internships and collaboration with real companies where you'll work on actual projects.",
+    "feature3Title": "Competitions and projects",
+    "feature3Desc": "Hackathons, matriculation projects, and real-world assignments that prepare you for the real IT world."
   },
   "projects": {
     "title": "IT Department Projects",
@@ -275,35 +312,104 @@
     },
     "detailHeaders": {
       "goals": "Year Goals",
-      "projects": "Practical Projects", 
+      "projects": "Practical Projects",
       "certifications": "Certifications",
       "skills": "Acquired Skills"
     },
     "year1Details": {
-      "goals": ["Master computer basics", "Understanding hardware components", "Electrical engineering fundamentals"],
-      "projects": ["PC Assembly", "Basic electrical circuits", "First MS Office programs"],
-      "certifications": ["ECDL Start", "IT Basics"],
-      "skills": ["MS Office", "Windows basics", "Electrical measurements", "Logical thinking"]
+      "goals": [
+        "Master computer basics",
+        "Understanding hardware components",
+        "Electrical engineering fundamentals"
+      ],
+      "projects": [
+        "PC Assembly",
+        "Basic electrical circuits",
+        "First MS Office programs"
+      ],
+      "certifications": [
+        "ECDL Start",
+        "IT Basics"
+      ],
+      "skills": [
+        "MS Office",
+        "Windows basics",
+        "Electrical measurements",
+        "Logical thinking"
+      ]
     },
     "year2Details": {
-      "goals": ["Learn C++ programming", "Operating system management", "CAD modeling"],
-      "projects": ["C++ Calculator", "Windows/Linux administration", "3D AutoCAD models"],
-      "certifications": ["Microsoft Office Specialist", "AutoCAD User"],
-      "skills": ["C++ programming", "Windows/Linux admin", "AutoCAD", "Databases"]
+      "goals": [
+        "Learn C++ programming",
+        "Operating system management",
+        "CAD modeling"
+      ],
+      "projects": [
+        "C++ Calculator",
+        "Windows/Linux administration",
+        "3D AutoCAD models"
+      ],
+      "certifications": [
+        "Microsoft Office Specialist",
+        "AutoCAD User"
+      ],
+      "skills": [
+        "C++ programming",
+        "Windows/Linux admin",
+        "AutoCAD",
+        "Databases"
+      ]
     },
     "year3Details": {
-      "goals": ["Network device configuration", "Advanced databases", "Python scripting"],
-      "projects": ["VLAN configuration", "Web application with database", "Automation scripts"],
-      "certifications": ["Cisco CCNA Discovery", "Oracle Database"],
-      "skills": ["Cisco IOS", "SQL/MySQL", "Python", "Network security"]
+      "goals": [
+        "Network device configuration",
+        "Advanced databases",
+        "Python scripting"
+      ],
+      "projects": [
+        "VLAN configuration",
+        "Web application with database",
+        "Automation scripts"
+      ],
+      "certifications": [
+        "Cisco CCNA Discovery",
+        "Oracle Database"
+      ],
+      "skills": [
+        "Cisco IOS",
+        "SQL/MySQL",
+        "Python",
+        "Network security"
+      ]
     },
     "year4Details": {
-      "goals": ["Successful matriculation", "Professional certification", "Practical experience"],
-      "projects": ["Matriculation project", "DPP internship", "Project portfolio"],
-      "certifications": ["Matriculation certificate", "Oracle Database Associate", "Microsoft Certified"],
-      "skills": ["Project management", "Professional communication", "Complex IT solutions"]
+      "goals": [
+        "Successful matriculation",
+        "Professional certification",
+        "Practical experience"
+      ],
+      "projects": [
+        "Matriculation project",
+        "DPP internship",
+        "Project portfolio"
+      ],
+      "certifications": [
+        "Matriculation certificate",
+        "Oracle Database Associate",
+        "Microsoft Certified"
+      ],
+      "skills": [
+        "Project management",
+        "Professional communication",
+        "Complex IT solutions"
+      ]
     },
-    "careers": ["Programmer", "Network and OS Administrator", "Web Developer", "Database Specialist"]
+    "careers": [
+      "Programmer",
+      "Network and OS Administrator",
+      "Web Developer",
+      "Database Specialist"
+    ]
   },
   "success": {
     "badge": "Success Stories",
@@ -353,7 +459,7 @@
   },
   "achievements": {
     "years": "Years of tradition",
-    "students": "Total students", 
+    "students": "Total students",
     "partner": "Main partner",
     "faculty": "Faculty school"
   },
@@ -473,7 +579,6 @@
   },
   "login": {
     "title": "Login",
-    "subtitle": "Bakaláři, Moodle and schedule in one place",
     "studentPortal": "Student Portal",
     "username": "Username",
     "password": "Password",
@@ -481,13 +586,10 @@
     "passwordPlaceholder": "Enter password",
     "submit": "Log in",
     "loggingIn": "Logging in...",
-    "microsoftLogin": "Sign in with Microsoft",
-    "or": "or",
     "fillAllFields": "Fill in all fields",
     "invalidCredentials": "Invalid credentials",
     "error": "Login error",
     "demoHint": "Demo account: admin / admin",
-    "bakalariHint": "Use your Bakaláři login credentials",
     "backToHome": "← Back to homepage"
   },
   "passwordPopup": {
@@ -502,13 +604,10 @@
   "forgotPassword": {
     "title": "Forgot Password",
     "subtitle": "Choose a password recovery method",
-    "microsoft": "Sign in with Microsoft",
-    "microsoftDesc": "Recommended - we'll generate a new password",
     "recommended": "Recommended",
     "email": "Send email",
     "emailDesc": "Coming soon...",
     "soon": "Soon",
-    "info": "After successful Microsoft sign-in, we'll generate a new password which will be displayed in a popup.",
     "cancel": "Cancel"
   },
   "dashboard": {
@@ -516,82 +615,10 @@
     "welcome": "Welcome",
     "subtitle": "Everything you need for studying in one place",
     "logout": "Log out",
-    "quickActions": "Quick Actions",
-    "recentActivity": "Recent Activity",
-    "comingSoon": "Coming Soon",
-    "comingSoonFeatures": "What to expect:",
-    "comingSoonMessage": "We are working on integrating these features. We will notify you when they are available.",
-    "mockData": "* Mock data - preparing integration with Bakaláři",
     "sidebar": {
       "overview": "Overview",
-      "bakalari": "Bakaláři",
-      "grades": "Grades",
-      "schedule": "Schedule",
-      "moodle": "Moodle",
-      "communication": "Communication",
       "profile": "Profile",
       "soon": "Soon"
-    },
-    "stats": {
-      "average": "Grade Average",
-      "attendance": "Attendance",
-      "notifications": "New Messages"
-    },
-    "activity": {
-      "newGrade": "New grade in Programming",
-      "scheduleChange": "Schedule change - 3rd period cancelled",
-      "newAssignment": "New assignment in Moodle - Databases"
-    },
-    "bakalari": {
-      "title": "Bakaláři",
-      "description": "Grades, absences and school information",
-      "viewMore": "Open Bakaláři",
-      "comingSoonDescription": "Integration with Bakaláři system coming soon",
-      "feature1": "Overview of grades and assessments",
-      "feature2": "Attendance records and excuses",
-      "feature3": "Class schedule and changes",
-      "feature4": "Communication with teachers",
-      "feature5": "Access to school documents"
-    },
-    "grades": {
-      "description": "Overview of grades and assessments",
-      "comingSoonDescription": "Detailed grade overview coming soon",
-      "feature1": "Grades by subject",
-      "feature2": "Weights and grade averages",
-      "feature3": "Graphical progress display",
-      "feature4": "Comparison with class average",
-      "feature5": "Export grades to PDF"
-    },
-    "schedule": {
-      "title": "Class Schedule",
-      "description": "Current schedule and class changes",
-      "viewMore": "View schedule",
-      "comingSoonDescription": "Interactive schedule with real-time changes coming soon",
-      "feature1": "Current class schedule",
-      "feature2": "Real-time schedule changes",
-      "feature3": "Substitute schedule",
-      "feature4": "Class reminders",
-      "feature5": "Export schedule to calendar"
-    },
-    "moodle": {
-      "title": "Moodle",
-      "description": "Learning materials and assignments",
-      "viewMore": "Open Moodle",
-      "comingSoonDescription": "Moodle integration for accessing learning materials coming soon",
-      "feature1": "Access to courses and materials",
-      "feature2": "Assignment submissions",
-      "feature3": "Grading and feedback",
-      "feature4": "Discussion forums",
-      "feature5": "Calendar with deadlines"
-    },
-    "communication": {
-      "description": "Messages and notifications",
-      "comingSoonDescription": "School communication system coming soon",
-      "feature1": "Messages from teachers and school",
-      "feature2": "Event and change notifications",
-      "feature3": "Online excuses and requests",
-      "feature4": "Communication with class teacher",
-      "feature5": "Communication history"
     }
   },
   "profile": {

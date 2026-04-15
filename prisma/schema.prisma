@@ -1,6 +1,6 @@
 // Prisma Schema for SPŠD IT Web
 // Database: PostgreSQL
-// Authentication: Microsoft OAuth + Password
+// Authentication: Username + Password (database)
 
 generator client {
   provider = "prisma-client-js"
@@ -18,17 +18,16 @@ datasource db {
 model User {
   id String @id @default(cuid())
 
-  // Microsoft OAuth data
-  microsoftId String  @unique // Microsoft user ID from OAuth
-  email       String  @unique // Full email (e.g., Barat70671@sps-mot.dopravni.cz)
-  username    String  @unique // Username part (e.g., Barat70671)
-  displayName String? // Display name from Microsoft
+  // Identity
+  email       String  @unique
+  username    String  @unique
+  displayName String?
 
-  // Password (generated after first Microsoft login)
-  passwordHash String // Bcrypt hashed password
-  passwordGeneratedAt DateTime @default(now()) // When password was generated
-  passwordChangedAt   DateTime? // When user changed their password
-  mustChangePassword  Boolean  @default(false) // Force password change
+  // Password
+  passwordHash        String
+  passwordGeneratedAt DateTime  @default(now())
+  passwordChangedAt   DateTime?
+  mustChangePassword  Boolean   @default(false)
 
   // User details
   firstName String?
@@ -36,24 +35,16 @@ model User {
   role      UserRole @default(STUDENT)
 
   // Security & Account status
-  isActive           Boolean   @default(true)
-  isVerified         Boolean   @default(true) // Microsoft OAuth users are auto-verified
-  failedLoginAttempts Int      @default(0)
-  lockedUntil        DateTime?
-  lastLogin          DateTime?
-  lastPasswordReset  DateTime?
+  isActive            Boolean   @default(true)
+  isVerified          Boolean   @default(true)
+  failedLoginAttempts Int       @default(0)
+  lockedUntil         DateTime?
+  lastLogin           DateTime?
+  lastPasswordReset   DateTime?
 
   // Two-factor authentication (future)
   twoFactorEnabled Boolean @default(false)
   twoFactorSecret  String?
-
-  // Bakaláři integration
-  bakalariConnected      Boolean @default(false)
-  bakalariUsername       String?
-  bakalariPasswordEnc    String? @db.Text // Encrypted password
-  bakalariAccessToken    String? @db.Text
-  bakalariRefreshToken   String? @db.Text
-  bakalariLastSync       DateTime?
 
   // Timestamps
   createdAt DateTime @default(now())
@@ -62,10 +53,10 @@ model User {
   // Relations
   sessions  Session[]
   auditLogs AuditLog[]
+  projects  Project[]
 
   @@index([email])
   @@index([username])
-  @@index([microsoftId])
   @@map("users")
 }
 
@@ -82,23 +73,19 @@ enum UserRole {
 model Session {
   id String @id @default(cuid())
 
-  // User reference
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  // Token data
   accessToken  String   @unique @db.Text
   refreshToken String   @unique @db.Text
   expiresAt    DateTime
 
-  // Session metadata
-  ipAddress String?
-  userAgent String? @db.Text
+  ipAddress  String?
+  userAgent  String? @db.Text
   deviceInfo String? @db.Text
 
-  // Timestamps
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   lastUsedAt DateTime @default(now())
 
   @@index([userId])
@@ -115,30 +102,24 @@ model Session {
 model AuditLog {
   id String @id @default(cuid())
 
-  // User reference (nullable for anonymous actions)
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
-  // Action details
   action      AuditAction
-  resource    String? // What was accessed (e.g., "login", "dashboard", "bakalari")
+  resource    String?
   description String?     @db.Text
 
-  // Request metadata
   ipAddress  String?
   userAgent  String? @db.Text
-  method     String? // HTTP method (GET, POST, etc.)
-  path       String? // Request path
-  statusCode Int? // Response status code
+  method     String?
+  path       String?
+  statusCode Int?
 
-  // Additional data (JSON)
   metadata Json?
 
-  // Success/Failure
   success Boolean @default(true)
   error   String? @db.Text
 
-  // Timestamp
   createdAt DateTime @default(now())
 
   @@index([userId])
@@ -155,6 +136,7 @@ enum AuditAction {
   LOGOUT
   PASSWORD_RESET
   PASSWORD_CHANGED
+  // Legacy — retained to keep historical audit_logs rows valid
   MICROSOFT_AUTH_SUCCESS
   MICROSOFT_AUTH_FAILED
 
@@ -178,29 +160,57 @@ enum AuditAction {
 }
 
 // ============================================================================
-// PASSWORD RESET TOKEN MODEL (for email-based resets - future)
+// PASSWORD RESET TOKEN MODEL
 // ============================================================================
 
 model PasswordResetToken {
   id String @id @default(cuid())
 
-  // User reference
   userId String
   email  String
 
-  // Token data
   token     String   @unique
   expiresAt DateTime
 
-  // Status
   used   Boolean   @default(false)
   usedAt DateTime?
 
-  // Timestamps
   createdAt DateTime @default(now())
 
   @@index([token])
   @@index([userId])
   @@index([expiresAt])
   @@map("password_reset_tokens")
+}
+
+// ============================================================================
+// PROJECT MODEL
+// ============================================================================
+
+model Project {
+  id          String        @id @default(cuid())
+  title       String
+  description String        @db.Text
+  tags        String[]
+  date        DateTime?
+  author      String?
+  status      ProjectStatus @default(IN_PROGRESS)
+
+  // Author relation (the user who created the project in the dashboard)
+  createdById String?
+  createdBy   User?   @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([date])
+  @@index([createdById])
+  @@map("projects")
+}
+
+enum ProjectStatus {
+  IN_PROGRESS
+  PLANNED
+  COMPLETED
 }

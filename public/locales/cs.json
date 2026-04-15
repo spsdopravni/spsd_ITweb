@@ -5,7 +5,10 @@
     "curriculum": "Učební plán",
     "projects": "Projekty",
     "selectLanguage": "Vyberte jazyk",
-    "login": "Přihlásit se"
+    "login": "Přihlásit se",
+    "ariaMain": "Hlavní navigace",
+    "openMenu": "Otevřít menu",
+    "ariaSearch": "Vyhledávání"
   },
   "search": {
     "placeholder": "Hledat informace o oboru, projekty...",
@@ -15,7 +18,10 @@
     "trending": "Trendy",
     "tips": "Tipy pro vyhledávání",
     "clear": "Vymazat",
-    "noResults": "Žádné výsledky"
+    "noResults": "Žádné výsledky",
+    "defaultTitle": "Rychlé odkazy",
+    "clearRecent": "Vymazat historii",
+    "resultsLabel": "výsledků"
   },
   "common": {
     "loading": "Načítání...",
@@ -70,44 +76,60 @@
   "about": {
     "title": "O oboru Informační technologie",
     "subtitle": "Střední průmyslová škola dopravní - moderní vzdělání v oblasti IT",
+    "whatIsEyebrow": "Charakteristika oboru",
     "whatIs": "Co je obor IT?",
-    "description1": "Obor Informační technologie je čtyřletý maturitní obor, který připravuje studenty na práci v dynamicky se rozvíjející oblasti informačních technologií. Zaměřujeme se na praktické dovednosti kombinované s teoretickými základy.",
-    "description2": "Naši absolventi jsou připraveni jak pro přímý vstup do praxe, tak pro studium na vysokých školách technického zaměření.",
+    "description1": "Obor Informační technologie je čtyřletý maturitní program, který studenty připravuje na práci v rychle se rozvíjejícím světě IT. Studium propojuje pevné teoretické základy s důrazem na praktické dovednosti, které studenti reálně využijí.",
+    "description2": "Absolventi jsou připraveni jak na přímý vstup do praxe, tak na pokračování ve studiu na vysokých školách technického zaměření.",
+    "infoCardLabel": "Obor ve zkratce",
+    "info": {
+      "code": "Kód oboru",
+      "name": "Název ŠVP",
+      "duration": "Délka studia",
+      "form": "Forma studia"
+    },
+    "focusEyebrow": "Náplň studia",
+    "focusTitle": "Zaměření oboru a ",
+    "focusTitleHighlight": "uplatnění absolventů",
     "fieldFocus": {
       "title": "Zaměření oboru",
       "items": [
-        "Vývoj webových a mobilních aplikací",
-        "Programování v moderních jazycích",
-        "Databázové systémy a Big Data",
-        "Počítačové sítě a kybernetická bezpečnost",
-        "Grafický design a UX/UI",
-        "Internet věcí (IoT)"
+        "Programování (Python)",
+        "Počítačové sítě a technologie (včetně Cisco)",
+        "Databázové systémy (SQL)",
+        "Webdesign a grafická tvorba",
+        "CAD systémy a 3D modelování",
+        "Hardware a operační systémy",
+        "Virtualizace a cloudové technologie"
       ]
     },
     "graduateEmployment": {
       "title": "Uplatnění absolventů",
       "items": [
-        "Programátor / Vývojář aplikací",
-        "Webový developer",
+        "Vývojář software",
+        "Správce IT systémů",
+        "Webový vývojář",
         "Databázový specialista",
-        "IT technik / Správce sítí",
-        "Grafický designer",
-        "Kybernetický bezpečnostní analytik"
+        "IT konzultant",
+        "Studium na vysoké škole"
       ]
     },
+    "whyEyebrow": "Proč si vybrat náš obor",
+    "whyTitle": "Co u nás ",
+    "whyTitleHighlight": "získáš",
+    "whyDesc": "Studium u nás je kombinací moderního vybavení, reálné praxe a zkušených pedagogů. Zaměřujeme se na to, aby studenti odcházeli připraveni nejen teoreticky, ale hlavně prakticky.",
     "whyChooseUs": {
       "title": "Proč si vybrat náš obor?",
       "modernEquipment": {
         "title": "Moderní vybavení",
-        "description": "Decentní hardware a software, profesionální vývojové nástroje"
+        "description": "Práce s aktuálním hardwarem, profesionálními nástroji a technologiemi používanými v praxi."
       },
       "companiesPractice": {
-        "title": "Praxe v firmách",
-        "description": "Studenti získávají reálné zkušenosti během praxí ve firmách jejich volby"
+        "title": "Praxe ve firmách",
+        "description": "Možnost získat zkušenosti přímo ve firmách a poznat reálné pracovní prostředí už během studia."
       },
       "experiencedTeachers": {
         "title": "Zkušení učitelé",
-        "description": "Učitelé s praxí v IT oboru a průběžným vzděláváním"
+        "description": "Výuka vedená pedagogy s praxí v IT a aktuálním přehledem o oboru."
       }
     }
   },
@@ -250,60 +272,34 @@
       "desc": "Příprava na technologie budoucnosti a inovace"
     }
   },
+  "hero": {
+    "eyebrow": "SPŠD Praha Motol · Obor IT",
+    "title": "Technologie, které tě",
+    "titleHighlight": "připraví na budoucnost.",
+    "subtitle": "Obor Informační technologie je čtyřletý maturitní program zaměřený na programování, počítačové sítě, kyberbezpečnost a moderní webové technologie. U nás se neučíš jen teorii — pracuješ s tím, co se skutečně používá v praxi.",
+    "aboutButton": "Zjistit více o oboru",
+    "projectsButton": "Projekty studentů",
+    "cardLabel": "Co tě čeká",
+    "feature1Title": "Moderní technologie",
+    "feature1Desc": "Python, TypeScript, sítě, Linux, Docker, databáze.",
+    "feature2Title": "Praxe ve firmách",
+    "feature2Desc": "Odborné stáže a spolupráce s reálnými firmami, kde si vyzkoušíš skutečné projekty.",
+    "feature3Title": "Soutěže a projekty",
+    "feature3Desc": "Hackathony, maturitní práce a zadání z praxe, které tě připraví na reálný svět IT."
+  },
   "timeline": {
-    "badge": "Studijní program 18-20-M/01",
-    "title": "4 roky k IT odborníkovi",
-    "subtitle": "Kompletni výuka od základů po pokročilé technologie. Připravujeme programátory, správce systémů a síťové specialisty.",
-    "outcomes": "Kariérní uplatnění",
-    "showMore": "Klikněte pro více",
-    "hideDetails": "Skrýt detaily",
-    "year1": {
-      "title": "Základní technologie",
-      "desc": "Programové vybavení, Hardware, Základy elektrotechniky"
-    },
-    "year2": {
-      "title": "Programování a systémy",
-      "desc": "Operační systémy, Programování, CAD systémy"
-    },
-    "year3": {
-      "title": "Sítě a databáze",
-      "desc": "Datové sítě, Databázové systémy, Cisco kurzy"
-    },
-    "year4": {
-      "title": "Maturita a certifikace",
-      "desc": "Maturitní zkouška, Oracle, MSDN AA, prakticka v DPP"
-    },
-    "detailHeaders": {
-      "goals": "Cíle ročníku",
-      "projects": "Praktické projekty", 
-      "certifications": "Certifikace",
-      "skills": "Získané dovednosti"
-    },
-    "year1Details": {
-      "goals": ["Osvojit si základy práce s počítačem", "Pochopení hardwarových komponent", "Základy elektrotechniky"],
-      "projects": ["Sestavení PC", "Základní elektrotechnické obvody", "První programy v MS Office"],
-      "certifications": ["ECDL Start", "Základy IT"],
-      "skills": ["MS Office", "Základy Windows", "Elektrotechnické měření", "Logické myšlení"]
-    },
-    "year2Details": {
-      "goals": ["Naučit se programovat v C++", "Ovládání operačních systémů", "CAD modelování"],
-      "projects": ["Kalkulačka v C++", "Správa Windows/Linux", "3D modely v AutoCAD"],
-      "certifications": ["Microsoft Office Specialist", "AutoCAD User"],
-      "skills": ["C++ programování", "Windows/Linux admin", "AutoCAD", "Databáze"]
-    },
-    "year3Details": {
-      "goals": ["Konfigurace síťových zařízení", "Pokročilé databáze", "Python scripting"],
-      "projects": ["Konfigurace VLAN", "Webová aplikace s databází", "Automatizační skripty"],
-      "certifications": ["Cisco CCNA Discovery", "Oracle Database"],
-      "skills": ["Cisco IOS", "SQL/MySQL", "Python", "Síťová bezpečnost"]
-    },
-    "year4Details": {
-      "goals": ["Úspěšná maturita", "Profesionální certifikace", "Praktické zkušenosti"],
-      "projects": ["Maturitní projekt", "Stáž v DPP", "Portfolio projektů"],
-      "certifications": ["Maturitní vysvědčení", "Oracle Database Associate", "Microsoft Certified"],
-      "skills": ["Projektové řízení", "Profesionální komunikace", "Komplexní IT řešení"]
-    },
-    "careers": ["Programátor", "Správce sítí a OS", "Vývojář webových řešení", "Databázový specialista"]
+    "eyebrow": "Studijní plán",
+    "title": "4 roky k ",
+    "titleHighlight": "IT odborníkovi",
+    "description": "Studium je rozděleno do čtyř etap, které na sebe logicky navazují — od základů až po specializaci.",
+    "year1": "1. ročník",
+    "year1Title": "Základy IT a hardware",
+    "year2": "2. ročník",
+    "year2Title": "Programování a databáze",
+    "year3": "3. ročník",
+    "year3Title": "Sítě a pokročilé technologie",
+    "year4": "4. ročník",
+    "year4Title": "Specializace a maturita"
   },
   "success": {
     "badge": "Příběhy úspěchu",
@@ -316,19 +312,18 @@
     }
   },
   "cta": {
-    "title": "Začněte svou IT cestu už dnes",
-    "subtitle": "Připojte se k nám a objevte svůj potenciál v oblasti informačních technologií",
-    "formTitle": "Máte otázky? Napište nám!",
-    "formSubtitle": "Rádi vám poskytneme další informace o studiu",
-    "contactInfo": "Kontaktní informace",
-    "quickActions": "Rychlé akce",
-    "schedule": "Naplánovat návštěvu",
-    "virtualTour": "Virtuální prohlídka",
-    "brochure": "Stáhnout prospekt",
-    "finalTitle": "Připraveni začít?",
-    "finalSubtitle": "Připojte se k více než 500 absolventům, kteří úspěšně nastoupili do IT kariéry",
-    "apply": "Přihlásit se ke studiu",
-    "learnMore": "Zjistit více"
+    "eyebrow": "Přihlášky a kontakt",
+    "title": "Začni svoji",
+    "titleHighlight": "IT cestu už dnes.",
+    "description": "Zajímá tě obor IT? Přijď na den otevřených dveří nebo nás rovnou kontaktuj. Rádi ti vysvětlíme vše kolem studia, přijímacího řízení i možností uplatnění.",
+    "applyButton": "Více o oboru",
+    "contactButton": "Studentské projekty",
+    "cardLabel": "Kontakt na školu",
+    "schoolEyebrow": "Střední průmyslová škola",
+    "schoolName": "SPŠ dopravní, Praha – Motol",
+    "addressLabel": "Adresa",
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-mail"
   },
   "contact": {
     "address": "Adresa",
@@ -353,7 +348,7 @@
   },
   "achievements": {
     "years": "Roky tradice",
-    "students": "Studentů celkem", 
+    "students": "Studentů celkem",
     "partner": "Hlavní partner",
     "faculty": "Fakultní škola"
   },
@@ -473,7 +468,6 @@
   },
   "login": {
     "title": "Přihlášení",
-    "subtitle": "Bakaláři, Moodle a rozvrh na jednom místě",
     "studentPortal": "Studentský portál",
     "username": "Uživatelské jméno",
     "password": "Heslo",
@@ -481,13 +475,10 @@
     "passwordPlaceholder": "Zadejte heslo",
     "submit": "Přihlásit se",
     "loggingIn": "Přihlašování...",
-    "microsoftLogin": "Přihlásit se přes Microsoft",
-    "or": "nebo",
     "fillAllFields": "Vyplňte všechna pole",
     "invalidCredentials": "Nesprávné přihlašovací údaje",
     "error": "Chyba při přihlašování",
     "demoHint": "Demo účet: admin / admin",
-    "bakalariHint": "Použijte své přihlašovací údaje z Bakalářů",
     "backToHome": "← Zpět na hlavní stránku"
   },
   "passwordPopup": {
@@ -502,13 +493,10 @@
   "forgotPassword": {
     "title": "Zapomenuté heslo",
     "subtitle": "Zvolte způsob obnovení hesla",
-    "microsoft": "Přihlásit přes Microsoft",
-    "microsoftDesc": "Doporučeno - vygenerujeme nové heslo",
     "recommended": "Doporučeno",
     "email": "Zaslat email",
     "emailDesc": "Připravujeme...",
     "soon": "Brzy",
-    "info": "Po úspěšném přihlášení přes Microsoft vám vygenerujeme nové heslo, které se zobrazí v popup okně.",
     "cancel": "Zrušit"
   },
   "dashboard": {
@@ -516,82 +504,10 @@
     "welcome": "Vítejte",
     "subtitle": "Vše, co potřebujete pro studium, na jednom místě",
     "logout": "Odhlásit se",
-    "quickActions": "Rychlé akce",
-    "recentActivity": "Poslední aktivita",
-    "comingSoon": "Připravujeme pro vás",
-    "comingSoonFeatures": "Co můžete očekávat:",
-    "comingSoonMessage": "Pracujeme na integraci těchto funkcí. Budeme vás informovat, až budou dostupné.",
-    "mockData": "* Ukázková data - připravujeme integraci s Bakaláři",
     "sidebar": {
       "overview": "Přehled",
-      "bakalari": "Bakaláři",
-      "grades": "Známky",
-      "schedule": "Rozvrh",
-      "moodle": "Moodle",
-      "communication": "Komunikace",
       "profile": "Profil",
       "soon": "Brzy"
-    },
-    "stats": {
-      "average": "Průměr známek",
-      "attendance": "Docházka",
-      "notifications": "Nové zprávy"
-    },
-    "activity": {
-      "newGrade": "Nová známka z Programování",
-      "scheduleChange": "Změna rozvrhu - zrušena 3. hodina",
-      "newAssignment": "Nový úkol v Moodle - Databáze"
-    },
-    "bakalari": {
-      "title": "Bakaláři",
-      "description": "Známky, absence a školní informace",
-      "viewMore": "Otevřít Bakaláře",
-      "comingSoonDescription": "Integrace s Bakaláři systémem bude brzy k dispozici",
-      "feature1": "Přehled známek a hodnocení",
-      "feature2": "Evidence absence a omluvenky",
-      "feature3": "Rozvrh hodin a změny",
-      "feature4": "Komunikace s učiteli",
-      "feature5": "Přístup ke školním dokumentům"
-    },
-    "grades": {
-      "description": "Přehled známek a hodnocení",
-      "comingSoonDescription": "Detailní přehled známek bude brzy k dispozici",
-      "feature1": "Přehled známek podle předmětů",
-      "feature2": "Váhy a průměry známek",
-      "feature3": "Grafické zobrazení vývoje",
-      "feature4": "Srovnání s celkovým průměrem třídy",
-      "feature5": "Export známek do PDF"
-    },
-    "schedule": {
-      "title": "Rozvrh hodin",
-      "description": "Aktuální rozvrh a změny hodin",
-      "viewMore": "Zobrazit rozvrh",
-      "comingSoonDescription": "Interaktivní rozvrh s aktuálními změnami bude brzy k dispozici",
-      "feature1": "Aktuální rozvrh hodin",
-      "feature2": "Změny v rozvrhu v reálném čase",
-      "feature3": "Suplovací rozvrh",
-      "feature4": "Připomínky před hodinou",
-      "feature5": "Export rozvrhu do kalendáře"
-    },
-    "moodle": {
-      "title": "Moodle",
-      "description": "Výukové materiály a úkoly",
-      "viewMore": "Otevřít Moodle",
-      "comingSoonDescription": "Integrace s Moodle pro přístup k výukovým materiálům bude brzy k dispozici",
-      "feature1": "Přístup ke kurzům a materiálům",
-      "feature2": "Odevzdávání úkolů",
-      "feature3": "Hodnocení a zpětná vazba",
-      "feature4": "Diskusní fóra",
-      "feature5": "Kalendář s termíny odevzdání"
-    },
-    "communication": {
-      "description": "Zprávy a oznámení",
-      "comingSoonDescription": "Systém pro komunikaci se školou bude brzy k dispozici",
-      "feature1": "Zprávy od učitelů a školy",
-      "feature2": "Oznámení o akcích a změnách",
-      "feature3": "Omluvenky a žádosti online",
-      "feature4": "Komunikace s třídním učitelem",
-      "feature5": "Historie komunikace"
     }
   },
   "profile": {

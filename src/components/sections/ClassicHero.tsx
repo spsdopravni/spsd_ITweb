@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/lib/theme/useTheme';
@@ -60,7 +60,7 @@ export const ClassicHero: React.FC = () => {
       title: tStr('hero.feature2Title', 'Praxe ve firmách'),
       desc: tStr(
         'hero.feature2Desc',
-        'Odborné stáže a spolupráce s partnery oboru.'
+        'Odborné stáže a spolupráce s reálnými firmami, kde si vyzkoušíš skutečné projekty.'
       ),
     },
     {
@@ -68,13 +68,60 @@ export const ClassicHero: React.FC = () => {
       title: tStr('hero.feature3Title', 'Soutěže a projekty'),
       desc: tStr(
         'hero.feature3Desc',
-        'Hackathony, maturitní projekty, reálná zadání.'
+        'Hackathony, maturitní práce a zadání z praxe, které tě připraví na reálný svět IT.'
       ),
     },
   ];
 
   const [primaryHover, setPrimaryHover] = useState(false);
   const [secondaryHover, setSecondaryHover] = useState(false);
+
+  const leftColumnRef = useRef<HTMLDivElement | null>(null);
+  const [titleFontPx, setTitleFontPx] = useState(64);
+
+  const titleText = tStr('hero.title', 'Technologie, které tě');
+  const highlightText = tStr('hero.titleHighlight', 'připraví na budoucnost.');
+
+  useLayoutEffect(() => {
+    const el = leftColumnRef.current;
+    if (!el) return;
+
+    const LETTER_SPACING_EM = -0.025;
+    const REF_SIZE = 100;
+    const letterSpacingPx = LETTER_SPACING_EM * REF_SIZE;
+
+    const compute = () => {
+      const containerWidth = el.clientWidth;
+      if (!containerWidth) return;
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      ctx.font = `800 ${REF_SIZE}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+      const line1 =
+        ctx.measureText(titleText).width +
+        Math.max(0, titleText.length - 1) * letterSpacingPx;
+      const line2 =
+        ctx.measureText(highlightText).width +
+        Math.max(0, highlightText.length - 1) * letterSpacingPx;
+      const widest = Math.max(line1, line2);
+      if (widest <= 0) return;
+
+      const target = containerWidth * 0.96;
+      const raw = REF_SIZE * (target / widest);
+
+      const maxFont = isDesktop ? 80 : 56;
+      const minFont = isDesktop ? 40 : 30;
+      const clamped = Math.min(maxFont, Math.max(minFont, raw));
+      setTitleFontPx(Math.round(clamped));
+    };
+
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [titleText, highlightText, isDesktop]);
 
   // Theme-derived colors
   const textStrong = isLight ? COLOR.navy : COLOR.white;
@@ -133,6 +180,7 @@ export const ClassicHero: React.FC = () => {
         >
           {/* ============ LEFT COLUMN ============ */}
           <div
+            ref={leftColumnRef}
             style={{
               flex: isDesktop ? '1 1 0%' : '0 0 auto',
               minWidth: 0,
@@ -175,9 +223,7 @@ export const ClassicHero: React.FC = () => {
             {/* Headline */}
             <h1
               style={{
-                fontSize: isDesktop
-                  ? 'clamp(3rem, 5.2vw, 5rem)'
-                  : 'clamp(2.25rem, 9vw, 3.5rem)',
+                fontSize: `${titleFontPx}px`,
                 lineHeight: 1.02,
                 fontWeight: 800,
                 letterSpacing: '-0.025em',
@@ -187,7 +233,7 @@ export const ClassicHero: React.FC = () => {
               }}
             >
               <span style={{ display: 'block' }}>
-                {tStr('hero.title', 'Technika, která tě')}
+                {tStr('hero.title', 'Technologie, které tě')}
               </span>
               <span
                 style={{
@@ -196,7 +242,7 @@ export const ClassicHero: React.FC = () => {
                   marginTop: '0.1em',
                 }}
               >
-                {tStr('hero.titleHighlight', 'posune dál.')}
+                {tStr('hero.titleHighlight', 'připraví na budoucnost.')}
               </span>
             </h1>
 
@@ -214,7 +260,7 @@ export const ClassicHero: React.FC = () => {
             >
               {tStr(
                 'hero.subtitle',
-                'Čtyřletý maturitní obor Informační technologie zaměřený na programování, počítačové sítě, kyberbezpečnost a moderní webové technologie. Učíme praktické věci, se kterými se reálně pracuje.'
+                'Obor Informační technologie je čtyřletý maturitní program zaměřený na programování, počítačové sítě, kyberbezpečnost a moderní webové technologie. U nás se neučíš jen teorii — pracuješ s tím, co se skutečně používá v praxi.'
               )}
             </p>
 
@@ -254,7 +300,7 @@ export const ClassicHero: React.FC = () => {
               >
                 <School style={{ width: 20, height: 20, color: COLOR.white }} />
                 <span style={{ color: COLOR.white }}>
-                  {tStr('hero.aboutButton', 'O oboru')}
+                  {tStr('hero.aboutButton', 'Zjistit více o oboru')}
                 </span>
                 <ArrowRight
                   style={{
@@ -350,7 +396,7 @@ export const ClassicHero: React.FC = () => {
               {/* Header band */}
               <div
                 style={{
-                  padding: '1.35rem 1.75rem',
+                  padding: '1.15rem 1.75rem',
                   background: `linear-gradient(135deg, ${COLOR.navy} 0%, ${COLOR.navyLight} 100%)`,
                   borderBottom: `3px solid ${COLOR.red}`,
                 }}
@@ -359,24 +405,24 @@ export const ClassicHero: React.FC = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.75rem',
+                    gap: '1rem',
                   }}
                 >
                   <GraduationCap
                     style={{
-                      width: 20,
-                      height: 20,
+                      width: 32,
+                      height: 32,
                       color: COLOR.orange,
                       flexShrink: 0,
                     }}
                   />
                   <span
                     style={{
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.18em',
-                      color: 'rgba(255, 255, 255, 0.95)',
+                      fontSize: '1.35rem',
+                      fontWeight: 800,
+                      letterSpacing: '-0.015em',
+                      color: 'rgba(255, 255, 255, 0.98)',
+                      lineHeight: 1.15,
                     }}
                   >
                     {tStr('hero.cardLabel', 'Co tě čeká')}

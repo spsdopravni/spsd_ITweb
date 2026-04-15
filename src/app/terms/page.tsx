@@ -1,261 +1,615 @@
 'use client';
 
-import React from 'react';
-import { FileText, CheckCircle, AlertTriangle, Scale, Users, Zap } from 'lucide-react';
-import { useTheme } from '@/lib/theme/useTheme';
+import React, { useEffect, useState } from 'react';
+import { CheckCircle, AlertTriangle, Scale, Users, Zap, FileText } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+const COLOR = {
+  navy: '#002b4e',
+  navyLight: '#133f64',
+  red: '#c81e1c',
+  redLight: '#dc3530',
+  orange: '#e95d41',
+  white: '#ffffff',
+  paper: '#fafaf7',
+};
 
 export default function TermsPage() {
-  const { theme, classicMode } = useTheme();
+  const { t } = useLanguage();
 
-  const isDark = theme === 'modern' || (theme === 'classic' && classicMode === 'dark');
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const tStr = (key: string, fallback: string): string => {
+    const r = t(key, fallback);
+    return Array.isArray(r) ? r[0] || fallback : (r as string);
+  };
+
+  const textStrong = COLOR.navy;
+  const textMuted = 'rgba(0,43,78,0.72)';
+  const textSubtle = 'rgba(0,43,78,0.55)';
 
   const sections = [
     {
-      icon: CheckCircle,
-      title: 'Použití webu',
-      content: [
-        'Web slouží výhradně pro informační a vzdělávací účely',
-        'Obsah je určen pro zájemce o studium na SPŠD Praha',
-        'Neposkytujeme žádné záruky ohledně přesnosti informací',
-        'Vyhrazujeme si právo změnit obsah webu bez předchozího upozornění'
-      ]
+      Icon: CheckCircle,
+      title: tStr('terms.sections.use.title', 'Použití webu'),
+      items: [
+        tStr('terms.sections.use.i1', 'Web slouží výhradně pro informační a vzdělávací účely'),
+        tStr('terms.sections.use.i2', 'Obsah je určen pro zájemce o studium na SPŠD Praha'),
+        tStr('terms.sections.use.i3', 'Neposkytujeme žádné záruky ohledně přesnosti informací'),
+        tStr('terms.sections.use.i4', 'Vyhrazujeme si právo změnit obsah webu bez předchozího upozornění'),
+      ],
     },
     {
-      icon: AlertTriangle,
-      title: 'Omezení odpovědnosti',
-      content: [
-        'Neneseme odpovědnost za škody vzniklé používáním webu',
-        'Neručíme za dostupnost a funkčnost webu 24/7',
-        'Externí odkazy vedou na weby třetích stran, za které neneseme odpovědnost',
-        'Informace na webu nepředstavují právní poradenství'
-      ]
+      Icon: AlertTriangle,
+      title: tStr('terms.sections.liability.title', 'Omezení odpovědnosti'),
+      items: [
+        tStr('terms.sections.liability.i1', 'Neneseme odpovědnost za škody vzniklé používáním webu'),
+        tStr('terms.sections.liability.i2', 'Neručíme za dostupnost a funkčnost webu 24/7'),
+        tStr('terms.sections.liability.i3', 'Externí odkazy vedou na weby třetích stran'),
+        tStr('terms.sections.liability.i4', 'Informace na webu nepředstavují právní poradenství'),
+      ],
     },
     {
-      icon: Scale,
-      title: 'Duševní vlastnictví',
-      content: [
-        'Veškerý obsah webu je chráněn autorskými právy',
-        'Texty, obrázky a grafika jsou majetkem SPŠD Praha',
-        'Jakékoliv kopírování obsahu vyžaduje předchozí souhlas',
-        'Logo a název školy jsou registrované ochranné známky'
-      ]
+      Icon: Scale,
+      title: tStr('terms.sections.ip.title', 'Duševní vlastnictví'),
+      items: [
+        tStr('terms.sections.ip.i1', 'Veškerý obsah webu je chráněn autorskými právy'),
+        tStr('terms.sections.ip.i2', 'Texty, obrázky a grafika jsou majetkem SPŠD Praha'),
+        tStr('terms.sections.ip.i3', 'Kopírování obsahu vyžaduje předchozí souhlas'),
+        tStr('terms.sections.ip.i4', 'Logo a název školy jsou registrované ochranné známky'),
+      ],
     },
     {
-      icon: Users,
-      title: 'Chování uživatelů',
-      content: [
-        'Uživatelé se zavazují používat web v souladu se zákonem',
-        'Je zakázáno nahrávat škodlivý obsah nebo malware',
-        'Nepokoušejte se neoprávněně přistupovat k systémům',
-        'Respektujte soukromí ostatních uživatelů'
-      ]
-    }
+      Icon: Users,
+      title: tStr('terms.sections.conduct.title', 'Chování uživatelů'),
+      items: [
+        tStr('terms.sections.conduct.i1', 'Uživatelé se zavazují používat web v souladu se zákonem'),
+        tStr('terms.sections.conduct.i2', 'Je zakázáno nahrávat škodlivý obsah nebo malware'),
+        tStr('terms.sections.conduct.i3', 'Nepokoušej se neoprávněně přistupovat k systémům'),
+        tStr('terms.sections.conduct.i4', 'Respektuj soukromí ostatních uživatelů'),
+      ],
+    },
   ];
 
+  const detailSections = [
+    {
+      num: '01',
+      title: tStr('terms.detail.acceptance.title', 'Akceptace podmínek'),
+      paragraphs: [
+        tStr(
+          'terms.detail.acceptance.p1',
+          'Tyto podmínky použití upravují přístup a používání webových stránek Střední průmyslové školy dopravní, Plzeňská 298/217a, Praha 5 – Motol (dále jen „SPŠD" nebo „my").'
+        ),
+        tStr(
+          'terms.detail.acceptance.p2',
+          'Přístupem na web nebo jeho používáním souhlasíš s tím, že budeš vázán těmito podmínkami. Pokud nesouhlasíš s některou částí podmínek, nemáš oprávnění k přístupu na web.'
+        ),
+      ],
+    },
+    {
+      num: '02',
+      title: tStr('terms.detail.changes.title', 'Změny podmínek'),
+      paragraphs: [
+        tStr(
+          'terms.detail.changes.p1',
+          'Vyhrazujeme si právo kdykoliv upravit nebo nahradit tyto podmínky. Změny budou zveřejněny na této stránce s uvedením data poslední aktualizace.'
+        ),
+        tStr(
+          'terms.detail.changes.p2',
+          'Je tvojí povinností pravidelně kontrolovat tyto podmínky. Pokračováním v používání webu po zveřejnění změn vyjadřuješ souhlas s novými podmínkami.'
+        ),
+      ],
+    },
+    {
+      num: '03',
+      title: tStr('terms.detail.license.title', 'Licence k používání'),
+      paragraphs: [
+        tStr(
+          'terms.detail.license.p1',
+          'Pokud není uvedeno jinak, SPŠD a/nebo její poskytovatelé licence vlastní práva duševního vlastnictví k veškerému materiálu na webu.'
+        ),
+        tStr(
+          'terms.detail.license.p2',
+          'Smíš prohlížet, stahovat pro účely ukládání do mezipaměti a tisknout stránky z webu pro vlastní osobní použití. Nesmíš publikovat, prodávat, reprodukovat ani jinak distribuovat obsah pro komerční účely.'
+        ),
+      ],
+    },
+    {
+      num: '04',
+      title: tStr('terms.detail.termination.title', 'Ukončení použití'),
+      paragraphs: [
+        tStr(
+          'terms.detail.termination.p1',
+          'Můžeme okamžitě ukončit nebo pozastavit tvůj přístup k našemu webu bez předchozího upozornění z jakéhokoliv důvodu, včetně porušení těchto podmínek.'
+        ),
+        tStr(
+          'terms.detail.termination.p2',
+          'Všechna ustanovení podmínek, která by měla ze své podstaty přetrvat ukončení, přetrvají ukončení — včetně vlastnických ustanovení, zřeknutí se záruk a omezení odpovědnosti.'
+        ),
+      ],
+    },
+  ];
+
+  const containerStyle: React.CSSProperties = {
+    position: 'relative',
+    maxWidth: '1280px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingLeft: isDesktop ? '3rem' : '1.5rem',
+    paddingRight: isDesktop ? '3rem' : '1.5rem',
+  };
+
+  const validFrom = new Date().toLocaleDateString('cs-CZ');
+
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900' : 'bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50'}`}>
-      <div className="container mx-auto px-4 py-24 md:py-32">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 mb-6">
-            <FileText className="w-10 h-10 text-white" />
-          </div>
-          <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
-            isDark ? 'text-white' : 'text-gray-900'
-          }`}>
-            Podmínky použití
-          </h1>
-          <p className={`text-lg md:text-xl max-w-3xl mx-auto ${
-            isDark ? 'text-gray-300' : 'text-gray-600'
-          }`}>
-            Používáním našeho webu souhlasíte s těmito podmínkami. Přečtěte si je prosím pozorně před pokračováním.
-          </p>
-          <p className={`text-sm mt-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-            Platné od: {new Date().toLocaleDateString('cs-CZ')}
-          </p>
-        </div>
-
-        {/* Notice Banner */}
-        <div className={`p-6 rounded-2xl mb-16 backdrop-blur-lg border-l-4 ${
-          isDark
-            ? 'bg-blue-900/20 border-blue-500'
-            : 'bg-blue-50 border-blue-500'
-        }`}>
-          <div className="flex items-start gap-4">
-            <Zap className={`w-6 h-6 flex-shrink-0 ${
-              isDark ? 'text-blue-400' : 'text-blue-600'
-            }`} />
-            <div>
-              <h3 className={`font-bold mb-2 ${
-                isDark ? 'text-white' : 'text-gray-900'
-              }`}>
-                Důležité upozornění
-              </h3>
-              <p className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                Používáním tohoto webu potvrzujete, že jste si tyto podmínky přečetli a souhlasíte s nimi. Pokud nesouhlasíte s některou částí těchto podmínek, prosíme, nepoužívejte náš web.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Sections */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {sections.map((section, index) => (
-            <div
-              key={index}
-              className={`p-8 rounded-2xl backdrop-blur-lg transition-all duration-300 hover:scale-105 ${
-                isDark
-                  ? 'bg-white/5 border border-white/10 hover:bg-white/10'
-                  : 'bg-white/80 border border-gray-200 hover:shadow-xl'
-              }`}
+    <div style={{ minHeight: '100vh', background: COLOR.paper }}>
+      {/* ========== HERO ========== */}
+      <section style={{ position: 'relative', overflow: 'hidden' }}>
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: isDesktop ? '460px' : '220px',
+            height: isDesktop ? '460px' : '220px',
+            pointerEvents: 'none',
+            background: `linear-gradient(135deg, ${COLOR.red} 0%, ${COLOR.orange} 55%, transparent 82%)`,
+            clipPath: 'polygon(0 0, 72% 0, 0 55%)',
+            opacity: 0.2,
+          }}
+        />
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: isDesktop ? '8rem' : '6rem',
+            paddingBottom: isDesktop ? '5rem' : '3rem',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              marginBottom: '2rem',
+            }}
+          >
+            <span
+              aria-hidden
+              style={{
+                display: 'inline-block',
+                width: '56px',
+                height: '2px',
+                background: COLOR.red,
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.22em',
+                color: COLOR.red,
+              }}
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600">
-                  <section.icon className="w-6 h-6 text-white" />
-                </div>
-                <h2 className={`text-2xl font-bold ${
-                  isDark ? 'text-white' : 'text-gray-900'
-                }`}>
-                  {section.title}
-                </h2>
-              </div>
-              <ul className="space-y-3">
-                {section.content.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2 flex-shrink-0" />
-                    <span className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* Detailed Sections */}
-        <div className="space-y-8 mb-16">
-          {/* Section 1 */}
-          <div className={`p-8 rounded-2xl backdrop-blur-lg ${
-            isDark
-              ? 'bg-white/5 border border-white/10'
-              : 'bg-white/80 border border-gray-200'
-          }`}>
-            <h2 className={`text-3xl font-bold mb-6 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              1. Akceptace podmínek
-            </h2>
-            <div className={`space-y-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              <p>
-                Tyto podmínky použití upravují přístup a používání webových stránek Střední průmyslové školy dopravní, Praha 1, Masná 18 (dále jen &quot;SPŠD&quot; nebo &quot;my&quot;).
-              </p>
-              <p>
-                Přístupem na web nebo jeho používáním souhlasíte s tím, že budete vázáni těmito podmínkami. Pokud nesouhlasíte s některou částí podmínek, nemáte oprávnění k přístupu na web.
-              </p>
-            </div>
+              {tStr('terms.eyebrow', 'Právní dokument')}
+            </span>
           </div>
 
-          {/* Section 2 */}
-          <div className={`p-8 rounded-2xl backdrop-blur-lg ${
-            isDark
-              ? 'bg-white/5 border border-white/10'
-              : 'bg-white/80 border border-gray-200'
-          }`}>
-            <h2 className={`text-3xl font-bold mb-6 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              2. Změny podmínek
-            </h2>
-            <div className={`space-y-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              <p>
-                Vyhrazujeme si právo kdykoliv upravit nebo nahradit tyto podmínky. Změny budou zveřejněny na této stránce s uvedením data poslední aktualizace.
-              </p>
-              <p>
-                Je vaší povinností pravidelně kontrolovat tyto podmínky. Pokračováním v používání webu po zveřejnění změn vyjadřujete souhlas s novými podmínkami.
-              </p>
-            </div>
-          </div>
+          <h1
+            style={{
+              fontSize: isDesktop
+                ? 'clamp(2.75rem, 4.6vw, 4rem)'
+                : 'clamp(2rem, 8vw, 2.75rem)',
+              lineHeight: 1.05,
+              fontWeight: 800,
+              letterSpacing: '-0.025em',
+              marginTop: 0,
+              marginBottom: '2rem',
+              color: textStrong,
+              maxWidth: '48rem',
+            }}
+          >
+            {tStr('terms.title', 'Podmínky ')}
+            <span style={{ color: COLOR.red }}>
+              {tStr('terms.titleHighlight', 'použití')}
+            </span>
+          </h1>
 
-          {/* Section 3 */}
-          <div className={`p-8 rounded-2xl backdrop-blur-lg ${
-            isDark
-              ? 'bg-white/5 border border-white/10'
-              : 'bg-white/80 border border-gray-200'
-          }`}>
-            <h2 className={`text-3xl font-bold mb-6 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              3. Licence k používání
-            </h2>
-            <div className={`space-y-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              <p>
-                Pokud není uvedeno jinak, SPŠD a/nebo její poskytovatelé licence vlastní práva duševního vlastnictví k veškerému materiálu na webu.
-              </p>
-              <p>
-                Smíte prohlížet, stahovat pro účely ukládání do mezipaměti a tisknout stránky z webu pro vlastní osobní použití, s dodržením následujících omezení:
-              </p>
-              <ul className="space-y-2 ml-6">
-                <li>• Nesmíte publikovat materiál z webu</li>
-                <li>• Nesmíte prodávat, pronajímat nebo sublicencovat materiál z webu</li>
-                <li>• Nesmíte reprodukovat, kopírovat nebo znovu distribuovat materiál z webu pro komerční účely</li>
-                <li>• Nesmíte upravovat nebo jinak měnit jakýkoliv materiál na webu</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Section 4 */}
-          <div className={`p-8 rounded-2xl backdrop-blur-lg ${
-            isDark
-              ? 'bg-white/5 border border-white/10'
-              : 'bg-white/80 border border-gray-200'
-          }`}>
-            <h2 className={`text-3xl font-bold mb-6 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              4. Ukončení použití
-            </h2>
-            <div className={`space-y-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-              <p>
-                Můžeme okamžitě ukončit nebo pozastavit váš přístup k našemu webu bez předchozího upozornění nebo odpovědnosti z jakéhokoli důvodu, včetně porušení těchto podmínek.
-              </p>
-              <p>
-                Všechna ustanovení podmínek, která by měla ze své podstaty přetrvat ukončení, přetrvají ukončení, včetně vlastnických ustanovení, zřeknutí se záruk a omezení odpovědnosti.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Section */}
-        <div className={`p-8 rounded-2xl backdrop-blur-lg text-center ${
-          isDark
-            ? 'bg-gradient-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/20'
-            : 'bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200'
-        }`}>
-          <Scale className={`w-12 h-12 mx-auto mb-4 ${
-            isDark ? 'text-indigo-400' : 'text-indigo-600'
-          }`} />
-          <h2 className={`text-2xl font-bold mb-4 ${
-            isDark ? 'text-white' : 'text-gray-900'
-          }`}>
-            Máte právní dotazy?
-          </h2>
-          <p className={`mb-6 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-            Pro otázky týkající se těchto podmínek použití nás kontaktujte.
+          <p
+            style={{
+              fontSize: isDesktop ? '1.25rem' : '1.0625rem',
+              lineHeight: 1.7,
+              color: textMuted,
+              maxWidth: '44rem',
+              marginTop: 0,
+              marginBottom: '1rem',
+            }}
+          >
+            {tStr(
+              'terms.description',
+              'Používáním našeho webu souhlasíš s těmito podmínkami. Přečti si je prosím pozorně před pokračováním.'
+            )}
           </p>
-          <div className="space-y-2">
-            <p className={`font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
-              Střední průmyslová škola dopravní
-            </p>
-            <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-              Masná 18, 110 00 Praha 1
-            </p>
-            <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-              Email: info@spsd.cz
-            </p>
+          <p
+            style={{
+              fontSize: '0.85rem',
+              color: textSubtle,
+              margin: 0,
+              fontWeight: 500,
+            }}
+          >
+            {tStr('terms.validFrom', 'Platné od')}: {validFrom}
+          </p>
+        </div>
+      </section>
+
+      {/* ========== NOTICE BANNER ========== */}
+      <section style={{ position: 'relative' }}>
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: isDesktop ? '2rem' : '1.5rem',
+            paddingBottom: isDesktop ? '3rem' : '2rem',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '1rem',
+              padding: '1.75rem 2rem',
+              borderRadius: '14px',
+              background: COLOR.white,
+              border: '1px solid rgba(0, 43, 78, 0.12)',
+              borderLeft: `4px solid ${COLOR.red}`,
+              boxShadow: '0 24px 52px -22px rgba(0, 43, 78, 0.14)',
+            }}
+          >
+            <div
+              style={{
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '44px',
+                height: '44px',
+                borderRadius: '9px',
+                background: 'rgba(200, 30, 28, 0.1)',
+                color: COLOR.red,
+              }}
+            >
+              <Zap style={{ width: 22, height: 22 }} />
+            </div>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <h3
+                style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 800,
+                  color: textStrong,
+                  letterSpacing: '-0.01em',
+                  marginTop: 0,
+                  marginBottom: '0.5rem',
+                }}
+              >
+                {tStr('terms.noticeTitle', 'Důležité upozornění')}
+              </h3>
+              <p
+                style={{
+                  fontSize: '0.975rem',
+                  lineHeight: 1.65,
+                  color: textMuted,
+                  margin: 0,
+                }}
+              >
+                {tStr(
+                  'terms.noticeDescription',
+                  'Používáním tohoto webu potvrzuješ, že jsi tyto podmínky přečetl/a a souhlasíš s nimi. Pokud nesouhlasíš s některou částí těchto podmínek, prosíme, nepoužívej náš web.'
+                )}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ========== SECTIONS GRID ========== */}
+      <section style={{ position: 'relative' }}>
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: isDesktop ? '2rem' : '1rem',
+            paddingBottom: isDesktop ? '5rem' : '3.5rem',
+          }}
+        >
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: isDesktop ? 'repeat(2, 1fr)' : '1fr',
+              gap: '1.5rem',
+            }}
+          >
+            {sections.map(({ Icon, title, items }, i) => (
+              <div
+                key={i}
+                style={{
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                  background: COLOR.white,
+                  border: '1px solid rgba(0, 43, 78, 0.12)',
+                  boxShadow: '0 24px 52px -22px rgba(0, 43, 78, 0.18)',
+                }}
+              >
+                <div
+                  style={{
+                    padding: '1.6rem 1.75rem',
+                    background: `linear-gradient(135deg, ${COLOR.navy} 0%, ${COLOR.navyLight} 100%)`,
+                    borderBottom: `3px solid ${COLOR.red}`,
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                    <Icon
+                      style={{
+                        width: 28,
+                        height: 28,
+                        color: COLOR.orange,
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontSize: '1.15rem',
+                        fontWeight: 700,
+                        letterSpacing: '-0.01em',
+                        color: 'rgba(255, 255, 255, 0.98)',
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {title}
+                    </span>
+                  </div>
+                </div>
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    margin: 0,
+                    padding: '1.25rem 1.75rem 1.5rem 1.75rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.85rem',
+                  }}
+                >
+                  {items.map((item, j) => (
+                    <li
+                      key={j}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'baseline',
+                        gap: '0.75rem',
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        style={{
+                          display: 'inline-block',
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: COLOR.red,
+                          flexShrink: 0,
+                          transform: 'translateY(-2px)',
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontSize: '0.975rem',
+                          lineHeight: 1.6,
+                          color: textMuted,
+                        }}
+                      >
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== DETAIL SECTIONS ========== */}
+      <section style={{ position: 'relative' }}>
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: isDesktop ? '2rem' : '1rem',
+            paddingBottom: isDesktop ? '5rem' : '3.5rem',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+            }}
+          >
+            {detailSections.map(({ num, title, paragraphs }, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: '2.25rem 2.25rem',
+                  borderRadius: '14px',
+                  background: COLOR.white,
+                  border: '1px solid rgba(0, 43, 78, 0.12)',
+                  boxShadow: '0 16px 36px -18px rgba(0, 43, 78, 0.14)',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: '1rem',
+                    marginBottom: '1.25rem',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '1.75rem',
+                      fontWeight: 900,
+                      color: COLOR.red,
+                      letterSpacing: '-0.03em',
+                      fontFeatureSettings: '"tnum"',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {num}
+                  </span>
+                  <h2
+                    style={{
+                      fontSize: isDesktop ? '1.625rem' : '1.375rem',
+                      fontWeight: 800,
+                      color: textStrong,
+                      letterSpacing: '-0.015em',
+                      margin: 0,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {title}
+                  </h2>
+                </div>
+                <div
+                  aria-hidden
+                  style={{
+                    height: '2px',
+                    background: COLOR.red,
+                    width: '100%',
+                    marginBottom: '1.25rem',
+                  }}
+                />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+                  {paragraphs.map((p, j) => (
+                    <p
+                      key={j}
+                      style={{
+                        fontSize: '1rem',
+                        lineHeight: 1.7,
+                        color: textMuted,
+                        margin: 0,
+                      }}
+                    >
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== CONTACT ========== */}
+      <section style={{ position: 'relative', overflow: 'hidden' }}>
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            width: isDesktop ? '460px' : '220px',
+            height: isDesktop ? '460px' : '220px',
+            pointerEvents: 'none',
+            background: `linear-gradient(45deg, ${COLOR.red} 0%, ${COLOR.orange} 55%, transparent 82%)`,
+            clipPath: 'polygon(100% 100%, 100% 45%, 28% 100%)',
+            opacity: 0.2,
+          }}
+        />
+        <div
+          style={{
+            ...containerStyle,
+            position: 'relative',
+            paddingTop: isDesktop ? '2rem' : '1rem',
+            paddingBottom: isDesktop ? '8rem' : '5rem',
+            zIndex: 2,
+          }}
+        >
+          <div
+            style={{
+              maxWidth: '42rem',
+              padding: '2.5rem 2.25rem',
+              borderRadius: '14px',
+              background: COLOR.white,
+              border: '1px solid rgba(0, 43, 78, 0.12)',
+              borderLeft: `4px solid ${COLOR.red}`,
+              boxShadow: '0 32px 64px -20px rgba(0, 43, 78, 0.18)',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.85rem',
+                marginBottom: '1rem',
+              }}
+            >
+              <FileText
+                style={{ width: 28, height: 28, color: COLOR.red, flexShrink: 0 }}
+              />
+              <h3
+                style={{
+                  fontSize: '1.5rem',
+                  fontWeight: 800,
+                  color: textStrong,
+                  letterSpacing: '-0.015em',
+                  margin: 0,
+                  lineHeight: 1.2,
+                }}
+              >
+                {tStr('terms.contactTitle', 'Máš právní dotazy?')}
+              </h3>
+            </div>
+            <p
+              style={{
+                fontSize: '1rem',
+                lineHeight: 1.65,
+                color: textMuted,
+                marginTop: 0,
+                marginBottom: '1.25rem',
+              }}
+            >
+              {tStr(
+                'terms.contactDescription',
+                'Pro otázky týkající se těchto podmínek použití nás kontaktuj.'
+              )}
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <p
+                style={{
+                  fontSize: '1rem',
+                  fontWeight: 700,
+                  color: textStrong,
+                  margin: 0,
+                }}
+              >
+                {tStr('terms.contactSchool', 'Střední průmyslová škola dopravní')}
+              </p>
+              <p style={{ fontSize: '0.95rem', color: textMuted, margin: 0 }}>
+                {tStr('terms.contactAddress', 'Plzeňská 298/217a, 150 00 Praha 5 – Motol')}
+              </p>
+              <p style={{ fontSize: '0.95rem', color: textMuted, margin: 0 }}>
+                {tStr('terms.contactEmail', 'studijnioddeleni@sps-dopravni.cz')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

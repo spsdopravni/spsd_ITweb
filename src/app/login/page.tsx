@@ -18,7 +18,7 @@ import Link from 'next/link';
 
 export default function LoginPage() {
   const { t } = useLanguage();
-  const { login, loginWithMicrosoft, isAuthenticated, error, isLoading } = useAuth();
+  const { login, isAuthenticated, error, isLoading } = useAuth();
   const router = useRouter();
 
   const [username, setUsername] = useState('');
@@ -52,10 +52,6 @@ export default function LoginPage() {
     }
   };
 
-  const handleMicrosoftLogin = async () => {
-    await loginWithMicrosoft();
-  };
-
   const fadeIn = useSpring({
     from: { opacity: 0, transform: 'translateY(20px)' },
     to: { opacity: 1, transform: 'translateY(0px)' },
@@ -85,12 +81,9 @@ export default function LoginPage() {
       <animated.div style={fadeIn} className="w-full max-w-md relative z-10">
         <div className="rounded-2xl p-8 shadow-2xl bg-white border border-gray-200">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2 text-[var(--spsd-navy)]">
+            <h1 className="text-3xl font-bold text-[var(--spsd-navy)]">
               {t('login.title', 'Přihlášení')}
             </h1>
-            <p className="text-sm text-[var(--spsd-navy)]/70">
-              {t('login.subtitle', 'Bakaláři, Moodle a rozvrh na jednom místě')}
-            </p>
           </div>
 
           {(error || localError) && (
@@ -171,48 +164,6 @@ export default function LoginPage() {
               )}
             </button>
           </form>
-
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center text-gray-300">
-              <div className="w-full border-t"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">
-                {t('login.or', 'nebo')}
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={handleMicrosoftLogin}
-            disabled={isLoading}
-            className="w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 bg-white border-2 border-gray-300 text-[var(--spsd-navy)] hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <svg
-              className="w-5 h-5 flex-shrink-0"
-              viewBox="0 0 23 23"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect width="11" height="11" fill="#F25022" />
-              <rect x="12" width="11" height="11" fill="#7FBA00" />
-              <rect y="12" width="11" height="11" fill="#00A4EF" />
-              <rect x="12" y="12" width="11" height="11" fill="#FFB900" />
-            </svg>
-            <span>
-              {t('login.microsoftLogin', 'Přihlásit se přes Microsoft')}
-            </span>
-          </button>
-
-          <div className="mt-6 p-4 rounded-lg bg-blue-50 border border-blue-200">
-            <p className="text-xs text-center text-blue-700">
-              {t(
-                'login.bakalariHint',
-                'Použijte své přihlašovací údaje z Bakalářů'
-              )}
-            </p>
-          </div>
 
           <div className="mt-6 text-center">
             <Link

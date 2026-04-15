@@ -45,24 +45,32 @@ export default function About() {
   const textSubtle = isLight ? 'rgba(0,43,78,0.55)' : 'rgba(255,255,255,0.55)';
   const divider = isLight ? 'rgba(0,43,78,0.1)' : 'rgba(255,255,255,0.1)';
 
-  const focusItems = [
-    'Programování (Python, C/C++, Java)',
-    'Datové sítě a Cisco technologie',
-    'Databázové systémy (SQL)',
-    'Webdesign a grafická tvorba',
-    'CAD systémy a 3D modelování',
-    'Hardware a operační systémy',
-    'Virtualizace a cloud',
-  ];
+  const focusItems = (() => {
+    const items = t('about.fieldFocus.items', '');
+    if (Array.isArray(items)) return items;
+    return [
+      'Programování (Python)',
+      'Počítačové sítě a technologie (včetně Cisco)',
+      'Databázové systémy (SQL)',
+      'Webdesign a grafická tvorba',
+      'CAD systémy a 3D modelování',
+      'Hardware a operační systémy',
+      'Virtualizace a cloudové technologie',
+    ];
+  })();
 
-  const employmentItems = [
-    'Software developer',
-    'Správce IT systémů',
-    'Webový vývojář',
-    'Databázový specialista',
-    'IT konzultant',
-    'Pokračování na VŠ',
-  ];
+  const employmentItems = (() => {
+    const items = t('about.graduateEmployment.items', '');
+    if (Array.isArray(items)) return items;
+    return [
+      'Vývojář software',
+      'Správce IT systémů',
+      'Webový vývojář',
+      'Databázový specialista',
+      'IT konzultant',
+      'Studium na vysoké škole',
+    ];
+  })();
 
   const whyItems = [
     {
@@ -70,7 +78,7 @@ export default function About() {
       title: tStr('about.whyChooseUs.modernEquipment.title', 'Moderní vybavení'),
       desc: tStr(
         'about.whyChooseUs.modernEquipment.description',
-        'Počítačové učebny s aktuálním hardwarem a softwarem pro praktickou výuku.'
+        'Práce s aktuálním hardwarem, profesionálními nástroji a technologiemi používanými v praxi.'
       ),
     },
     {
@@ -78,15 +86,15 @@ export default function About() {
       title: tStr('about.whyChooseUs.companiesPractice.title', 'Praxe ve firmách'),
       desc: tStr(
         'about.whyChooseUs.companiesPractice.description',
-        'Odborné stáže ve spolupráci s předními IT společnostmi.'
+        'Možnost získat zkušenosti přímo ve firmách a poznat reálné pracovní prostředí už během studia.'
       ),
     },
     {
       Icon: Users,
-      title: tStr('about.whyChooseUs.experiencedTeachers.title', 'Zkušení pedagogové'),
+      title: tStr('about.whyChooseUs.experiencedTeachers.title', 'Zkušení učitelé'),
       desc: tStr(
         'about.whyChooseUs.experiencedTeachers.description',
-        'Učitelé s praxí z IT prostředí, individuální přístup a konzultace.'
+        'Výuka vedená pedagogy s praxí v IT a aktuálním přehledem o oboru.'
       ),
     },
   ];
@@ -181,7 +189,7 @@ export default function About() {
         background: sectionBg,
       }}
     >
-      {/* ========== HERO ========== */}
+      {/* ========== WHAT IS IT — editorial split ========== */}
       <section style={{ position: 'relative', overflow: 'hidden' }}>
         {/* Corner wedge — top left */}
         <div
@@ -198,67 +206,6 @@ export default function About() {
             opacity: isLight ? 0.2 : 0.35,
           }}
         />
-        <div
-          style={{
-            ...containerStyle,
-            paddingTop: isDesktop ? '8rem' : '6rem',
-            paddingBottom: isDesktop ? '4rem' : '3rem',
-          }}
-        >
-          {/* Eyebrow */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              marginBottom: '2rem',
-            }}
-          >
-            <span
-              aria-hidden
-              style={{
-                display: 'inline-block',
-                width: '56px',
-                height: '2px',
-                background: COLOR.red,
-                flexShrink: 0,
-              }}
-            />
-            <span
-              style={{
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.22em',
-                color: isLight ? COLOR.red : COLOR.orange,
-              }}
-            >
-              {tStr('about.eyebrow', 'O oboru IT')}
-            </span>
-          </div>
-
-          {/* Headline */}
-          <h1
-            style={{
-              fontSize: isDesktop
-                ? 'clamp(3rem, 5.2vw, 5rem)'
-                : 'clamp(2.25rem, 9vw, 3.5rem)',
-              lineHeight: 1.02,
-              fontWeight: 800,
-              letterSpacing: '-0.025em',
-              marginTop: 0,
-              marginBottom: 0,
-              color: textStrong,
-              maxWidth: '56rem',
-            }}
-          >
-            {tStr('about.heroTitle', 'O oboru')}
-          </h1>
-        </div>
-      </section>
-
-      {/* ========== WHAT IS IT — editorial split ========== */}
-      <section style={{ position: 'relative' }}>
         <div
           style={{
             ...containerStyle,
@@ -315,46 +262,46 @@ export default function About() {
               <h2
                 style={{
                   fontSize: isDesktop
-                    ? 'clamp(2.25rem, 3.6vw, 3rem)'
-                    : 'clamp(1.75rem, 7vw, 2.25rem)',
+                    ? 'clamp(2.75rem, 4.6vw, 4rem)'
+                    : 'clamp(2rem, 8vw, 2.75rem)',
                   lineHeight: 1.05,
                   fontWeight: 800,
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.025em',
                   marginTop: 0,
-                  marginBottom: '1.5rem',
+                  marginBottom: '2rem',
                   color: textStrong,
                 }}
               >
-                {tStr('about.whatIs', 'Co tě obor IT naučí')}
+                {tStr('about.whatIs', 'Co je obor IT?')}
               </h2>
               <p
                 style={{
-                  fontSize: isDesktop ? '1.0625rem' : '1rem',
-                  lineHeight: 1.75,
+                  fontSize: isDesktop ? '1.25rem' : '1.0625rem',
+                  lineHeight: 1.7,
                   color: textMuted,
-                  maxWidth: '36rem',
+                  maxWidth: '40rem',
                   marginTop: 0,
-                  marginBottom: '1.25rem',
+                  marginBottom: '1.5rem',
                 }}
               >
                 {tStr(
                   'about.description1',
-                  'Obor Informační technologie (ŠVP 18-20-M/01) připravuje studenty na práci v dynamicky se rozvíjející oblasti IT. Během čtyřletého studia projdeš programováním, počítačovými sítěmi, databázemi, grafikou i hardwarem.'
+                  'Obor Informační technologie je čtyřletý maturitní program, který studenty připravuje na práci v rychle se rozvíjejícím světě IT. Studium propojuje pevné teoretické základy s důrazem na praktické dovednosti, které studenti reálně využijí.'
                 )}
               </p>
               <p
                 style={{
-                  fontSize: isDesktop ? '1.0625rem' : '1rem',
-                  lineHeight: 1.75,
+                  fontSize: isDesktop ? '1.25rem' : '1.0625rem',
+                  lineHeight: 1.7,
                   color: textMuted,
-                  maxWidth: '36rem',
+                  maxWidth: '40rem',
                   marginTop: 0,
                   marginBottom: 0,
                 }}
               >
                 {tStr(
                   'about.description2',
-                  'Důraz klademe na praktické dovednosti, reálné projekty a spolupráci s firmami. Absolvent je připraven jak na pokračování na vysoké škole, tak na nástup do IT praxe.'
+                  'Absolventi jsou připraveni jak na přímý vstup do praxe, tak na pokračování ve studiu na vysokých školách technického zaměření.'
                 )}
               </p>
             </div>
@@ -381,30 +328,30 @@ export default function About() {
               >
                 <div
                   style={{
-                    padding: '1.35rem 1.75rem',
+                    padding: '1.15rem 1.75rem',
                     background: `linear-gradient(135deg, ${COLOR.navy} 0%, ${COLOR.navyLight} 100%)`,
                     borderBottom: `3px solid ${COLOR.red}`,
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <BookOpen
                       style={{
-                        width: 20,
-                        height: 20,
+                        width: 32,
+                        height: 32,
                         color: COLOR.orange,
                         flexShrink: 0,
                       }}
                     />
                     <span
                       style={{
-                        fontSize: '0.72rem',
-                        fontWeight: 700,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.18em',
-                        color: 'rgba(255, 255, 255, 0.95)',
+                        fontSize: '1.35rem',
+                        fontWeight: 800,
+                        letterSpacing: '-0.015em',
+                        color: 'rgba(255, 255, 255, 0.98)',
+                        lineHeight: 1.15,
                       }}
                     >
-                      {tStr('about.infoCardLabel', 'Základní informace')}
+                      {tStr('about.infoCardLabel', 'Obor ve zkratce')}
                     </span>
                   </div>
                 </div>
@@ -422,36 +369,36 @@ export default function About() {
                     },
                     {
                       label: tStr('about.info.duration', 'Délka studia'),
-                      value: '4 roky, maturitní obor',
+                      value: '4 roky (maturita)',
                     },
                     {
-                      label: tStr('about.info.form', 'Forma'),
-                      value: 'denní studium',
+                      label: tStr('about.info.form', 'Forma studia'),
+                      value: 'denní',
                     },
                   ].map((row, i, arr) => (
                     <div
                       key={i}
                       style={{
-                        padding: '1.15rem 1.75rem',
+                        padding: '1.25rem 1.75rem',
                         borderBottom:
                           i < arr.length - 1 ? `1px solid ${divider}` : 'none',
                       }}
                     >
                       <div
                         style={{
-                          fontSize: '0.68rem',
+                          fontSize: '0.72rem',
                           fontWeight: 700,
                           textTransform: 'uppercase',
-                          letterSpacing: '0.16em',
+                          letterSpacing: '0.14em',
                           color: textSubtle,
-                          marginBottom: '0.35rem',
+                          marginBottom: '0.4rem',
                         }}
                       >
                         {row.label}
                       </div>
                       <div
                         style={{
-                          fontSize: '0.95rem',
+                          fontSize: '1.05rem',
                           fontWeight: 600,
                           color: textStrong,
                           lineHeight: 1.4,
@@ -479,6 +426,7 @@ export default function About() {
         >
           <SectionHeading
             eyebrow={tStr('about.focusEyebrow', 'Náplň studia')}
+            maxWidth="none"
             title={
               <>
                 {tStr('about.focusTitle', 'Zaměření oboru a ')}
@@ -727,19 +675,18 @@ export default function About() {
           }}
         >
           <SectionHeading
-            eyebrow={tStr('about.whyEyebrow', 'Proč si nás vybrat')}
+            eyebrow={tStr('about.whyEyebrow', 'Proč si vybrat náš obor')}
             title={
               <>
-                {tStr('about.whyTitle', 'Co u nás')}
+                {tStr('about.whyTitle', 'Co u nás ')}
                 <span style={{ color: COLOR.red }}>
-                  {tStr('about.whyTitleHighlight', ' dostaneš')}
+                  {tStr('about.whyTitleHighlight', 'získáš')}
                 </span>
-                .
               </>
             }
             subtitle={tStr(
               'about.whyDesc',
-              'Kombinace moderního vybavení, praxe v reálných firmách a zkušených pedagogů. To je naše tři hlavní výhody.'
+              'Studium u nás je kombinací moderního vybavení, reálné praxe a zkušených pedagogů. Zaměřujeme se na to, aby studenti odcházeli připraveni nejen teoreticky, ale hlavně prakticky.'
             )}
           />
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { useSpring, animated } from '@react-spring/web';
 import {
@@ -15,6 +15,9 @@ import {
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CompactMode, SearchMode, ExpandedMode, LanguageMode } from './dynamic-island';
 import { SearchEngine } from '@/lib/search/searchEngine';
+import { useDebouncedValue } from '@/lib/hooks/useDebouncedValue';
+import { usePrefersReducedMotion } from '@/lib/hooks/usePrefersReducedMotion';
+import { useRecentSearches } from '@/lib/search/useRecentSearches';
 import type { SearchResult } from '@/types/search';
 
 type IslandMode = 'compact' | 'expanded' | 'search' | 'language';
@@ -34,7 +37,12 @@ interface SearchSuggestion {
   url: string;
 }
 
-// Icon mapping for different content types
+const AUTOCOLLAPSE_DELAY_MS = 10_000;
+const SEARCH_DEBOUNCE_MS = 200;
+const COMPACT_WIDTH_FALLBACK = 200;
+const COMPACT_FIXED_CHROME = 152;
+const LANGUAGE_WIDTH = 400;
+
 const getIconForCategory = (category: string): React.ComponentType<{ className?: string }> => {
   switch (category) {
     case 'page':
@@ -50,7 +58,6 @@ const getIconForCategory = (category: string): React.ComponentType<{ className?:
   }
 };
 
-// Convert SearchResult to SearchSuggestion
 const convertSearchResultToSuggestion = (result: SearchResult): SearchSuggestion => {
   return {
     id: result.id,
@@ -59,6 +66,38 @@ const convertSearchResultToSuggestion = (result: SearchResult): SearchSuggestion
     icon: getIconForCategory(result.category),
     url: result.url
   };
+};
+
+const getIslandHeight = (mode: IslandMode, hasResults: boolean, hasQuery: boolean): number => {
+  switch (mode) {
+    case 'compact':
+      return 44;
+    case 'expanded':
+      return 64;
+    case 'language':
+      return 200;
+    case 'search':
+      if (hasResults) return 280;
+      return hasQuery ? 180 : 280;
+  }
+};
+
+const getIslandBorderRadius = (mode: IslandMode): number => {
+  if (mode === 'compact') return 22;
+  if (mode === 'expanded') return 32;
+  return 24;
+};
+
+const getIslandWidth = (mode: IslandMode, parentWidth: number, compactWidth: number): number => {
+  switch (mode) {
+    case 'compact':
+      return Math.min(compactWidth, parentWidth);
+    case 'language':
+      return Math.min(LANGUAGE_WIDTH, parentWidth);
+    case 'expanded':
+    case 'search':
+      return parentWidth;
+  }
 };
 
 const getNavItems = (t: (key: string, fallback?: string) => string | string[]): NavItem[] => {
@@ -75,6 +114,11 @@ const getNavItems = (t: (key: string, fallback?: string) => string | string[]): 
   ];
 };
 
+const isEditableElement = (target: EventTarget | null): boolean => {
+  if (!(target instanceof HTMLElement)) return false;
+  return target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
+};
+
 export const DynamicIsland: React.FC = () => {
   const [mode, setMode] = useState<IslandMode>('compact');
   const [searchQuery, setSearchQuery] = useState('');
@@ -86,117 +130,109 @@ export const DynamicIsland: React.FC = () => {
   const { t } = useLanguage();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const islandRef = useRef<HTMLDivElement | null>(null);
+  const widthMeasureRef = useRef<HTMLDivElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const searchEngineRef = useRef<SearchEngine>(SearchEngine.getInstance());
 
+  const [parentWidth, setParentWidth] = useState(800);
+  const [compactWidth, setCompactWidth] = useState(COMPACT_WIDTH_FALLBACK);
+
+  useEffect(() => {
+    const el = widthMeasureRef.current;
+    if (!el) return;
+    setParentWidth(el.clientWidth);
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setParentWidth(entry.contentRect.width);
+      }
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const debouncedSearchQuery = useDebouncedValue(searchQuery, SEARCH_DEBOUNCE_MS);
+  const { recent, add: addRecent, clear: clearRecent } = useRecentSearches();
+  const loading = searchQuery !== debouncedSearchQuery;
+
+  const tString = useCallback((key: string, fallback?: string): string => {
+    const result = t(key, fallback);
+    return Array.isArray(result) ? result[0] || fallback || key : result;
+  }, [t]);
+
   const navItems = getNavItems(t);
-  // Normalize pathname by removing trailing slash for comparison
   const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
   const currentItem = navItems.find(item => item.href === normalizedPathname);
+  const compactLabel = currentItem?.label ?? tString('nav.home', 'Domů');
 
-  // Filter search suggestions based on query using SearchEngine
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.font = '500 14px system-ui, -apple-system, BlinkMacSystemFont, sans-serif';
+    const labelWidth = ctx.measureText(compactLabel).width;
+    setCompactWidth(Math.ceil(labelWidth + COMPACT_FIXED_CHROME));
+  }, [compactLabel]);
+
+  useEffect(() => {
+    let cancelled = false;
     const performSearch = async () => {
       try {
-        const searchEngine = searchEngineRef.current;
-
-        // If search query is empty, show popular/default results
-        if (!searchQuery.trim()) {
-          const defaultResults = await searchEngine.search('', {
-            categories: ['all'],
-            sortBy: 'relevance',
-            sortOrder: 'desc'
-          });
-
-          // Show first 6 default results
-          const suggestions = defaultResults
-            .slice(0, 6)
-            .map(convertSearchResultToSuggestion);
-
-          setFilteredSuggestions(suggestions);
-          return;
-        }
-
-        // Search with query
-        const results = await searchEngine.search(searchQuery, {
+        const results = await searchEngineRef.current.search(debouncedSearchQuery, {
           categories: ['all'],
           sortBy: 'relevance',
           sortOrder: 'desc'
         });
-
-        // Convert search results to suggestions and limit to 8
-        const suggestions = results
-          .slice(0, 8)
-          .map(convertSearchResultToSuggestion);
-
+        if (cancelled) return;
+        const limit = debouncedSearchQuery.trim() ? 8 : 6;
+        const suggestions = results.slice(0, limit).map(convertSearchResultToSuggestion);
         setFilteredSuggestions(suggestions);
       } catch (error) {
+        if (cancelled) return;
         console.error('Search error:', error);
         setFilteredSuggestions([]);
       }
     };
-
     performSearch();
-  }, [searchQuery]);
-
-
-  // Detect if mobile
-  const [isMobile, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640);
+    return () => {
+      cancelled = true;
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [debouncedSearchQuery]);
 
-  // Island container animation - height and border radius only
   const islandSpring = useSpring({
-    height: mode === 'compact' ? 44 : mode === 'search' ? (filteredSuggestions.length > 0 ? (isMobile ? 240 : 280) : (searchQuery.trim() ? 180 : (isMobile ? 240 : 280))) : mode === 'language' ? (isMobile ? 180 : 200) : (isMobile ? 'auto' : 64),
-    borderRadius: mode === 'compact' ? 22 : mode === 'search' ? 24 : mode === 'language' ? 24 : (isMobile ? 24 : 32),
-    config: { 
-      tension: 0,
-      friction: 10,
-      precision: 0.001
-    },
-    onStart: () => {
-      setIsAnimating(true);
-    },
-    onRest: () => {
-      setIsAnimating(false);
-    }
+    width: getIslandWidth(mode, parentWidth, compactWidth),
+    height: getIslandHeight(mode, filteredSuggestions.length > 0, searchQuery.trim().length > 0),
+    borderRadius: getIslandBorderRadius(mode),
+    config: { tension: 300, friction: 34 },
+    immediate: prefersReducedMotion,
+    onStart: () => setIsAnimating(true),
+    onRest: () => setIsAnimating(false),
   });
 
-  // Language options spring animation
   const languageSpring = useSpring({
     opacity: mode === 'language' && !isAnimating ? 1 : 0,
     transform: mode === 'language' && !isAnimating ? 'translateY(0px)' : 'translateY(-10px)',
-    config: { tension: 350, friction: 30 }
+    config: { tension: 350, friction: 30 },
+    immediate: prefersReducedMotion,
   });
 
-  // Search input animation
   const searchInputSpring = useSpring({
     opacity: mode === 'search' ? 1 : 0,
     transform: mode === 'search' ? 'translateY(0px)' : 'translateY(-5px)',
-    config: { tension: 320, friction: 28 }
+    config: { tension: 320, friction: 28 },
+    immediate: prefersReducedMotion,
   });
 
-
-
-  // Auto-collapse after inactivity
   useEffect(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    
     if (mode !== 'compact' && !isHovered) {
       timeoutRef.current = setTimeout(() => {
         setMode('compact');
-      }, 5000);
+      }, AUTOCOLLAPSE_DELAY_MS);
     }
-    
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -204,17 +240,45 @@ export const DynamicIsland: React.FC = () => {
     };
   }, [mode, isHovered]);
 
-  // Focus search input when entering search mode
   useEffect(() => {
-    if (mode === 'search' && searchInputRef.current) {
-      setTimeout(() => searchInputRef.current?.focus(), 50);
+    if (mode === 'search') {
+      searchInputRef.current?.focus();
     }
   }, [mode]);
 
-  // Click away handler for search, expanded, and language modes
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if ((mode === 'search' || mode === 'expanded' || mode === 'language') && islandRef.current && !islandRef.current.contains(event.target as Node)) {
+      if (mode === 'compact') return;
+      if (islandRef.current && !islandRef.current.contains(event.target as Node)) {
+        if (mode === 'search' || mode === 'language') {
+          setMode('expanded');
+        } else {
+          setMode('compact');
+        }
+        if (mode === 'search') {
+          setSearchQuery('');
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [mode]);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setMode('search');
+        return;
+      }
+
+      if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey && !isEditableElement(e.target)) {
+        e.preventDefault();
+        setMode('search');
+        return;
+      }
+
+      if (e.key === 'Escape' && mode !== 'compact') {
         if (mode === 'search' || mode === 'language') {
           setMode('expanded');
         } else {
@@ -226,15 +290,9 @@ export const DynamicIsland: React.FC = () => {
       }
     };
 
-    if (mode === 'search' || mode === 'expanded' || mode === 'language') {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
   }, [mode]);
-
 
   const handleModeChange = (newMode: IslandMode | 'compact') => {
     if (newMode === 'compact') {
@@ -246,45 +304,46 @@ export const DynamicIsland: React.FC = () => {
     }
   };
 
-  const handleEscape = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      if (mode === 'search' || mode === 'language') {
-        setMode('expanded');
-      } else {
-        setMode('compact');
-      }
-      if (mode === 'search') {
-        setSearchQuery('');
-      }
-    }
-  };
+  const handleRecordSearch = useCallback((query: string) => {
+    addRecent(query);
+  }, [addRecent]);
+
+  const handleSelectRecent = useCallback((query: string) => {
+    setSearchQuery(query);
+    searchInputRef.current?.focus();
+  }, []);
+
+  const searchLiveMessage = mode === 'search' && !loading && debouncedSearchQuery.trim()
+    ? `${filteredSuggestions.length} ${tString('search.resultsLabel', 'výsledků')}`
+    : '';
 
   return (
     <div className="fixed top-2 md:top-4 left-1/2 transform -translate-x-1/2 z-50 px-2 md:px-4 w-full max-w-[95vw] md:max-w-[600px] lg:max-w-[800px]">
+      <div ref={widthMeasureRef} className="w-full">
       <animated.div
         ref={islandRef}
+        role="navigation"
+        aria-label={tString('nav.ariaMain', 'Hlavní navigace')}
         style={{
-          height: isMobile && mode === 'expanded' ? 'auto' : islandSpring.height.to(h => typeof h === 'string' ? h : `${h}px`),
+          width: islandSpring.width.to(w => `${w}px`),
+          height: islandSpring.height.to(h => `${h}px`),
           borderRadius: islandSpring.borderRadius.to(r => `${r}px`)
         }}
-        className={`glass backdrop-blur-xl relative overflow-hidden mx-auto transition-all duration-300
-          bg-white/98 border-2 border-[var(--spsd-navy)]/20 shadow-2xl shadow-[var(--spsd-navy)]/10 text-gray-900 ring-1 ring-[var(--spsd-navy)]/5
-          ${mode === 'compact' ? 'w-fit min-w-[160px] max-w-full' : ''}
-          ${mode === 'expanded' ? 'w-full max-w-full' : ''}
-          ${mode === 'search' ? 'w-full max-w-full' : ''}
-          ${mode === 'language' ? 'w-full max-w-[400px]' : ''}`}
+        className={`glass backdrop-blur-xl relative overflow-hidden mx-auto will-change-[width,height,border-radius]
+          bg-white/98 border-2 border-[var(--spsd-navy)]/20 shadow-2xl shadow-[var(--spsd-navy)]/10 text-gray-900 ring-1 ring-[var(--spsd-navy)]/5`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-40 pointer-events-none">
-          <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-[var(--spsd-navy)]/15 via-[var(--spsd-red)]/5 to-[var(--spsd-navy)]/15" />
+          <div className={`absolute inset-0 bg-gradient-to-br from-[var(--spsd-navy)]/15 via-[var(--spsd-red)]/5 to-[var(--spsd-navy)]/15 ${mode !== 'compact' && !prefersReducedMotion ? 'animate-pulse' : ''}`} />
         </div>
 
-        {/* Subtle outline tint */}
         <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-r from-[var(--spsd-navy)]/5 to-[var(--spsd-red)]/5 pointer-events-none" />
 
-        {/* Compact Mode */}
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          {searchLiveMessage}
+        </div>
+
         {mode === 'compact' && (
           <div className="w-full h-full">
             <CompactMode
@@ -294,34 +353,34 @@ export const DynamicIsland: React.FC = () => {
             />
           </div>
         )}
-        
-        {/* Search Mode */}
+
         {mode === 'search' && (
           <div className="w-full h-full">
             <SearchMode
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               filteredSuggestions={filteredSuggestions}
+              recent={recent}
+              loading={loading}
+              onClearRecent={clearRecent}
+              onSelectRecent={handleSelectRecent}
+              onRecordSearch={handleRecordSearch}
               searchInputRef={searchInputRef}
               searchInputSpring={searchInputSpring}
               onModeChange={setMode}
-              onEscape={handleEscape}
             />
           </div>
         )}
 
-        {/* Language Mode */}
         {mode === 'language' && (
           <div className="w-full h-full">
             <LanguageMode
               languageSpring={languageSpring}
               onModeChange={setMode}
-              onEscape={handleEscape}
             />
           </div>
         )}
 
-        {/* Expanded Mode */}
         {mode === 'expanded' && (
           <div className="w-full h-full">
             <ExpandedMode
@@ -333,6 +392,7 @@ export const DynamicIsland: React.FC = () => {
           </div>
         )}
       </animated.div>
+      </div>
     </div>
   );
 };

@@ -20,8 +20,6 @@ import {
   Globe,
   Palette,
   Sparkles,
-  Link2,
-  ExternalLink,
 } from 'lucide-react';
 
 export default function ProfilePage() {
@@ -48,38 +46,11 @@ export default function ProfilePage() {
   const [passwordSuccess, setPasswordSuccess] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
-  // Bakaláři connection state
-  const [bakalariConnected, setBakalariConnected] = useState(false);
-  const [checkingBakalari, setCheckingBakalari] = useState(true);
-
   const fadeIn = useSpring({
     from: { opacity: 0, transform: 'translateY(20px)' },
     to: { opacity: 1, transform: 'translateY(0px)' },
     config: { tension: 200, friction: 20 },
   });
-
-  // Check Bakaláři connection status on mount
-  React.useEffect(() => {
-    const checkBakalariConnection = async () => {
-      try {
-        const response = await fetch('/api/bakalari/status');
-        if (response.ok) {
-          const data = await response.json();
-          setBakalariConnected(data.connected || false);
-        } else {
-          // If not authenticated or error, just set to false
-          setBakalariConnected(false);
-        }
-      } catch (error) {
-        console.error('Failed to check Bakaláři status:', error);
-        setBakalariConnected(false);
-      } finally {
-        setCheckingBakalari(false);
-      }
-    };
-
-    checkBakalariConnection();
-  }, []);
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -752,149 +723,6 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Bakaláři Integration Card */}
-        <div
-          className={`rounded-xl p-6 ${
-            isModern
-              ? 'glass border border-white/10'
-              : classicMode === 'light'
-              ? 'bg-white border border-gray-200 shadow-lg'
-              : 'bg-white/10 border border-white/20'
-          }`}
-        >
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Link2 className="w-5 h-5" />
-              <h3
-                className={`text-lg font-semibold ${
-                  isModern
-                    ? 'text-white'
-                    : classicMode === 'light'
-                    ? 'text-[var(--spsd-navy)]'
-                    : 'text-white'
-                }`}
-              >
-                {t('profile.settings.bakalari', 'Bakaláři')}
-              </h3>
-            </div>
-
-            {checkingBakalari ? (
-              <div className="flex items-center gap-3 py-8">
-                <Loader2
-                  className={`w-5 h-5 animate-spin ${
-                    isModern
-                      ? 'text-white/60'
-                      : classicMode === 'light'
-                      ? 'text-gray-400'
-                      : 'text-white/60'
-                  }`}
-                />
-                <span
-                  className={`text-sm ${
-                    isModern
-                      ? 'text-white/70'
-                      : classicMode === 'light'
-                      ? 'text-gray-600'
-                      : 'text-white/70'
-                  }`}
-                >
-                  {t('profile.settings.checkingBakalari', 'Kontrola propojení...')}
-                </span>
-              </div>
-            ) : bakalariConnected ? (
-              <>
-                <div
-                  className={`flex items-start gap-3 p-3 rounded-lg ${
-                    isModern
-                      ? 'bg-green-500/10 border border-green-500/30'
-                      : classicMode === 'light'
-                      ? 'bg-green-50 border border-green-200'
-                      : 'bg-green-500/20 border border-green-500/30'
-                  }`}
-                >
-                  <Check
-                    className={`w-5 h-5 flex-shrink-0 ${
-                      isModern
-                        ? 'text-green-400'
-                        : classicMode === 'light'
-                        ? 'text-green-600'
-                        : 'text-green-300'
-                    }`}
-                  />
-                  <div>
-                    <p
-                      className={`text-sm font-medium ${
-                        isModern
-                          ? 'text-green-400'
-                          : classicMode === 'light'
-                          ? 'text-green-800'
-                          : 'text-green-300'
-                      }`}
-                    >
-                      {t('profile.settings.bakalariConnected', 'Účet připojen')}
-                    </p>
-                    <p
-                      className={`text-xs mt-0.5 ${
-                        isModern
-                          ? 'text-green-400/70'
-                          : classicMode === 'light'
-                          ? 'text-green-700'
-                          : 'text-green-300/70'
-                      }`}
-                    >
-                      {t('profile.settings.bakalariConnectedDesc', 'Můžete stahovat data')}
-                    </p>
-                  </div>
-                </div>
-
-                <a
-                  href="/dashboard/bakalari/connect"
-                  className={`w-full py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
-                    isModern
-                      ? 'bg-white/5 border border-white/10 text-white/80 hover:bg-white/10'
-                      : classicMode === 'light'
-                      ? 'bg-gray-50 border border-gray-200 text-[var(--spsd-navy)] hover:bg-gray-100'
-                      : 'bg-white/5 border border-white/10 text-white/80 hover:bg-white/10'
-                  }`}
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  <span>{t('profile.settings.manageBakalari', 'Spravovat')}</span>
-                </a>
-              </>
-            ) : (
-              <>
-                <p
-                  className={`text-sm ${
-                    isModern
-                      ? 'text-white/70'
-                      : classicMode === 'light'
-                      ? 'text-gray-600'
-                      : 'text-white/70'
-                  }`}
-                >
-                  {t(
-                    'profile.settings.bakalariNotConnectedDesc',
-                    'Propojte účet pro přístup k datům ze systému Bakaláři'
-                  )}
-                </p>
-
-                <a
-                  href="/dashboard/bakalari/connect"
-                  className={`w-full py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
-                    isModern
-                      ? 'gradient-accent text-white hover:scale-[1.02]'
-                      : classicMode === 'light'
-                      ? 'bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-orange)] text-white hover:shadow-md'
-                      : 'bg-gradient-to-r from-[var(--spsd-red)] to-[var(--spsd-orange)] text-white hover:shadow-md'
-                  }`}
-                >
-                  <Link2 className="w-4 h-4" />
-                  <span>{t('profile.settings.connectBakalari', 'Připojit účet')}</span>
-                </a>
-              </>
-            )}
-          </div>
-        </div>
       </div>
     </animated.div>
   );
