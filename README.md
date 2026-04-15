@@ -56,7 +56,7 @@ After seeding, login with these credentials:
 | `student@spsd.cz` | `student` | `admin123` | STUDENT |
 | `teacher@spsd.cz` | `teacher` | `admin123` | TEACHER |
 
-✅ Login is fully integrated with the database - use email OR username!
+Login accepts either email or username.
 
 ---
 
@@ -82,15 +82,35 @@ npm run db:reset     # Reset database (WARNING: deletes data)
 ```
 src/
 ├── app/                    # Next.js pages & API routes
-│   ├── api/               # Backend endpoints
-│   └── dashboard/         # Dashboard pages
+│   ├── about/             # O oboru
+│   ├── curriculum/        # Učební plán
+│   ├── projects/          # Public project showcase
+│   ├── search/            # Global search
+│   ├── login/             # Authentication
+│   ├── dashboard/         # Authenticated dashboard
+│   │   ├── profile/       # User profile
+│   │   └── projects/      # Project CRUD (list, new, [id])
+│   └── api/               # Backend endpoints
+│       ├── auth/          # Login, logout, refresh, session
+│       └── projects/      # Projects CRUD
 ├── components/            # React components
+│   ├── dashboard/         # Dashboard UI
+│   ├── layout/            # Navbar, footer, burger menu, dynamic island
+│   └── sections/          # Landing page sections
 ├── contexts/              # React Context providers
 ├── lib/                   # Business logic & utilities
+│   ├── api/               # API helpers
+│   ├── auth/              # JWT, password hashing, session
+│   ├── db/                # Prisma client
+│   ├── hooks/             # Custom React hooks
+│   ├── search/            # Search engine
+│   ├── theme/             # Theme tokens
+│   └── utils/             # Shared utilities
 └── types/                 # TypeScript types
 
 prisma/
 ├── schema.prisma          # Database schema
+├── migrations/            # Migration history
 └── seed.ts                # Seed script
 ```
 
@@ -98,43 +118,38 @@ prisma/
 
 ## 🔐 Features
 
-- ✅ Authentication system (JWT-based)
-- ✅ PostgreSQL database with Prisma
-- ✅ Role-based access control (ADMIN, TEACHER, STUDENT)
-- ✅ Dashboard with sidebar navigation
-- ✅ Bakaláři integration (testing interface, admin-only)
-- ✅ Multi-language support (CS, EN, SK, RU, UK)
-- ✅ Theme system (Modern/Classic, Light/Dark)
-- ✅ Audit logging for security
+- Authentication (JWT with refresh tokens, bcrypt password hashing)
+- PostgreSQL database with Prisma ORM
+- Role-based access control (ADMIN, TEACHER, STUDENT)
+- Dashboard with sidebar navigation
+- Project showcase with CRUD for authenticated users
+- Multi-language support (CS, EN, SK, RU, UK)
+- Theme system (Modern / Classic, Light / Dark)
+- Global search across pages and content
+- Audit logging for security events
 
 ---
 
 ## 📚 Documentation
 
-- **project_status.md** - Current project status, changelog, and development notes
+- **DOKUMENTACE.md** — Project documentation (CS)
+- **project.md** — Project status and notes
 
 ---
 
 ## 🧑‍💻 Tech Stack
 
-- **Next.js 15.5** - React framework
-- **React 19** - UI library
-- **TypeScript 5** - Type safety
-- **Prisma 6** - Database ORM
-- **PostgreSQL 14+** - Database
-- **Tailwind CSS 4** - Styling
-- **Jose** - JWT tokens
-- **Bcrypt** - Password hashing
-
----
-
-## 🎯 Next Steps
-
-1. Implement logout functionality
-2. Connect real Bakaláři API (requires school credentials)
-3. Implement Microsoft OAuth login
-4. Add remaining dashboard features
-5. Implement token refresh endpoint
+- **Next.js 16** — React framework
+- **React 19.2** — UI library
+- **TypeScript 5** — Type safety
+- **Prisma 6.17** — Database ORM
+- **PostgreSQL 14+** — Database
+- **Tailwind CSS 4** — Styling
+- **Framer Motion** + **React Spring** — Animations
+- **Lucide React** — Icons
+- **Jose** — JWT tokens
+- **Bcrypt** — Password hashing
+- **Zod** — Schema validation
 
 ---
 
