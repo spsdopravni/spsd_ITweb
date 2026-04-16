@@ -188,16 +188,6 @@ export const ClassicFooter: React.FC = () => {
                         e.currentTarget.style.transform = 'translateX(0)';
                       }}
                     >
-                      <span
-                        aria-hidden
-                        style={{
-                          display: 'inline-block',
-                          width: '8px',
-                          height: '1px',
-                          background: COLOR.red,
-                          flexShrink: 0,
-                        }}
-                      />
                       {l.label}
                     </Link>
                   </li>

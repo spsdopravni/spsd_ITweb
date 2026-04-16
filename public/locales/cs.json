@@ -34,6 +34,7 @@
   },
   "welcome": {
     "selectLanguage": "Vyberte jazyk",
+    "selectLanguageSubtitle": "Vyberte svůj jazyk",
     "continue": "Pokračovat",
     "chooseStyle": "Vyberte styl",
     "selectTheme": "Vyberte preferovaný vzhled",

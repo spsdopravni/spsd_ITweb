@@ -33,6 +33,7 @@
   },
   "welcome": {
     "selectLanguage": "Виберіть мову",
+    "selectLanguageSubtitle": "Виберіть свою мову",
     "continue": "Продовжити",
     "chooseStyle": "Виберіть стиль",
     "selectTheme": "Виберіть бажану тему",

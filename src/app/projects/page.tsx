@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import {
   Users,
@@ -43,6 +44,7 @@ interface Project {
 
 export default function ProjectsPage() {
   const { t } = useLanguage();
+  const router = useRouter();
 
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
@@ -293,6 +295,7 @@ export default function ProjectsPage() {
               return (
                 <article
                   key={project.key}
+                  onClick={() => router.push(`/projects/${project.key}`)}
                   style={{
                     position: 'relative',
                     borderRadius: '14px',
@@ -309,6 +312,7 @@ export default function ProjectsPage() {
                       : '0 24px 52px -22px rgba(0, 0, 0, 0.5)',
                     transition:
                       'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+                    cursor: 'pointer',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-3px)';

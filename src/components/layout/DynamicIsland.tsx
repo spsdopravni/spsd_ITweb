@@ -162,8 +162,11 @@ export const DynamicIsland: React.FC = () => {
 
   const navItems = getNavItems(t);
   const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
-  const currentItem = navItems.find(item => item.href === normalizedPathname);
+  const currentItem = navItems.find(item => item.href === normalizedPathname)
+    ?? navItems.find(item => item.href !== '/' && normalizedPathname.startsWith(item.href + '/'));
   const compactLabel = currentItem?.label ?? tString('nav.home', 'Domů');
+
+  const isSubpage = currentItem != null && currentItem.href !== '/';
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -172,8 +175,9 @@ export const DynamicIsland: React.FC = () => {
     if (!ctx) return;
     ctx.font = '500 14px system-ui, -apple-system, BlinkMacSystemFont, sans-serif';
     const labelWidth = ctx.measureText(compactLabel).width;
-    setCompactWidth(Math.ceil(labelWidth + COMPACT_FIXED_CHROME));
-  }, [compactLabel]);
+    const breadcrumbExtra = isSubpage ? 40 : 0;
+    setCompactWidth(Math.ceil(labelWidth + COMPACT_FIXED_CHROME + breadcrumbExtra));
+  }, [compactLabel, isSubpage]);
 
   useEffect(() => {
     let cancelled = false;

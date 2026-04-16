@@ -33,6 +33,7 @@
   },
   "welcome": {
     "selectLanguage": "Vyberte jazyk",
+    "selectLanguageSubtitle": "Vyberte svoj jazyk",
     "continue": "Pokračovať",
     "chooseStyle": "Vyberte štýl",
     "selectTheme": "Vyberte preferovaný vzhľad",

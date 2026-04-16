@@ -74,21 +74,24 @@ export const CompactMode: React.FC<CompactModeProps> = ({
   return (
     <div className="h-full flex items-center justify-between px-3 md:px-5 min-w-0">
       <div className="flex items-center gap-2 min-w-0 flex-1">
-        {currentItem && (
+        {currentItem && currentItem.href !== '/' ? (
           <>
+            <button
+              onClick={() => router.push('/')}
+              aria-label={tString('nav.home', 'Domů')}
+              className={`flex items-center gap-1 ${colors.hover} transition-opacity cursor-pointer rounded-md ${colors.focusRing} flex-shrink-0`}
+            >
+              <Home className={`w-4 h-4 ${colors.secondary}`} aria-hidden="true" />
+            </button>
+            <span className={`text-xs ${colors.secondary} flex-shrink-0`} aria-hidden="true">/</span>
             <currentItem.icon className={`w-4 h-4 ${colors.accent} flex-shrink-0`} aria-hidden="true" />
             <span className={`text-sm font-medium ${colors.primary} whitespace-nowrap`}>{currentItem.label}</span>
           </>
-        )}
-        {!currentItem && (
-          <button
-            onClick={() => router.push('/')}
-            aria-label={tString('nav.home', 'Domů')}
-            className={`flex items-center gap-2 ${colors.hover} transition-opacity cursor-pointer min-w-0 rounded-md ${colors.focusRing}`}
-          >
-            <Home className={`w-4 h-4 ${colors.secondary} flex-shrink-0`} aria-hidden="true" />
-            <span className={`text-sm font-medium ${colors.secondary} whitespace-nowrap`}>{tString('nav.home', 'Domů')}</span>
-          </button>
+        ) : (
+          <div className="flex items-center gap-2 min-w-0">
+            <Home className={`w-4 h-4 ${colors.accent} flex-shrink-0`} aria-hidden="true" />
+            <span className={`text-sm font-medium ${colors.primary} whitespace-nowrap`}>{tString('nav.home', 'Domů')}</span>
+          </div>
         )}
       </div>
 

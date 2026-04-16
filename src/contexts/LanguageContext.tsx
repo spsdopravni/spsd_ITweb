@@ -32,16 +32,58 @@ const languageNames: Record<SupportedLanguage, string> = {
   ru: 'Русский',
 };
 
-const languageFlags: Record<SupportedLanguage, string> = {
-  cs: '🇨🇿',
-  en: '🇬🇧',
-  sk: '🇸🇰',
-  uk: '🇺🇦',
-  ru: '🇷🇺',
+const FlagCZ = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 640 480" style={{ borderRadius: 3, display: 'block' }}>
+    <rect width="640" height="480" fill="#d7141a" />
+    <rect width="640" height="240" fill="#fff" />
+    <path d="M0 0l320 240L0 480z" fill="#11457e" />
+  </svg>
+);
+const FlagGB = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 640 480" style={{ borderRadius: 3, display: 'block' }}>
+    <rect width="640" height="480" fill="#012169" />
+    <path d="M0 0l640 480M640 0L0 480" stroke="#fff" strokeWidth="80" />
+    <path d="M0 0l640 480M640 0L0 480" stroke="#C8102E" strokeWidth="53" clipPath="url(#gbClip)" />
+    <clipPath id="gbClip"><path d="M320 0v240H0v60h320v180h60V300h260v-60H380V0z" /></clipPath>
+    <path d="M320 0v480M0 240h640" stroke="#fff" strokeWidth="120" />
+    <path d="M320 0v480M0 240h640" stroke="#C8102E" strokeWidth="72" />
+  </svg>
+);
+const FlagSK = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 640 480" style={{ borderRadius: 3, display: 'block' }}>
+    <rect width="640" height="480" fill="#ee1c25" />
+    <rect width="640" height="320" fill="#0b4ea2" />
+    <rect width="640" height="160" fill="#fff" />
+    <path d="M103 112c0 72 36 138 113 170 77-32 113-98 113-170H103z" fill="#fff" />
+    <path d="M113 120c0 64 32 126 103 156 71-30 103-92 103-156H113z" fill="#ee1c25" />
+    <path d="M160 208h112M216 152v112" stroke="#fff" strokeWidth="14" />
+    <path d="M175 280c14 12 28 18 41 20 13-2 27-8 41-20" fill="none" stroke="#0b4ea2" strokeWidth="10" />
+  </svg>
+);
+const FlagUA = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 640 480" style={{ borderRadius: 3, display: 'block' }}>
+    <rect width="640" height="240" fill="#005bbb" />
+    <rect width="640" height="240" y="240" fill="#ffd500" />
+  </svg>
+);
+const FlagRU = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 640 480" style={{ borderRadius: 3, display: 'block' }}>
+    <rect width="640" height="160" fill="#fff" />
+    <rect width="640" height="160" y="160" fill="#0039a6" />
+    <rect width="640" height="160" y="320" fill="#d52b1e" />
+  </svg>
+);
+
+const languageFlags: Record<SupportedLanguage, React.FC<{ size?: number }>> = {
+  cs: FlagCZ,
+  en: FlagGB,
+  sk: FlagSK,
+  uk: FlagUA,
+  ru: FlagRU,
 };
 
 export const getLanguageName = (lang: SupportedLanguage): string => languageNames[lang];
-export const getLanguageFlag = (lang: SupportedLanguage): string => languageFlags[lang];
+export const getLanguageFlag = (lang: SupportedLanguage): React.FC<{ size?: number }> => languageFlags[lang];
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguage>('cs');

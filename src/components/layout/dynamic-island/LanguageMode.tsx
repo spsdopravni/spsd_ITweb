@@ -102,7 +102,7 @@ export const LanguageMode: React.FC<LanguageModeProps> = ({
               className={`w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2.5 sm:py-3 rounded-lg ${colors.hoverBg} transition-all group text-left mb-1 ${colors.focusRing}`}
             >
               <div className={`p-1.5 sm:p-2 rounded-lg ${colors.suggestionBg} transition-colors`}>
-                <span className="text-base sm:text-lg" aria-hidden="true">{getLanguageFlag(lang)}</span>
+                <span aria-hidden="true">{React.createElement(getLanguageFlag(lang), { size: 20 })}</span>
               </div>
               <div className="flex-1">
                 <p className={`text-xs sm:text-sm ${colors.primary} font-medium`}>{getLanguageName(lang)}</p>

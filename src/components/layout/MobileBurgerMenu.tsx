@@ -217,7 +217,7 @@ export const MobileBurgerMenu: React.FC = () => {
                 >
                   <Globe className="w-5 h-5 text-white/70" />
                   <span className="text-sm text-white/80">Language</span>
-                  <span className="ml-auto text-sm">{getLanguageFlag(currentLanguage)}</span>
+                  <span className="ml-auto">{React.createElement(getLanguageFlag(currentLanguage), { size: 18 })}</span>
                 </button>
               </>
             )}
@@ -245,7 +245,7 @@ export const MobileBurgerMenu: React.FC = () => {
                         : 'hover:bg-white/10'
                     }`}
                   >
-                    <span className="text-lg">{getLanguageFlag(lang)}</span>
+                    <span>{React.createElement(getLanguageFlag(lang), { size: 20 })}</span>
                     <span className="text-sm text-white/80">{getLanguageName(lang)}</span>
                     <span className="text-xs text-white/50 uppercase ml-auto">{lang}</span>
                   </button>

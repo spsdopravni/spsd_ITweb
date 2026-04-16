@@ -16,12 +16,13 @@ interface WelcomeDialogProps {
 
 export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
   const { changeLanguage, t } = useLanguage();
-  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>('cs');
 
   const languages: SupportedLanguage[] = ['cs', 'en', 'sk', 'uk', 'ru'];
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+    changeLanguage('cs');
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -64,7 +65,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
             <h2 className="text-2xl font-bold text-[var(--spsd-navy)] mb-1.5 tracking-tight">
               {t('welcome.selectLanguage', 'Vyberte jazyk')}
             </h2>
-            <p className="text-sm text-gray-500">Select your language</p>
+            <p className="text-sm text-gray-500">{t('welcome.selectLanguageSubtitle', 'Vyberte svůj jazyk')}</p>
           </div>
 
           <div className="space-y-2 mb-6">
@@ -80,7 +81,7 @@ export const WelcomeDialog: React.FC<WelcomeDialogProps> = ({ onComplete }) => {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <span className="text-2xl">{getLanguageFlag(lang)}</span>
+                    <span className="text-2xl">{React.createElement(getLanguageFlag(lang), { size: 24 })}</span>
                     <span className="font-medium text-gray-800">
                       {getLanguageName(lang)}
                     </span>
