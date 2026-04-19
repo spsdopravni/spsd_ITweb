@@ -1,18 +1,35 @@
 'use client';
 
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SearchBar } from '@/components/search/SearchBar';
 import { SearchFilters } from '@/components/search/SearchFilters';
 import { SearchResults } from '@/components/search/SearchResults';
 import { useSearch } from '@/contexts/SearchContext';
-import { TrendingUp, Clock, Sparkles } from 'lucide-react';
-import { useSpring, animated } from '@react-spring/web';
+import { Search } from 'lucide-react';
+
+const COLOR = {
+  navy: '#002b4e',
+  navyLight: '#133f64',
+  red: '#c81e1c',
+  orange: '#e95d41',
+  white: '#ffffff',
+  paper: '#fafaf7',
+};
 
 function SearchPageContent() {
   const searchParams = useSearchParams();
-  const { performSearch, recentSearches, clearRecentSearches } = useSearch();
+  const { performSearch, query } = useSearch();
   const queryParam = searchParams.get('q');
+
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     if (queryParam) {
@@ -20,137 +37,185 @@ function SearchPageContent() {
     }
   }, [queryParam, performSearch]);
 
-  const headerAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(-20px)' },
-    to: { opacity: 1, transform: 'translateY(0px)' },
-  });
+  const textStrong = COLOR.navy;
+  const textMuted = 'rgba(0,43,78,0.72)';
 
-  const handleRecentSearch = (query: string) => {
-    performSearch(query);
+  const containerStyle: React.CSSProperties = {
+    position: 'relative',
+    maxWidth: '1280px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingLeft: isDesktop ? '3rem' : '1.5rem',
+    paddingRight: isDesktop ? '3rem' : '1.5rem',
   };
 
-  // Mock trending searches - replace with actual API call
-  const trendingSearches = [
-    'Machine Learning',
-    'Hackathon 2025',
-    'Python Programming',
-    'Career Fair',
-    'Research Papers',
-  ];
-
   return (
-    <div className="min-h-screen py-24 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <animated.div style={headerAnimation} className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            <span className="text-gradient">Discover</span> Everything
+    <div style={{ minHeight: '100vh', background: COLOR.paper, display: 'flex', flexDirection: 'column' }}>
+      {/* ========== HERO ========== */}
+      <section style={{ position: 'relative' }}>
+        {/* Corner wedge — top left */}
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: isDesktop ? '460px' : '220px',
+            height: isDesktop ? '460px' : '220px',
+            pointerEvents: 'none',
+            background: `linear-gradient(135deg, ${COLOR.red} 0%, ${COLOR.orange} 55%, transparent 82%)`,
+            clipPath: 'polygon(0 0, 72% 0, 0 55%)',
+            opacity: 0.2,
+          }}
+        />
+
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: isDesktop ? '8rem' : '6rem',
+            paddingBottom: isDesktop ? '3rem' : '2rem',
+          }}
+        >
+          {/* Eyebrow */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              marginBottom: '1.75rem',
+            }}
+          >
+            <span
+              aria-hidden
+              style={{
+                display: 'inline-block',
+                width: '56px',
+                height: '2px',
+                background: COLOR.red,
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.22em',
+                color: COLOR.red,
+              }}
+            >
+              Vyhledávání
+            </span>
+          </div>
+
+          {/* Heading */}
+          <h1
+            style={{
+              fontSize: isDesktop
+                ? 'clamp(2.25rem, 4vw, 3.75rem)'
+                : 'clamp(1.875rem, 7.5vw, 2.75rem)',
+              lineHeight: 1.1,
+              fontWeight: 800,
+              letterSpacing: '-0.02em',
+              marginTop: 0,
+              marginBottom: '1.5rem',
+              color: textStrong,
+            }}
+          >
+            Najděte{' '}
+            <span style={{ color: COLOR.red }}>cokoliv.</span>
           </h1>
-          <p className="text-gray-400 text-lg">
-            Search through projects, events, resources, and more
+
+          {/* Subtitle */}
+          <p
+            style={{
+              fontSize: isDesktop ? '1.2rem' : '1.0625rem',
+              lineHeight: 1.7,
+              color: textMuted,
+              maxWidth: '42rem',
+              marginTop: 0,
+              marginBottom: '2.5rem',
+            }}
+          >
+            Prohledejte projekty, předměty, stránky a další obsah IT oboru.
           </p>
-        </animated.div>
 
-        {/* Search Bar */}
-        <div className="max-w-3xl mx-auto mb-8">
-          <SearchBar autoFocus />
-        </div>
-
-        {/* Filters */}
-        <div className="mb-8">
-          <SearchFilters />
-        </div>
-
-        {/* Main Content Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Recent Searches */}
-            {recentSearches.length > 0 && (
-              <div className="glass rounded-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-purple-400" />
-                    Recent Searches
-                  </h3>
-                  <button
-                    onClick={clearRecentSearches}
-                    className="text-xs text-gray-500 hover:text-white transition-colors"
-                  >
-                    Clear
-                  </button>
-                </div>
-                <div className="space-y-1">
-                  {recentSearches.slice(0, 5).map((search, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleRecentSearch(search)}
-                      className="
-                        w-full text-left px-3 py-2 rounded-lg
-                        text-sm text-gray-400 hover:text-white
-                        hover:bg-white/5 transition-colors
-                      "
-                    >
-                      {search}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Trending Searches */}
-            <div className="glass rounded-xl p-4">
-              <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-green-400" />
-                Trending Now
-              </h3>
-              <div className="space-y-1">
-                {trendingSearches.map((search, index) => (
-                  <button
-                    key={index}
-                    onClick={() => performSearch(search)}
-                    className="
-                      w-full text-left px-3 py-2 rounded-lg
-                      text-sm text-gray-400 hover:text-white
-                      hover:bg-white/5 transition-colors
-                      flex items-center gap-2
-                    "
-                  >
-                    <span className="text-green-400 text-xs">#{index + 1}</span>
-                    {search}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Tips */}
-            <div className="glass rounded-xl p-4">
-              <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-yellow-400" />
-                Search Tips
-              </h3>
-              <ul className="space-y-2 text-xs text-gray-400">
-                <li>• Use quotes for exact matches</li>
-                <li>• Filter by category for better results</li>
-                <li>• Try different keywords</li>
-                <li>• Use tags to narrow down results</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Search Results */}
-          <div className="lg:col-span-3">
-            <SearchResults />
+          {/* Search Bar */}
+          <div style={{ maxWidth: '640px', position: 'relative', zIndex: 20 }}>
+            <SearchBar autoFocus isDesktop={isDesktop} />
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ========== RESULTS SECTION ========== */}
+      <section style={{ position: 'relative', zIndex: 1, flex: 1 }}>
+        {/* Corner wedge — bottom right */}
+        {!query && (
+          <div
+            aria-hidden
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              width: isDesktop ? '460px' : '220px',
+              height: isDesktop ? '460px' : '220px',
+              pointerEvents: 'none',
+              background: `linear-gradient(45deg, ${COLOR.red} 0%, ${COLOR.orange} 55%, transparent 82%)`,
+              clipPath: 'polygon(100% 100%, 100% 45%, 28% 100%)',
+              opacity: 0.2,
+              overflow: 'hidden',
+            }}
+          />
+        )}
+
+        <div
+          style={{
+            ...containerStyle,
+            paddingTop: isDesktop ? '2rem' : '1.5rem',
+            paddingBottom: isDesktop ? '8rem' : '5rem',
+          }}
+        >
+          {/* Category pills */}
+          <SearchFilters isDesktop={isDesktop} />
+
+          {/* Divider */}
+          <div
+            style={{
+              height: '1px',
+              background: 'rgba(0,43,78,0.08)',
+              marginTop: '1.5rem',
+              marginBottom: '2rem',
+            }}
+          />
+
+          {/* Results */}
+          <SearchResults isDesktop={isDesktop} />
+        </div>
+      </section>
     </div>
   );
 }
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div></div>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            background: COLOR.paper,
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+            <Search style={{ width: 24, height: 24, color: 'rgba(0,43,78,0.25)', animation: 'pulse 2s infinite' }} />
+            <span style={{ fontSize: '0.85rem', color: 'rgba(0,43,78,0.4)' }}>Načítání...</span>
+          </div>
+        </div>
+      }
+    >
       <SearchPageContent />
     </Suspense>
   );

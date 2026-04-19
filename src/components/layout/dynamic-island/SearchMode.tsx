@@ -158,7 +158,12 @@ export const SearchMode: React.FC<SearchModeProps> = ({
         break;
       case 'Enter':
         e.preventDefault();
-        if (items[selectedIndex]) {
+        if (searchQuery.trim()) {
+          onRecordSearch(searchQuery);
+          router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+          onModeChange('compact');
+          setSearchQuery('');
+        } else if (items[selectedIndex]) {
           handleActivate(items[selectedIndex]);
         }
         break;

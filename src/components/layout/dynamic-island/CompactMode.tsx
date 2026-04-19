@@ -88,10 +88,14 @@ export const CompactMode: React.FC<CompactModeProps> = ({
             <span className={`text-sm font-medium ${colors.primary} whitespace-nowrap`}>{currentItem.label}</span>
           </>
         ) : (
-          <div className="flex items-center gap-2 min-w-0">
+          <button
+            onClick={() => router.push('/')}
+            className={`flex items-center gap-2 min-w-0 ${colors.hover} transition-opacity cursor-pointer rounded-md ${colors.focusRing}`}
+            aria-label={tString('nav.home', 'Domů')}
+          >
             <Home className={`w-4 h-4 ${colors.accent} flex-shrink-0`} aria-hidden="true" />
             <span className={`text-sm font-medium ${colors.primary} whitespace-nowrap`}>{tString('nav.home', 'Domů')}</span>
-          </div>
+          </button>
         )}
       </div>
 

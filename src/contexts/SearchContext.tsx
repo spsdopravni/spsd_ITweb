@@ -80,10 +80,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, []);
 
   const performSearch = useCallback(async (query: string) => {
-    // Avoid searching if query is the same or empty
-    if (!query.trim() || query === state.query) {
-      return;
-    }
+    if (!query.trim()) return;
 
     setState(prev => ({
       ...prev,
@@ -115,7 +112,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         error: error instanceof Error ? error.message : 'Search failed',
       }));
     }
-  }, [state.filters, state.query, addToRecentSearches, searchEngine]);
+  }, [state.filters, addToRecentSearches, searchEngine]);
 
   const updateFilters = useCallback((newFilters: Partial<SearchFilters>) => {
     setState(prev => ({

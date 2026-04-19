@@ -41,6 +41,7 @@ const AUTOCOLLAPSE_DELAY_MS = 10_000;
 const SEARCH_DEBOUNCE_MS = 200;
 const COMPACT_WIDTH_FALLBACK = 200;
 const COMPACT_FIXED_CHROME = 152;
+const COMPACT_SEARCH_BUTTON_WIDTH = 36;
 const LANGUAGE_WIDTH = 400;
 
 const getIconForCategory = (category: string): React.ComponentType<{ className?: string }> => {
@@ -168,6 +169,8 @@ export const DynamicIsland: React.FC = () => {
 
   const isSubpage = currentItem != null && currentItem.href !== '/';
 
+  const isSearchPage = normalizedPathname === '/search';
+
   useEffect(() => {
     if (typeof document === 'undefined') return;
     const canvas = document.createElement('canvas');
@@ -176,8 +179,9 @@ export const DynamicIsland: React.FC = () => {
     ctx.font = '500 14px system-ui, -apple-system, BlinkMacSystemFont, sans-serif';
     const labelWidth = ctx.measureText(compactLabel).width;
     const breadcrumbExtra = isSubpage ? 40 : 0;
-    setCompactWidth(Math.ceil(labelWidth + COMPACT_FIXED_CHROME + breadcrumbExtra));
-  }, [compactLabel, isSubpage]);
+    const searchBtnWidth = isSearchPage ? 0 : COMPACT_SEARCH_BUTTON_WIDTH;
+    setCompactWidth(Math.ceil(labelWidth + COMPACT_FIXED_CHROME - COMPACT_SEARCH_BUTTON_WIDTH + searchBtnWidth + breadcrumbExtra));
+  }, [compactLabel, isSubpage, isSearchPage]);
 
   useEffect(() => {
     let cancelled = false;
